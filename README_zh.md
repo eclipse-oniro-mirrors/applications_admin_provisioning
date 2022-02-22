@@ -17,7 +17,7 @@ AdminProvisioning应用是OpenHarmony中预置的系统应用，用于企业环�
 ## 目录<a name="section161941989596"></a>
 
 ```
-/applications/standard/systemui
+/applications/standard/admin_provisioning
 ├── build.gradle                                          # 全局编译配置文件
 ├── settings.gradle                                       # 编译模块配置文件
 ├── LICENSE                                               # 许可文件
