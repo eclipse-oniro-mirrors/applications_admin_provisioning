@@ -1,0 +1,60 @@
+{
+  "string": [
+    {
+      "name": "entry_MainAbility",
+      "value": "设备管理配置"
+    },
+    {
+      "name": "description_mainability",
+      "value": "ETS空能力"
+    },
+    {
+      "name": "adminprovisioning",
+      "value": "设备管理配置"
+    },
+    {
+      "name": "appManagement",
+      "value": "应用管理"
+    },
+    {
+      "name": "description_appmanagementmodel",
+      "value": "hap样例空服务"
+    },
+    {
+      "name": "activation",
+      "value": "激活"
+    },
+    {
+      "name": "deActivate",
+      "value": "解除激活"
+    },
+    {
+      "name": "cancel",
+      "value": "取消"
+    },
+    {
+      "name": "inActivated",
+      "value": "未激活"
+    },
+    {
+      "name": "device_active_1",
+      "value": "此管理器已激活，允许应用\""
+    },
+    {
+      "name": "device_active_2",
+      "value": "\"执行以下操作："
+    },
+    {
+      "name": "device_deactivate",
+      "value": "激活此管理器可允许应用\""
+    },
+    {
+      "name": "enterprise_name",
+      "value": "企业名字:"
+    },
+    {
+      "name": "enterprise_description",
+      "value": "企业描述:"
+    }
+  ]
+}
