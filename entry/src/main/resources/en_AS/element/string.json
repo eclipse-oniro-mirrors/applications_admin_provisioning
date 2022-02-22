@@ -1,0 +1,60 @@
+{
+  "string": [
+    {
+      "name": "entry_MainAbility",
+      "value": "Device Management Configuration"
+    },
+    {
+      "name": "description_mainability",
+      "value": "ETS_Empty Ability"
+    },
+    {
+      "name": "adminprovisioning",
+      "value": "Device Management Configuration"
+    },
+    {
+      "name": "appManagement",
+      "value": "Application Management"
+    },
+    {
+      "name": "description_appmanagementmodel",
+      "value": "hap sample empty service"
+    },
+    {
+      "name": "activation",
+      "value": "activate"
+    },
+    {
+      "name": "deActivate",
+      "value": "Deactivate"
+    },
+    {
+      "name": "cancel",
+      "value": "cancel"
+    },
+    {
+      "name": "inActivated",
+      "value": "Inactive"
+    },
+    {
+      "name": "device_active_1",
+      "value": "This device administrator is currently active and allows \""
+    },
+    {
+      "name": "device_active_2",
+      "value": "\" to perform the following operations:"
+    },
+    {
+      "name": "device_deactivate",
+      "value": "Activating this administrator will allow \""
+    },
+    {
+      "name": "enterprise_name",
+      "value": "enterprise name:"
+    },
+    {
+      "name": "enterprise_description",
+      "value": "enterprise description:"
+    }
+  ]
+}
