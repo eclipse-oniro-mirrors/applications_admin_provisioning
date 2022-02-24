@@ -205,25 +205,25 @@ AdminProvisioning属于系统应用，在将签名的 hap 包放入 `/system/app
 #### log获取及过滤
 1. log获取。
 
-    将log输出至文件。  
 ```
+  将log输出至文件。
   hdc shell hilog > 输出文件名称
 ```
-
-    例：在真实环境查看log，将全log输出到当前目录的hilog.log文件中。  
+     
 ```
+  例：在真实环境查看log，将全log输出到当前目录的hilog.log文件中。
   hdc shell hilog > hilog.log
 ```
 
 2. log过滤。
 
-    在命令行窗口中过滤log。
 ```
+  在命令行窗口中过滤log。
   hilog │ grep 过滤信息
 ```
-   
-    例：过滤包含信息 Label 的 hilog。  
+     
 ```
+  例：过滤包含信息 Label 的 hilog。 
   hilog │ grep Label
 ```
 ## 贡献代码
