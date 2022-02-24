@@ -210,7 +210,7 @@ AdminProvisioning属于系统应用，在将签名的 hap 包放入 `/system/app
   hdc shell hilog > 输出文件名称
 ```
 
-    例：在真实环境查看log，将全log输出到当前目录的hilog.log文件中。
+    例：在真实环境查看log，将全log输出到当前目录的hilog.log文件中。  
 ```
   hdc shell hilog > hilog.log
 ```
@@ -222,7 +222,7 @@ AdminProvisioning属于系统应用，在将签名的 hap 包放入 `/system/app
   hilog │ grep 过滤信息
 ```
    
-    例：过滤包含信息 Label 的 hilog。
+    例：过滤包含信息 Label 的 hilog。  
 ```
   hilog │ grep Label
 ```
