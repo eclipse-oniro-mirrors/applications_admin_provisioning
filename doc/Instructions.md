@@ -14,7 +14,7 @@
 
 ![](image/ssh_1.png)
 
-3. 本机git bash 中执行：
+3. 本机git bash 中执行。
  ```
  git clone '复制的下载地址'
  ``` 
@@ -53,7 +53,7 @@
   }
 ```
 ### 如何引用资源文件
-1. 在.ets文件中，可直接通过$r()引用资源。
+在.ets文件中，可直接通过$r()引用资源。
 ```` JavaScript
   this.title = this.$r('app.string.hello_world');
 ````
@@ -104,7 +104,7 @@
 
 ![](image/signature_3.png)
 ### 打包
-1. DevEco Studio 支持 debug 与 release 两种打包类型。可以在 OhosBuild Variants 窗口中进行切换。
+DevEco Studio 支持 debug 与 release 两种打包类型。可以在 OhosBuild Variants 窗口中进行切换。
 
  ![](image/ds_ohosbuild_variants.png)
 
@@ -138,7 +138,8 @@
 
 ![](image/sdk_catalogue.png)
 
-> ![icon-note.gif](image/icon-note.gif) **说明：**若此处的hdc.exe如果版本较老，可能不能正常使用，需要获取新的hdc.exe文件。hdc命令介绍与下载详见：[hdc仓库地址](https://gitee.com/openharmony/developtools_hdc_standard)
+> ![icon-note.gif](image/icon-note.gif) **说明：**
+> 若此处的hdc.exe如果版本较老，可能不能正常使用，需要获取新的hdc.exe文件。hdc命令介绍与下载详见：[hdc仓库地址](https://gitee.com/openharmony/developtools_hdc_standard)
 
 
 2. 并将此路径配置到环境变量中。
@@ -170,16 +171,17 @@
   hdc file send 本地路径 /system/app/hap包名称
   例如：hdc file send adminprovisioning.hap /system/app/adminprovisioning.hap
 ```
-> ![icon-note.gif](image/icon-note.gif) **说明：**如果设备不存在 `/system/app` 目录，则需要手动创建该目录并修改权限。
+> ![icon-note.gif](image/icon-note.gif) **说明：**
+> 如果设备不存在 `/system/app` 目录，则需要手动创建该目录并修改权限。
 > ```
-> hdc shell
-> cd system
-> mkdir app
-> chmod 777 app
+>   hdc shell
+>   cd system
+>   mkdir app
+>   chmod 777 app
 > ```
 > `/system/app` 目录放置系统应用，例如：Launcher，SystemUI，Settings 等。但hap包需要在该目录下手动设置权限。
 > ```
-> chmod 666 hap包名
+>   chmod 666 hap包名
 > ```
 > 此目录应用不用手动安装，系统自动拉起。
 ### 应用运行
@@ -188,7 +190,8 @@ AdminProvisioning属于系统应用，在将签名的 hap 包放入 `/system/app
   hdc shell
   reboot（不可以直接执行hdc reboot，命令是无效的)
 ```
-> ![icon-note.gif](image/icon-note.gif) **说明：**如果设备之前安装过系统应用，则需要执行如下两条命令清除设备中存储的应用信息才能够在设备重启的时候将我们装入设备的新 hap 包正常拉起。
+> ![icon-note.gif](image/icon-note.gif) **说明：**
+> 如果设备之前安装过系统应用，则需要执行如下两条命令清除设备中存储的应用信息才能够在设备重启的时候将我们装入设备的新 hap 包正常拉起。
 > ```
 >   hdc  shell rm -rf  /data/misc_de/0/mdds/0/default/bundle_manager_service
 >   hdc  shell rm -rf  /data/accounts
