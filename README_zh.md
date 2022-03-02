@@ -1,20 +1,20 @@
-# AdminProvisioning<a name="ZH-CN_TOPIC_0000001103330836"></a>
+# AdminProvisioning
 
--   [简介](#section11660541593)
-    -   [架构图](#section125101832114213)
--   [目录](#section161941989596)
--   [使用说明](#section123459000)
--   [相关仓](#section1371113476307)
+-   简介
+    -   架构图
+-   目录
+-   使用说明
+-   相关仓
 
-## 简介<a name="section11660541593"></a>
+## 简介
 
 AdminProvisioning应用是OpenHarmony中预置的系统应用，用于企业环境下在设备上发放MDM业务，同时提供了业务发放接口给其它子系统或者三方MDM客户端应用调用，支持在产品上构建完整的MDM解决方案。
 
-### 架构图<a name="section125101832114213"></a>
+### 架构图
 
 ![](figures/adminProvisioning_architecture.png)
 
-## 目录<a name="section161941989596"></a>
+## 目录
 
 ```
 /applications/standard/admin_provisioning
@@ -45,11 +45,11 @@ AdminProvisioning应用是OpenHarmony中预置的系统应用，用于企业环�
 │           └── config.json                               # 全局配置文件
 ├── signature                                             # 证书文件目录
 ```
-## 使用说明<a name="section123459000"></a>
+## 使用说明
 
    参见使用说明（[使用说明](./doc/Instructions.md)）
 
-## 相关仓<a name="section1371113476307"></a>
+## 相关仓
 
 [应用子系统](https://gitee.com/openharmony/docs/blob/master/zh-cn/readme/%E7%B3%BB%E7%BB%9F%E5%BA%94%E7%94%A8.md)
 
