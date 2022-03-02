@@ -51,7 +51,5 @@ AdminProvisioning应用是OpenHarmony中预置的系统应用，用于企业环�
 
 ## 相关仓<a name="section1371113476307"></a>
 
-系统应用
-
-**applications\_admin_provisioning**
+[应用子系统](https://gitee.com/openharmony/docs/blob/master/zh-cn/readme/%E7%B3%BB%E7%BB%9F%E5%BA%94%E7%94%A8.md)
 
