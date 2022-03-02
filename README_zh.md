@@ -1,11 +1,5 @@
 # AdminProvisioning
 
--   简介
-    -   架构图
--   目录
--   使用说明
--   相关仓
-
 ## 简介
 
 AdminProvisioning应用是OpenHarmony中预置的系统应用，用于企业环境下在设备上发放MDM业务，同时提供了业务发放接口给其它子系统或者三方MDM客户端应用调用，支持在产品上构建完整的MDM解决方案。
