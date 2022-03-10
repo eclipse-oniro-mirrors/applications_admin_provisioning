@@ -20,37 +20,47 @@ export default struct PermissionListComponent {
 
   build() {
     Row() {
+      Image($r('app.media.rect1'))
+        .width($r('app.float.wh_value_7'))
+        .height($r('app.float.wh_value_7'))
+        .margin({
+          left: $r('app.float.wh_value_36'),
+          right: $r('app.float.wh_value_8') })
+        .objectFit(ImageFit.Contain);
+
       Column() {
         Text(this.permissionName)
-          .fontColor($r('app.color.color_333333_grey'))
-          .fontSize($r('app.float.font_20'))
+          .height($r('app.float.wh_value_22'))
+          .fontColor($r('sys.color.ohos_id_color_text_primary'))
+          .fontSize($r('app.float.font_16'))
+          .fontWeight(FontWeight.Medium)
           .textAlign(TextAlign.Start)
           .maxLines(3)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           .visibility('' === this.permissionName || undefined === this.permissionName
             ? Visibility.None : Visibility.Visible)
           .margin({
-            left: $r('app.float.wh_value_15'),
-            top: $r('app.float.wh_value_5'),
-            bottom: $r('app.float.wh_value_5')
+            bottom: $r('app.float.wh_value_2'),
           });
 
         Text(this.permissionDescription)
-          .fontColor($r('app.color.color_999999_grey'))
-          .fontSize($r('app.float.font_20'))
+          .height($r('app.float.wh_value_19'))
+          .fontColor($r('sys.color.ohos_id_color_text_secondary'))
+          .fontSize($r('app.float.font_14'))
+          .fontWeight(FontWeight.Regular)
           .textAlign(TextAlign.Start)
           .maxLines(3)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           .visibility('' === this.permissionDescription || undefined === this.permissionDescription
             ? Visibility.None : Visibility.Visible)
-          .margin({
-            left: $r('app.float.wh_value_15'),
-            top: $r('app.float.wh_value_5'),
-            bottom: $r('app.float.wh_value_5')
-          });
       }
       .alignItems(HorizontalAlign.Start)
     }
+    .height($r('app.float.wh_value_64'))
+    .width('100%')
+    .margin({
+      top: $r('app.float.wh_value_12')
+    })
     .align(Alignment.Start)
     .alignItems(VerticalAlign.Center)
   }

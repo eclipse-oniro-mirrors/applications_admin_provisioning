@@ -23,13 +23,12 @@ export default struct HeadComponent {
   build() {
     Row() {
       Image($r('app.media.ic_back'))
-        .width($r('app.float.wh_value_50'))
-        .height($r('app.float.wh_value_50'))
+        .width($r('app.float.wh_value_24'))
+        .height($r('app.float.wh_value_24'))
         .borderRadius($r('app.float.wh_value_15'))
         .margin({
-          left: $r('app.float.wh_value_15'),
-          top: $r('app.float.wh_value_5'),
-          bottom: $r('app.float.wh_value_5')
+          left: $r('app.float.wh_value_36'),
+          right: $r('app.float.wh_value_16'),
         })
         .backgroundColor($r('app.color.color_00000000_transparent'))
         .visibility(Visibility.Visible)
@@ -37,16 +36,16 @@ export default struct HeadComponent {
           router.back();
         })
       Text(this.headName)
-        .fontSize($r('app.float.font_24'))
+        .height($r('app.float.wh_value_56'))
+        .fontColor($r('sys.color.ohos_id_color_text_primary'))
+        .fontSize($r('app.float.font_20'))
         .fontWeight(FontWeight.Bold)
-        .fontColor(Color.Black)
-        .width('90%')
+        .textAlign(TextAlign.Start)
         .maxLines(1)
         .textOverflow({ overflow: TextOverflow.Ellipsis })
-        .margin({ left: $r('app.float.wh_value_15'), right: $r('app.float.wh_value_15') })
     }
     .width('100%')
-    .height($r('app.float.wh_value_70'))
+    .height($r('app.float.wh_value_56'))
     .alignItems(VerticalAlign.Center)
     .align(Alignment.Start)
   }
