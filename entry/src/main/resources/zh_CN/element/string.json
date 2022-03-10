@@ -10,7 +10,7 @@
     },
     {
       "name": "adminprovisioning",
-      "value": "设备管理配置"
+      "value": "是否激活设备管理器?"
     },
     {
       "name": "appManagement",
@@ -50,11 +50,11 @@
     },
     {
       "name": "enterprise_name",
-      "value": "企业名字:"
+      "value": "企业名称:  "
     },
     {
       "name": "enterprise_description",
-      "value": "企业描述:"
+      "value": "企业描述:  "
     }
   ]
 }

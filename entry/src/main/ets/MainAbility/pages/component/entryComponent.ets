@@ -22,25 +22,27 @@ export default struct EntryComponent {
     Flex({ justifyContent: FlexAlign.SpaceBetween }) {
       Row() {
         Image(this.appIcon)
-          .width($r('app.float.wh_value_50'))
-          .height($r('app.float.wh_value_50'))
-          .margin({ right: $r('app.float.wh_value_10') })
+          .width($r('app.float.wh_value_40'))
+          .height($r('app.float.wh_value_40'))
+          .margin({
+            left: $r('app.float.wh_value_36'),
+            right: $r('app.float.wh_value_16')
+          })
           .visibility('' === this.appIcon ? Visibility.None : Visibility.Visible)
           .objectFit(ImageFit.Contain);
 
         Text(this.appTitle)
-          .fontColor($r('app.color.color_333333_grey'))
-          .fontSize($r('app.float.font_20'))
+          .fontColor($r('sys.color.ohos_id_color_text_primary'))
+          .fontSize($r('app.float.font_16'))
+          .fontWeight(FontWeight.Medium)
           .textAlign(TextAlign.Start)
           .maxLines(3)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
-          .margin({ top: $r('app.float.wh_value_10'), bottom: $r('app.float.wh_value_5') });
       }
-      .flexShrink(0)
       .alignItems(VerticalAlign.Center)
       .align(Alignment.Start)
+      .height($r('app.float.wh_value_64'))
+      .width('100%')
     }
-    .margin({ left: $r('app.float.wh_value_15') })
-    .width('100%')
   }
 }

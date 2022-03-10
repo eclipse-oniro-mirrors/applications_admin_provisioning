@@ -10,7 +10,7 @@
     },
     {
       "name": "adminprovisioning",
-      "value": "Device Management Configuration"
+      "value": "Activate Device Manager?"
     },
     {
       "name": "appManagement",
@@ -50,11 +50,11 @@
     },
     {
       "name": "enterprise_name",
-      "value": "enterprise name:"
+      "value": "enterprise name:  "
     },
     {
       "name": "enterprise_description",
-      "value": "enterprise description:"
+      "value": "enterprise description:  "
     }
   ]
 }

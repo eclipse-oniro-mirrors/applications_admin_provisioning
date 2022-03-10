@@ -14,7 +14,7 @@
  */
 
 import abilityFeatureAbility from '@ohos.ability.featureAbility';
-import edmEnterpriseDeviceManager from '@ohos.edm.enterpriseDeviceManager';
+import edmEnterpriseDeviceManager from '@ohos.enterpriseDeviceManager';
 import resourceManager from '@ohos.resourceManager';
 import router from '@system.router';
 import appDetailData from '../model/appManagementImpl/appDetailData.ets'
@@ -54,27 +54,29 @@ struct ApplicationInfo {
 
       Column() {
         Text(this.enterpriseName)
-          .fontColor($r('app.color.color_333333_grey'))
-          .fontSize($r('app.float.font_20'))
+          .height($r('app.float.wh_value_21'))
+          .fontColor($r('sys.color.ohos_id_color_text_primary'))
+          .fontSize($r('app.float.font_16'))
+          .fontWeight(FontWeight.Medium)
           .textAlign(TextAlign.Start)
           .maxLines(3)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           .margin({
-            left: $r('app.float.wh_value_15'),
-            top: $r('app.float.wh_value_5'),
-            bottom: $r('app.float.wh_value_5')
+            left: $r('app.float.wh_value_36'),
+            top: $r('app.float.wh_value_12'),
           });
 
         Text(this.enterpriseDescription)
-          .fontColor($r('app.color.color_333333_grey'))
-          .fontSize($r('app.float.font_20'))
+          .height($r('app.float.wh_value_19'))
+          .fontColor($r('sys.color.ohos_id_color_text_secondary'))
+          .fontSize($r('app.float.font_14'))
+          .fontWeight(FontWeight.Regular)
           .textAlign(TextAlign.Start)
           .maxLines(3)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           .margin({
-            left: $r('app.float.wh_value_15'),
-            top: $r('app.float.wh_value_5'),
-            bottom: $r('app.float.wh_value_5')
+            left: $r('app.float.wh_value_36'),
+            top: $r('app.float.wh_value_2'),
           });
       }
       .width('100%')
@@ -83,15 +85,15 @@ struct ApplicationInfo {
 
       Column() {
         Text(this.isShowActive ? this.deviceAdminActive : this.deviceAdminDisActive)
-          .fontColor($r('app.color.color_333333_grey'))
-          .fontSize($r('app.float.font_20'))
+          .fontColor($r('sys.color.ohos_id_color_text_primary'))
+          .fontSize($r('app.float.font_16'))
+          .fontWeight(FontWeight.Medium)
           .textAlign(TextAlign.Start)
           .maxLines(3)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           .margin({
-            left: $r('app.float.wh_value_15'),
-            top: $r('app.float.wh_value_5'),
-            bottom: $r('app.float.wh_value_5')
+            left: $r('app.float.wh_value_36'),
+            top: $r('app.float.wh_value_24'),
           });
 
         List() {
@@ -112,17 +114,17 @@ struct ApplicationInfo {
       Row() {
         Button() {
           Text(this.isShowActive ? $r('app.string.deActivate') : $r('app.string.activation'))
-            .fontSize($r('app.float.font_20'))
-            .fontColor(this.isEnableButton ? Color.Blue : $r('app.color.color_999999_grey'))
+            .opacity(this.isEnableButton ? 1 : 0.38)
+            .fontSize($r('sys.float.ohos_id_text_size_button1'))
+            .fontColor($r('sys.color.ohos_id_color_text_primary_activated'))
         }
         .enabled(this.isEnableButton)
-        .backgroundColor($r('app.color.color_E3E3E3_grey'))
+        .backgroundColor($r('sys.color.ohos_id_color_button_normal'))
         .height($r('app.float.button_height'))
         .width($r('app.float.button_width'))
         .margin({
-          right: $r('app.float.wh_value_20'),
-          bottom: $r('app.float.wh_value_5'),
-          left: $r('app.float.wh_value_20')
+          bottom: $r('app.float.wh_value_24'),
+          left: $r('app.float.wh_value_36')
         })
         .onClick(() => {
           console.log('adminprovisioning ApplicationInfo in button active:' + this.isShowActive);
@@ -131,13 +133,17 @@ struct ApplicationInfo {
 
         Button() {
           Text($r('app.string.cancel'))
-            .fontSize($r('app.float.font_20'))
-            .fontColor(Color.Blue)
+            .fontSize($r('sys.float.ohos_id_text_size_button1'))
+            .fontColor($r('sys.color.ohos_id_color_text_primary_activated'))
         }
-        .backgroundColor($r('app.color.color_E3E3E3_grey'))
+        .backgroundColor($r('sys.color.ohos_id_color_button_normal'))
         .height($r('app.float.button_height'))
         .width($r('app.float.button_width'))
-        .margin({ left: $r('app.float.wh_value_20'), bottom: $r('app.float.wh_value_5') })
+        .margin({
+          left: $r('app.float.wh_value_24'),
+          right: $r('app.float.wh_value_36'),
+          bottom: $r('app.float.wh_value_24')
+        })
         .onClick(() => {
           console.log('adminprovisioning ApplicationInfo button cancel in isShowActive:' + this.isShowActive);
           appDetailData.terminateAbilityPage();
@@ -145,6 +151,9 @@ struct ApplicationInfo {
       }
       .alignItems(VerticalAlign.Center)
     }
+    .height('100%')
+    .width('100%')
+    .backgroundColor($r('sys.color.ohos_id_color_sub_background'))
   }
 
   private aboutToAppear(): void {
