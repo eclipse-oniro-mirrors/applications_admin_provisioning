@@ -32,7 +32,8 @@ export class AppDetailData {
   public ret = { val: false };
 
   async checkAppItem(elementNameVal) {
-    console.log('adminprovisioning checkAppItem in elementName:' + JSON.stringify(elementNameVal));
+    console.log('adminprovisioning checkAppItem in bundleName:' + elementNameVal.bundleName + ' | abilityName:' +
+    elementNameVal.abilityName);
     let actionVal: string = 'ohos.action.ENT_ADMIN';
     let wantTemp = { "action": actionVal };
     let data = await bundle.queryAbilityByWant(wantTemp, bundle.BundleFlag.GET_BUNDLE_WITH_ABILITIES, baseData.USE_ID);
@@ -59,8 +60,8 @@ export class AppDetailData {
   async getAppInfoLabel(resMgr, id) {
     let label = await resMgr.getString(id);
     console.log('adminprovisioning getAppInfoLabel start label:' + label);
-    if (label == null || label == undefined || label == '') {
-      return '';
+    if (label === null || label === undefined || label === baseData.EMPTY_STR) {
+      return baseData.EMPTY_STR;
     }
     return label;
   }
@@ -68,8 +69,8 @@ export class AppDetailData {
   async getAppInfoIcon(resMgr, id) {
     let iconVal = await resMgr.getMediaBase64(id);
     console.log('adminprovisioning getAppInfoIcon start iconVal:' + iconVal);
-    if (iconVal == null || iconVal == undefined || iconVal == '') {
-      return '';
+    if (iconVal === null || iconVal === undefined || iconVal === baseData.EMPTY_STR) {
+      return baseData.EMPTY_STR;
     }
     return iconVal;
   }
@@ -91,7 +92,7 @@ export class AppDetailData {
 
     if (appInfoTemp.iconId > 0) {
       iconVal = await this.getAppInfoIcon(resMgr, appInfoTemp.iconId);
-      if (iconVal == '') {
+      if (iconVal === baseData.EMPTY_STR) {
         appInfo.appIcon = icon_default;
         appInfo.appTitle = label;
       }
@@ -109,7 +110,7 @@ export class AppDetailData {
 
   getPermissionInfoVal(permissionName): number {
     for (let i = 0; i < permissionsDetailList.length; i++) {
-      if (permissionsDetailList[i].permissionName == permissionName) {
+      if (permissionsDetailList[i].permissionName === permissionName) {
         return i;
       }
     }
@@ -118,7 +119,7 @@ export class AppDetailData {
 
   async getPermissionList(data, appInfo) {
     let permissions = data.reqPermissions;
-    if (permissions != null && permissions != []) {
+    if (permissions !== null && permissions !== []) {
       console.log('adminprovisioning getPermissionList permission length:' + permissions.length);
       for (var i = 0; i < permissions.length; i++) {
         console.log('adminprovisioning getPermissionList permission is in val:' + permissions[i]);

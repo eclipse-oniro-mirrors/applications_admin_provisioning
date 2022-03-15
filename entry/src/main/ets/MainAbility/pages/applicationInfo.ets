@@ -188,7 +188,7 @@ struct ApplicationInfo {
     console.log('adminprovisioning ApplicationInfo onPageShow in');
     this.isAdminActive();
     console.log('adminprovisioning ApplicationInfo onPageShow isActiveState =' + isActiveState);
-    if (isActiveState == undefined || isActiveState == null) {
+    if (isActiveState === undefined || isActiveState === null) {
       return;
     }
     this.isShowActive = isActiveState;
@@ -213,18 +213,18 @@ struct ApplicationInfo {
     let retSuperState;
     console.log('adminprovisioning isAdminActive elementNameVal.bundleName=' + elementNameVal.bundleName +
     ' | elementNameVal.abilityName=' + elementNameVal.abilityName);
-    if (elementNameVal.bundleName == '' || elementNameVal.abilityName == '') {
+    if (elementNameVal.bundleName === baseData.EMPTY_STR || elementNameVal.abilityName === baseData.EMPTY_STR) {
       console.log('adminprovisioning isAdminActive elementNameVal is null');
       return;
     }
 
     retAppState = await edmEnterpriseDeviceManager.isAdminAppActive(wantTemp);
     retSuperState = await edmEnterpriseDeviceManager.isSuperAdmin(elementNameVal.bundleName);
-    if (retAppState == false) {
+    if (retAppState === false) {
       this.isShowActive = false;
       this.isEnableButton = true;
     } else {
-      if (retSuperState == true) {
+      if (retSuperState === true) {
         this.isEnableButton = false;
       } else {
         this.isEnableButton = true;
@@ -244,8 +244,8 @@ struct ApplicationInfo {
     };
     await this.isAdminActive();
     let ret;
-    if (this.isShowActive == false) {
-      if (adminType == edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_NORMAL) {
+    if (this.isShowActive === false) {
+      if (adminType === edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_NORMAL) {
         ret = await edmEnterpriseDeviceManager.activateAdmin(wantTemp,
           { name: enterInfo.name, description: enterInfo.description },
           edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_NORMAL);
@@ -256,7 +256,7 @@ struct ApplicationInfo {
       }
       console.log('adminprovisioning activateAdmin Activate admin end');
     } else {
-      if (this.isEnableButton == true) {
+      if (this.isEnableButton === true) {
         ret = await edmEnterpriseDeviceManager.deactivateAdmin(wantTemp);
       } else {
         console.log('adminprovisioning activateAdmin not support super admin active');
@@ -271,8 +271,8 @@ struct ApplicationInfo {
     console.log('adminprovisioning getSelfResourceVal in:');
     let value = await item.getString(resource.id);
     console.log('adminprovisioning getSelfResourceVal finish value:' + value);
-    if (value == undefined || value == null || value == '') {
-      return '';
+    if (value === undefined || value === null || value === baseData.EMPTY_STR) {
+      return baseData.EMPTY_STR;
     }
     return value;
   }
@@ -284,8 +284,8 @@ struct ApplicationInfo {
     let includeElementNameVal = Object.keys(data.parameters).indexOf('elementName');
     let includeActiveTypeVal = Object.keys(data.parameters).indexOf('activeType');
     let includeEnterpriseVal = Object.keys(data.parameters).indexOf('enterprise');
-    if (lengthVal == 0 || includeElementNameVal == -1 || includeActiveTypeVal == -1 ||
-    includeEnterpriseVal == -1) {
+    if (lengthVal === 0 || includeElementNameVal === -1 || includeActiveTypeVal === -1 ||
+    includeEnterpriseVal === -1) {
       console.log('adminprovisioning data.parameters = ' + JSON.stringify(data.parameters));
       return;
     }
@@ -296,12 +296,12 @@ struct ApplicationInfo {
     adminType.admintype = data.parameters.activeType;
     AppStorage.SetOrCreate('activeType', adminType.admintype);
 
-    if (data.parameters.enterprise.name != null && data.parameters.enterprise.name != undefined) {
+    if (data.parameters.enterprise.name !== null && data.parameters.enterprise.name !== undefined) {
       enterInfo.name = data.parameters.enterprise.name.substring(0, baseData.MAX_LEN);
     }
 
-    if (data.parameters.enterprise.description != null &&
-    data.parameters.enterprise.description != undefined) {
+    if (data.parameters.enterprise.description !== null &&
+    data.parameters.enterprise.description !== undefined) {
       enterInfo.description = data.parameters.enterprise.description.substring(0, baseData.MAX_LEN);
     }
 
@@ -350,16 +350,16 @@ struct ApplicationInfo {
       description: '',
     };
     if (this.isShowActive) {
-      console.log('adminprovisioning ApplicationInfo getCheckAbilityList getEnterInfo err=' + JSON.stringify(getEnterInfo));
+      console.log('adminprovisioning ApplicationInfo getCheckAbilityList get getEnterInfo');
       getEnterInfo = await edmEnterpriseDeviceManager.getEnterpriseInfo(want);
     }
 
     console.log('adminprovisioning ApplicationInfo getCheckAbilityList enterpriseName=' + getEnterInfo.name
     + ' enterpriseDescription=' + getEnterInfo.description);
-    if (getEnterInfo.name != null && getEnterInfo.name != undefined) {
+    if (getEnterInfo.name !== null && getEnterInfo.name !== undefined) {
       getName = getEnterInfo.name.substring(0, baseData.MAX_LEN);
     }
-    if (getEnterInfo.description != null && getEnterInfo.description != undefined) {
+    if (getEnterInfo.description !== null && getEnterInfo.description !== undefined) {
       getDescription = getEnterInfo.description.substring(0, baseData.MAX_LEN);
     }
 

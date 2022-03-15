@@ -17,6 +17,7 @@ export class BaseData {
   USE_ID = 100;
   SELF_BUNDLE_NAME = 'com.ohos.adminprovisioning';
   MAX_LEN = 30;
+  EMPTY_STR = '';
 }
 
 let baseData = new BaseData();
