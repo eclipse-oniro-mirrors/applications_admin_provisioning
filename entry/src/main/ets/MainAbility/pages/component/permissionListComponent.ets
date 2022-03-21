@@ -15,8 +15,8 @@
 
 @Component
 export default struct PermissionListComponent {
-  private permissionName: string = '';
-  private permissionDescription: string = '';
+  private permissionName: string | Resource = '';
+  private permissionDescription: string | Resource = '';
 
   build() {
     Row() {
@@ -37,7 +37,8 @@ export default struct PermissionListComponent {
           .textAlign(TextAlign.Start)
           .maxLines(3)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
-          .visibility('' === this.permissionName || undefined === this.permissionName
+          .visibility(('' === this.permissionName || 'undefined' === typeof (this.permissionName)
+            || null === this.permissionName || 0 === Object.keys(this.permissionName).length)
             ? Visibility.None : Visibility.Visible)
           .margin({
             bottom: $r('app.float.wh_value_2'),
@@ -51,7 +52,8 @@ export default struct PermissionListComponent {
           .textAlign(TextAlign.Start)
           .maxLines(3)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
-          .visibility('' === this.permissionDescription || undefined === this.permissionDescription
+          .visibility(('' === this.permissionDescription || 'undefined' === typeof (this.permissionDescription)
+            || null === this.permissionDescription || 0 === Object.keys(this.permissionDescription).length)
             ? Visibility.None : Visibility.Visible)
       }
       .alignItems(HorizontalAlign.Start)
