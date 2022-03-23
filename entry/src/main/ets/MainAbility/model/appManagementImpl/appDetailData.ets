@@ -23,8 +23,8 @@ let icon_default = $r('app.media.icon');
 const permissionsDetailList: Array<any> = [
   {
     "permissionName": 'ohos.permission.EDM_MANAGE_DATETIME',
-    "permissionLabel": '设置系统时间',
-    "permissionDescription": '允许应用设置系统时间'
+    "permissionLabel": $r('app.string.permissionLabel'),
+    "permissionDescription": $r('app.string.permissionDescription')
   },
 ];
 

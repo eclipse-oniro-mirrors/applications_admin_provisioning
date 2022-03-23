@@ -55,6 +55,14 @@
     {
       "name": "enterprise_description",
       "value": "enterprise description:  "
+    },
+    {
+      "name": "permissionLabel",
+      "value": "Setting the system time"
+    },
+    {
+      "name": "permissionDescription",
+      "value": "Permission required for the application to set the system time"
     }
   ]
 }
