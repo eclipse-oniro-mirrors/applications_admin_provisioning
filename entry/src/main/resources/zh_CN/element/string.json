@@ -55,6 +55,14 @@
     {
       "name": "enterprise_description",
       "value": "企业描述:  "
+    },
+    {
+      "name": "permissionLabel",
+      "value": "设置系统时间"
+    },
+    {
+      "name": "permissionDescription",
+      "value": "允许应用设置系统时间"
     }
   ]
 }

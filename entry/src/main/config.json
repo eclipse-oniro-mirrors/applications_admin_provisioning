@@ -57,6 +57,10 @@
       {
         "name": "ohos.permission.GET_BUNDLE_INFO_PRIVILEGED",
         "reason": "get application information"
+      },
+      {
+        "name": "ohos.permission.MANAGE_ADMIN",
+        "reason": "get edm permission"
       }
     ]
   }
