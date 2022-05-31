@@ -218,7 +218,7 @@ struct ApplicationInfo {
       return;
     }
 
-    retAppState = await edmEnterpriseDeviceManager.isAdminAppActive(wantTemp);
+    retAppState = await edmEnterpriseDeviceManager.isAdminEnabled(wantTemp);
     retSuperState = await edmEnterpriseDeviceManager.isSuperAdmin(elementNameVal.bundleName);
     if (retAppState === false) {
       this.isShowActive = false;
@@ -246,18 +246,18 @@ struct ApplicationInfo {
     let ret;
     if (this.isShowActive === false) {
       if (adminType === edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_NORMAL) {
-        ret = await edmEnterpriseDeviceManager.activateAdmin(wantTemp,
+        ret = await edmEnterpriseDeviceManager.enableAdmin(wantTemp,
           { name: enterInfo.name, description: enterInfo.description },
           edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_NORMAL);
       } else {
-        ret = await edmEnterpriseDeviceManager.activateAdmin(wantTemp,
+        ret = await edmEnterpriseDeviceManager.enableAdmin(wantTemp,
           { name: enterInfo.name, description: enterInfo.description },
           edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_SUPER);
       }
       console.log('adminprovisioning activateAdmin Activate admin end');
     } else {
       if (this.isEnableButton === true) {
-        ret = await edmEnterpriseDeviceManager.deactivateAdmin(wantTemp);
+        ret = await edmEnterpriseDeviceManager.disableAdmin(wantTemp);
       } else {
         console.log('adminprovisioning activateAdmin not support super admin active');
       }
