@@ -13,13 +13,5 @@
  * limitations under the License.
  */
 
-export class BaseData {
-  USE_ID = 100;
-  SELF_BUNDLE_NAME = 'com.ohos.adminprovisioning';
-  MAX_LEN = 30;
-  EMPTY_STR = '';
-}
-
-let baseData = new BaseData();
-
-export default baseData as BaseData;
+// Script for compiling build behavior. It is built in the build plug-in and cannot be modified currently.
+module.exports = require('@ohos/hvigor-ohos-plugin').appTasks

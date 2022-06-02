@@ -18,7 +18,7 @@ import router from '@system.router';
 @Entry
 @Component
 export default struct HeadComponent {
-  private headName: string = '';
+  private headName: string | Resource = '';
 
   build() {
     Row() {

@@ -13,11 +13,10 @@
  * limitations under the License.
  */
 
-export default {
-  onCreate() {
-    console.info('adminprovisioning onCreate')
-  },
-  onDestroy() {
-    console.info('adminprovisioning onDestroy')
-  },
+import AbilityStage from "@ohos.application.AbilityStage"
+
+export default class MyAbilityStage extends AbilityStage {
+    onCreate() {
+        console.info("adminprovisioning MyAbilityStage onCreate is called")
+    }
 }
