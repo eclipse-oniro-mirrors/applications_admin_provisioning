@@ -13,15 +13,13 @@
  * limitations under the License.
  */
 
-import abilityFeatureAbility from '@ohos.ability.featureAbility';
 import edmEnterpriseDeviceManager from '@ohos.enterpriseDeviceManager';
-import resourceManager from '@ohos.resourceManager';
 import router from '@system.router';
-import appDetailData from '../model/appManagementImpl/appDetailData.ets'
-import baseData from '../model/baseData.ets';
-import entryComponent from './component/entryComponent.ets'
-import headComponent from './component/headComponent.ets';
-import permissionListComponent from './component/permissionListComponent.ets';
+import appDetailData from '../model/appManagementImpl/appDetailData'
+import baseData from '../model/baseData';
+import entryComponent from './component/entryComponent'
+import headComponent from './component/headComponent';
+import permissionListComponent from './component/permissionListComponent';
 
 let appInfo;
 let elementNameVal;
@@ -127,7 +125,7 @@ struct ApplicationInfo {
           left: $r('app.float.wh_value_36')
         })
         .onClick(() => {
-          console.log('adminprovisioning ApplicationInfo in button active:' + this.isShowActive);
+          console.info('adminprovisioning ApplicationInfo in button active:' + this.isShowActive);
           this.activateAdmin(this.isAdminType);
         })
 
@@ -145,7 +143,7 @@ struct ApplicationInfo {
           bottom: $r('app.float.wh_value_24')
         })
         .onClick(() => {
-          console.log('adminprovisioning ApplicationInfo button cancel in isShowActive:' + this.isShowActive);
+          console.info('adminprovisioning ApplicationInfo button cancel in isShowActive:' + this.isShowActive);
           appDetailData.terminateAbilityPage();
         })
       }
@@ -156,7 +154,7 @@ struct ApplicationInfo {
     .backgroundColor($r('sys.color.ohos_id_color_sub_background'))
   }
 
-  private aboutToAppear(): void {
+  aboutToAppear(): void {
     appInfo = {
       appIcon: '',
       appTitle: '',
@@ -175,32 +173,32 @@ struct ApplicationInfo {
     };
 
     isAdminTypeVal = { admintype: 0 };
-    console.log('adminprovisioning ApplicationInfo aboutToAppear in');
+    console.info('adminprovisioning ApplicationInfo aboutToAppear in');
     this.getCheckAbilityList(appInfo, elementNameVal, isAdminTypeVal);
-    console.log('adminprovisioning ApplicationInfo aboutToAppear out');
+    console.info('adminprovisioning ApplicationInfo aboutToAppear out');
   }
 
-  private aboutToDisappear(): void {
-    console.log('adminprovisioning ApplicationInfo aboutToDisappear');
+  aboutToDisappear(): void {
+    console.info('adminprovisioning ApplicationInfo aboutToDisappear');
   }
 
   onPageShow(): void {
-    console.log('adminprovisioning ApplicationInfo onPageShow in');
+    console.info('adminprovisioning ApplicationInfo onPageShow in');
     this.isAdminActive();
-    console.log('adminprovisioning ApplicationInfo onPageShow isActiveState =' + isActiveState);
+    console.info('adminprovisioning ApplicationInfo onPageShow isActiveState =' + isActiveState);
     if (isActiveState === undefined || isActiveState === null) {
       return;
     }
     this.isShowActive = isActiveState;
-    console.log('adminprovisioning ApplicationInfo onPageShow out');
+    console.info('adminprovisioning ApplicationInfo onPageShow out');
   }
 
   onPageHide() {
-    console.log('adminprovisioning ApplicationInfo onPageHide');
+    console.info('adminprovisioning ApplicationInfo onPageHide');
   }
 
   onBackPress() {
-    console.log('adminprovisioning ApplicationInfo onBackPress');
+    console.info('adminprovisioning ApplicationInfo onBackPress');
     router.back();
   }
 
@@ -211,10 +209,10 @@ struct ApplicationInfo {
     };
     let retAppState;
     let retSuperState;
-    console.log('adminprovisioning isAdminActive elementNameVal.bundleName=' + elementNameVal.bundleName +
+    console.info('adminprovisioning isAdminActive elementNameVal.bundleName=' + elementNameVal.bundleName +
     ' | elementNameVal.abilityName=' + elementNameVal.abilityName);
     if (elementNameVal.bundleName === baseData.EMPTY_STR || elementNameVal.abilityName === baseData.EMPTY_STR) {
-      console.log('adminprovisioning isAdminActive elementNameVal is null');
+      console.info('adminprovisioning isAdminActive elementNameVal is null');
       return;
     }
 
@@ -231,13 +229,13 @@ struct ApplicationInfo {
       }
       this.isShowActive = true;
     }
-    console.log('adminprovisioning isAdminActive retAppState:' + retAppState +
+    console.info('adminprovisioning isAdminActive retAppState:' + retAppState +
     ' | retSuperState:' + retSuperState);
     isActiveState = this.isShowActive;
   }
 
   async activateAdmin(adminType) {
-    console.log('adminprovisioning activateAdmin isShowActive:' + this.isShowActive);
+    console.info('adminprovisioning activateAdmin isShowActive:' + this.isShowActive);
     let wantTemp = {
       bundleName: elementNameVal.bundleName,
       abilityName: elementNameVal.abilityName,
@@ -254,23 +252,23 @@ struct ApplicationInfo {
           { name: enterInfo.name, description: enterInfo.description },
           edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_SUPER);
       }
-      console.log('adminprovisioning activateAdmin Activate admin end');
+      console.info('adminprovisioning activateAdmin Activate admin end');
     } else {
       if (this.isEnableButton === true) {
         ret = await edmEnterpriseDeviceManager.disableAdmin(wantTemp);
       } else {
-        console.log('adminprovisioning activateAdmin not support super admin active');
+        console.info('adminprovisioning activateAdmin not support super admin active');
       }
     }
-    console.log('adminprovisioning activateAdmin adminType:' + adminType + ' | ret:' + ret);
+    console.info('adminprovisioning activateAdmin adminType:' + adminType + ' | ret:' + ret);
     appDetailData.terminateAbilityPage();
   }
 
   async getSelfResourceVal(resource) {
-    let item = await resourceManager.getResourceManager(baseData.SELF_BUNDLE_NAME);
-    console.log('adminprovisioning getSelfResourceVal in:');
-    let value = await item.getString(resource.id);
-    console.log('adminprovisioning getSelfResourceVal finish value:' + value);
+    let resMgr = await globalThis.adminProvisioningContext.resourceManager;
+    console.info('adminprovisioning getSelfResourceVal in:');
+    let value = await resMgr.getString(resource.id);
+    console.info('adminprovisioning getSelfResourceVal finish value:' + value);
     if (value === undefined || value === null || value === baseData.EMPTY_STR) {
       return baseData.EMPTY_STR;
     }
@@ -278,15 +276,15 @@ struct ApplicationInfo {
   }
 
   async getAbilityWantVal(appInfo, elementNameVal, adminType) {
-    console.log('adminprovisioning ApplicationInfo getAbilityWantVal in:');
-    let data = await abilityFeatureAbility.getWant();
+    console.info('adminprovisioning ApplicationInfo getAbilityWantVal in:');
+    let data = await globalThis.adminProvisioningWant;
     let lengthVal = Object.keys(data.parameters).length;
     let includeElementNameVal = Object.keys(data.parameters).indexOf('elementName');
     let includeActiveTypeVal = Object.keys(data.parameters).indexOf('activeType');
     let includeEnterpriseVal = Object.keys(data.parameters).indexOf('enterprise');
     if (lengthVal === 0 || includeElementNameVal === -1 || includeActiveTypeVal === -1 ||
     includeEnterpriseVal === -1) {
-      console.log('adminprovisioning data.parameters = ' + JSON.stringify(data.parameters));
+      console.info('adminprovisioning data.parameters = ' + JSON.stringify(data.parameters));
       return;
     }
     elementNameVal.abilityName = data.parameters.elementName.abilityName;
@@ -305,7 +303,7 @@ struct ApplicationInfo {
       enterInfo.description = data.parameters.enterprise.description.substring(0, baseData.MAX_LEN);
     }
 
-    console.log('adminprovisioning ApplicationInfo getAbilityWantVal out isAdminTypeVal.admintype:' +
+    console.info('adminprovisioning ApplicationInfo getAbilityWantVal out isAdminTypeVal.admintype:' +
     isAdminTypeVal.admintype + ' enter.name=' + enterInfo.name + ' enter.des=' + enterInfo.description);
   }
 
@@ -317,12 +315,12 @@ struct ApplicationInfo {
     let enterDescription = '';
     let getName = '';
     let getDescription = '';
-    console.log('adminprovisioning ApplicationInfo getCheckAbilityList in:');
+    console.info('adminprovisioning ApplicationInfo getCheckAbilityList in:');
     await this.getAbilityWantVal(appInfo, elementNameVal, adminType);
 
     let ret = await appDetailData.checkAppItem(elementNameVal);
     if (!ret.val) {
-      console.log('adminprovisioning ApplicationInfo aboutToAppear not exist bundleName:' + appInfo.appBundleName);
+      console.info('adminprovisioning ApplicationInfo aboutToAppear not exist bundleName:' + appInfo.appBundleName);
       appDetailData.terminateAbilityPage();
       return;
     }
@@ -350,11 +348,11 @@ struct ApplicationInfo {
       description: '',
     };
     if (this.isShowActive) {
-      console.log('adminprovisioning ApplicationInfo getCheckAbilityList get getEnterInfo');
+      console.info('adminprovisioning ApplicationInfo getCheckAbilityList get getEnterInfo');
       getEnterInfo = await edmEnterpriseDeviceManager.getEnterpriseInfo(want);
     }
 
-    console.log('adminprovisioning ApplicationInfo getCheckAbilityList enterpriseName=' + getEnterInfo.name
+    console.info('adminprovisioning ApplicationInfo getCheckAbilityList start enterpriseName=' + getEnterInfo.name
     + ' enterpriseDescription=' + getEnterInfo.description);
     if (getEnterInfo.name !== null && getEnterInfo.name !== undefined) {
       getName = getEnterInfo.name.substring(0, baseData.MAX_LEN);
@@ -370,7 +368,7 @@ struct ApplicationInfo {
       this.enterpriseName = enterName + enterInfo.name;
       this.enterpriseDescription = enterDescription + enterInfo.description;
     }
-    console.log('adminprovisioning ApplicationInfo getCheckAbilityList enterpriseName=' + this.enterpriseName
+    console.info('adminprovisioning ApplicationInfo getCheckAbilityList enterpriseName=' + this.enterpriseName
     + ' enterpriseDescription=' + this.enterpriseDescription);
   }
 }

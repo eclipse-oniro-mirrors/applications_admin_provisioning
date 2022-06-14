@@ -13,5 +13,11 @@
  * limitations under the License.
  */
 
-/build
-/node_modules
+export class BaseData {
+  MAX_LEN = 30;
+  EMPTY_STR = '';
+}
+
+let baseData = new BaseData();
+
+export default baseData as BaseData;
