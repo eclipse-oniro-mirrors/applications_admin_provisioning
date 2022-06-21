@@ -33,8 +33,10 @@ export class AppDetailData {
   async checkAppItem(elementNameVal) {
     console.info('adminprovisioning checkAppItem in bundleName:' + elementNameVal.bundleName + ' | abilityName:' +
     elementNameVal.abilityName);
-    let actionVal: string = 'ohos.action.ENT_ADMIN';
-    let wantTemp = { "action": actionVal };
+    let wantTemp = {
+        bundleName:elementNameVal.bundleName,
+        abilityName:elementNameVal.abilityName
+    };
     let userId = { localId : 0 };
     let retVal = await accountManager.getAccountUserId(userId);
     if (!retVal) {
@@ -42,20 +44,11 @@ export class AppDetailData {
       this.ret.val = false;
       return this.ret;
     }
-    let data = await bundle.queryAbilityByWant(wantTemp, bundle.BundleFlag.GET_BUNDLE_WITH_ABILITIES,
-      userId.localId);
+    let data = await bundle.queryExtensionAbilityInfos(wantTemp, 11, 0, userId.localId);
     if (data === null || data === undefined || data.length <= 0) {
-      console.info('adminprovisioning checkAppItem queryAbilityByWant fail! data is null');
+      console.info('adminprovisioning checkAppItem queryExtensionAbilityInfos fail! data is null');
       this.ret.val = false;
       return this.ret;
-    }
-    for (let item in data) {
-      if (data[item].bundleName === elementNameVal.bundleName && data[item].name === elementNameVal.abilityName) {
-        console.info('adminprovisioning checkAppItem bundleName:' + data[item].bundleName + ' | name:' +
-        data[item].name);
-        this.ret.val = true;
-        return this.ret;
-      }
     }
     console.info('adminprovisioning checkAppItem return then false');
     this.ret.val = false;
