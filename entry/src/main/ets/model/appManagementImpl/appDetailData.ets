@@ -28,13 +28,15 @@ const permissionsDetailList: Array<any> = [
 ];
 
 export class AppDetailData {
-  public ret = { val: false };
+  public ret = { val: true };
 
   async checkAppItem(elementNameVal) {
     console.info('adminprovisioning checkAppItem in bundleName:' + elementNameVal.bundleName + ' | abilityName:' +
     elementNameVal.abilityName);
-    let actionVal: string = 'ohos.action.ENT_ADMIN';
-    let wantTemp = { "action": actionVal };
+    let want = {
+      "bundleName": elementNameVal.bundleName,
+      "abilityName": elementNameVal.abilityName
+    };
     let userId = { localId : 0 };
     let retVal = await accountManager.getAccountUserId(userId);
     if (!retVal) {
@@ -42,23 +44,19 @@ export class AppDetailData {
       this.ret.val = false;
       return this.ret;
     }
-    let data = await bundle.queryAbilityByWant(wantTemp, bundle.BundleFlag.GET_BUNDLE_WITH_ABILITIES,
-      userId.localId);
+    let data;
+    try {
+      data = await bundle.queryExtensionAbilityInfos(want, bundle.ExtensionAbilityType.ENTERPRISE_ADMIN,
+        bundle.ExtensionFlag.GET_EXTENSION_INFO_WITH_APPLICATION, userId.localId);
+    } catch (e) {
+      console.error('adminprovisioning checkAppItem queryExtensionAbilityInfos try fail! ' + JSON.stringify(e));
+    }
     if (data === null || data === undefined || data.length <= 0) {
-      console.info('adminprovisioning checkAppItem queryAbilityByWant fail! data is null');
+      console.info('adminprovisioning checkAppItem queryExtensionAbilityInfos fail! data is null');
       this.ret.val = false;
       return this.ret;
     }
-    for (let item in data) {
-      if (data[item].bundleName === elementNameVal.bundleName && data[item].name === elementNameVal.abilityName) {
-        console.info('adminprovisioning checkAppItem bundleName:' + data[item].bundleName + ' | name:' +
-        data[item].name);
-        this.ret.val = true;
-        return this.ret;
-      }
-    }
-    console.info('adminprovisioning checkAppItem return then false');
-    this.ret.val = false;
+    console.info('adminprovisioning checkAppItem success');
     return this.ret;
   }
 
