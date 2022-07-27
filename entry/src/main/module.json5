@@ -21,18 +21,32 @@
         "icon": "$media:icon",
         "label": "$string:entry_MainAbility",
         "visible": true,
-        "launchType": "singleton",
+        "launchType": "singleton"
+      },
+      {
+        "name": "com.ohos.automanager.AutoManagerAbility",
+        "srcEntrance": "./ets/MainAbility/AutoManagerAbility.ts",
+        "description": "$string:description_mainability",
+        "icon": "$media:icon",
+        "visible": true,
+        "launchType": "singleton"
       }
     ],
     "requestPermissions": [
       {
-        "name": "ohos.permission.MANAGE_LOCAL_ACCOUNTS",
+        "name": "ohos.permission.MANAGE_LOCAL_ACCOUNTS"
       },
       {
-        "name": "ohos.permission.GET_BUNDLE_INFO_PRIVILEGED",
+        "name": "ohos.permission.GET_BUNDLE_INFO_PRIVILEGED"
       },
       {
-        "name": "ohos.permission.MANAGE_ADMIN",
+        "name": "ohos.permission.MANAGE_ADMIN"
+      },
+      {
+        "name": "ohos.permission.FACTORY_RESET"
+      },
+      {
+        "name": "ohos.permission.INTERNET"
       }
     ]
   }

@@ -16,6 +16,7 @@
 import bundle from '@ohos.bundle';
 import accountManager from '../accountManager';
 import baseData from '../baseData';
+import logger from '../logger'
 
 let icon_default = $r('app.media.icon');
 
@@ -31,7 +32,7 @@ export class AppDetailData {
   public ret = { val: true };
 
   async checkAppItem(elementNameVal) {
-    console.info('adminprovisioning checkAppItem in bundleName:' + elementNameVal.bundleName + ' | abilityName:' +
+    logger.info('AppDetailData', 'checkAppItem in bundleName:' + elementNameVal.bundleName + ' | abilityName:' +
     elementNameVal.abilityName);
     let want = {
       "bundleName": elementNameVal.bundleName,
@@ -40,7 +41,7 @@ export class AppDetailData {
     let userId = { localId : 0 };
     let retVal = await accountManager.getAccountUserId(userId);
     if (!retVal) {
-      console.info('adminprovisioning checkAppItem getAccountUserId fail!');
+      logger.info('AppDetailData', 'checkAppItem getAccountUserId fail!');
       this.ret.val = false;
       return this.ret;
     }
@@ -49,35 +50,35 @@ export class AppDetailData {
       data = await bundle.queryExtensionAbilityInfos(want, bundle.ExtensionAbilityType.ENTERPRISE_ADMIN,
         bundle.ExtensionFlag.GET_EXTENSION_INFO_WITH_APPLICATION, userId.localId);
     } catch (e) {
-      console.error('adminprovisioning checkAppItem queryExtensionAbilityInfos try fail! ' + JSON.stringify(e));
+      logger.error('AppDetailData', 'checkAppItem queryExtensionAbilityInfos try fail! ' + JSON.stringify(e));
     }
     if (data === null || data === undefined || data.length <= 0) {
-      console.info('adminprovisioning checkAppItem queryExtensionAbilityInfos fail! data is null');
+      logger.warn('AppDetailData', 'checkAppItem queryExtensionAbilityInfos fail! data is null');
       this.ret.val = false;
       return this.ret;
     }
-    console.info('adminprovisioning checkAppItem success');
+    logger.info('AppDetailData', 'checkAppItem success');
     return this.ret;
   }
 
   async getBundleInfoItem(bundleName: string, appInfo) {
-    console.info('adminprovisioning getBundleInfoItem in bundleName:' + bundleName);
+    logger.info('AppDetailData', 'getBundleInfoItem in bundleName:' + bundleName);
     let userId = { localId : 0 };
     let retVal = await accountManager.getAccountUserId(userId);
     if (!retVal) {
-      console.info('adminprovisioning getBundleInfoItem getAccountUserId fail!');
+      logger.warn('AppDetailData', 'getBundleInfoItem getAccountUserId fail!');
       return;
     }
     let data = await bundle.getBundleInfo(bundleName, bundle.BundleFlag.GET_BUNDLE_WITH_REQUESTED_PERMISSION,
       { "userId" : userId.localId });
     await this.getResourceItem(bundleName, data, appInfo);
     await this.getPermissionList(data, appInfo);
-    console.info('adminprovisioning getBundleInfoItem out');
+    logger.info('AppDetailData', 'getBundleInfoItem out');
   }
 
   async getAppInfoLabel(resMgr, id) {
     let label = await resMgr.getString(id);
-    console.info('adminprovisioning getAppInfoLabel start label:' + label);
+    logger.info('AppDetailData', 'getAppInfoLabel start label:' + label);
     if (label === null || label === undefined || label === baseData.EMPTY_STR) {
       return baseData.EMPTY_STR;
     }
@@ -86,7 +87,7 @@ export class AppDetailData {
 
   async getAppInfoIcon(resMgr, id) {
     let iconVal = await resMgr.getMediaBase64(id);
-    console.info('adminprovisioning getAppInfoIcon start iconVal:' + iconVal);
+    logger.info('AppDetailData', 'getAppInfoIcon start iconVal:' + iconVal);
     if (iconVal === null || iconVal === undefined || iconVal === baseData.EMPTY_STR) {
       return baseData.EMPTY_STR;
     }
@@ -94,7 +95,7 @@ export class AppDetailData {
   }
 
   async getResourceItem(bundleName, data, appInfo) {
-    console.info('adminprovisioning getResourceItem getResourceManager in');
+    logger.info('AppDetailData', 'getResourceItem getResourceManager in');
     let bundleContext = await globalThis.adminProvisioningContext.createBundleContext(bundleName);
     let resMgr = await bundleContext.resourceManager;
     let appInfoTemp = data.appInfo;
@@ -103,10 +104,10 @@ export class AppDetailData {
 
     if (appInfoTemp.labelId > 0) {
       label = await this.getAppInfoLabel(resMgr, appInfoTemp.labelId);
-      console.info('adminprovisioning getResourceItem success appInfo.label:' + label);
+      logger.info('AppDetailData', 'getResourceItem success appInfo.label:' + label);
     } else {
       label = appInfoTemp.label;
-      console.info('adminprovisioning getResourceItem defaults appInfo.label:' + label);
+      logger.info('AppDetailData', 'getResourceItem defaults appInfo.label:' + label);
     }
 
     if (appInfoTemp.iconId > 0) {
@@ -119,11 +120,11 @@ export class AppDetailData {
       appInfo.appTitle = label;
       AppStorage.SetOrCreate('applicationInfo', appInfo);
     }
-    console.info('adminprovisioning getResourceItem getResourceManager out');
+    logger.info('AppDetailData', 'getResourceItem getResourceManager out');
   }
 
   async terminateAbilityPage() {
-    console.info('adminprovisioning terminateAbilityPage in:');
+    logger.info('AppDetailData', 'terminateAbilityPage in:');
     await globalThis.adminProvisioningContext.terminateSelf();
   }
 
@@ -139,9 +140,9 @@ export class AppDetailData {
   async getPermissionList(data, appInfo) {
     let permissions = data.reqPermissions;
     if (permissions !== null && permissions !== []) {
-      console.info('adminprovisioning getPermissionList permission length:' + permissions.length);
+      logger.info('AppDetailData', 'getPermissionList permission length:' + permissions.length);
       for (var i = 0; i < permissions.length; i++) {
-        console.info('adminprovisioning getPermissionList permission is in val:' + permissions[i]);
+        logger.info('AppDetailData', 'getPermissionList permission is in val:' + permissions[i]);
         let j = this.getPermissionInfoVal(permissions[i]);
         if (j >= 0) {
           appInfo.appPermissionList.push({
@@ -151,10 +152,10 @@ export class AppDetailData {
           });
         }
       }
-      console.info('adminprovisioning getPermissionList permission appInfo.appPermissionList:' +
+      logger.info('AppDetailData', 'getPermissionList permission appInfo.appPermissionList:' +
       JSON.stringify(appInfo.appPermissionList));
     }
-    console.info('adminprovisioning getPermissionList permission out');
+    logger.info('AppDetailData', 'getPermissionList permission out');
   }
 }
 

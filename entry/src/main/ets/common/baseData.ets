@@ -16,6 +16,7 @@
 export class BaseData {
   MAX_LEN = 30;
   EMPTY_STR = '';
+  DEFAULT_USER_ID = 100;
 }
 
 let baseData = new BaseData();

@@ -63,6 +63,94 @@
     {
       "name": "permissionDescription",
       "value": "Permission required for the application to set the system time"
+    },
+    {
+      "name": "device_mgr_info_content",
+      "value": "your organization administrator can monitor this device's setting, apps, permissions, and data, including your web activity and your device's location, call history, and contact search history."
+    },
+    {
+      "name": "returnVal",
+      "value": "return"
+    },
+    {
+      "name": "nextVal",
+      "value": "next"
+    },
+    {
+      "name": "tips",
+      "value": "Tips"
+    },
+    {
+      "name": "tipsInfo",
+      "value": "The current setting is not completed. The device will be reset after canceling the setting. Do you want to continue?"
+    },
+    {
+      "name": "CancelSetting",
+      "value": "cancelSetting"
+    },
+    {
+      "name": "deviceManageInfo",
+      "value": "device management information"
+    },
+    {
+      "name": "unitManageDevice",
+      "value": "your organization will manage this device"
+    },
+    {
+      "name": "unitManage",
+      "value": "unit administrator"
+    },
+    {
+      "name": "textManagerBefore",
+      "value": ", if you have any questions, please contact your "
+    },
+    {
+      "name": "textManagerBeforeFinish",
+      "value": "if you have any questions, please contact your "
+    },
+    {
+      "name": "textManagerAfter",
+      "value": " contact."
+    },
+    {
+      "name": "textTerms",
+      "value": "view terms"
+    },
+    {
+      "name": "textTermsBefore",
+      "value": "you can "
+    },
+    {
+      "name": "buttonAcceptAndContinue",
+      "value": "Accept And Continue"
+    },
+    {
+      "name": "loadingSearch",
+      "value": "setting up device..."
+    },
+    {
+      "name": "terms",
+      "value": "Terms"
+    },
+    {
+      "name": "manageInfo",
+      "value": "Management information"
+    },
+    {
+      "name": "settingFailed",
+      "value": "setup failed"
+    },
+    {
+      "name": "settingFailedInfo",
+      "value": "your app settings failed, please reset to factory."
+    },
+    {
+      "name": "resetFactorySet",
+      "value": "restoreFactorySettings"
+    },
+    {
+      "name": "setupComplete",
+      "value": "setup complete"
     }
   ]
 }

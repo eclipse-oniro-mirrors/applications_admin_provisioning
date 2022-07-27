@@ -17,7 +17,7 @@ import router from '@ohos.router';
 
 @Entry
 @Component
-export default struct HeadComponent {
+export default struct ReturnInfo {
   private headName: string | Resource = '';
 
   build() {
@@ -27,23 +27,23 @@ export default struct HeadComponent {
         .height($r('app.float.wh_value_24'))
         .borderRadius($r('app.float.wh_value_15'))
         .margin({
-          left: $r('app.float.wh_value_36'),
           right: $r('app.float.wh_value_16'),
         })
         .backgroundColor($r('app.color.color_00000000_transparent'))
         .visibility(Visibility.Visible)
-        .onTouch(() => {
-          router.back();
+        .onClick(() => {
+            router.back();
         })
       Text(this.headName)
+        .fontFamily('HarmonyHeiTi')
         .height($r('app.float.wh_value_56'))
-        .fontColor($r('sys.color.ohos_id_color_text_primary'))
-        .fontSize($r('app.float.font_20'))
-        .fontWeight(FontWeight.Bold)
+        .fontColor(0x000000)
+        .fontSize('20vp')
+        .lineHeight('28vp')
+        .fontWeight(FontWeight.Medium)
         .textAlign(TextAlign.Start)
-        .maxLines(1)
-        .textOverflow({ overflow: TextOverflow.Ellipsis })
     }
+    .margin({ top: '28vp' })
     .width('100%')
     .height($r('app.float.wh_value_56'))
     .alignItems(VerticalAlign.Center)

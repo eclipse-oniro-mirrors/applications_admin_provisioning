@@ -16,35 +16,35 @@
 import Ability from '@ohos.application.Ability'
 import logger from '../common/logger'
 
-export default class MainAbility extends Ability {
+export default class AutoManagerAbility extends Ability {
     onCreate(want, launchParam) {
-        logger.info('MainAbility', 'onCreate')
-        globalThis.adminProvisioningWant = want;
-        globalThis.adminProvisioningContext = this.context;
+        logger.info('AutoManagerAbility', 'onCreate')
+        globalThis.autoManagerAbilityWant = want;
+        globalThis.autoManagerAbilityContext = this.context;
     }
 
     onDestroy() {
-        logger.info('MainAbility', 'onDestroy')
+        logger.info('AutoManagerAbility', 'onDestroy')
     }
 
     onWindowStageCreate(windowStage) {
         // Main window is created, set main page for this ability
-        logger.info('MainAbility', 'onWindowStageCreate')
-        windowStage.setUIContent(this.context, "pages/applicationInfo", null)
+        logger.info('AutoManagerAbility', 'onWindowStageCreate')
+        windowStage.setUIContent(this.context, "pages/autoManager/managerStart", null)
     }
 
     onWindowStageDestroy() {
         // Main window is destroyed, release UI related resources
-        logger.info('MainAbility', 'onWindowStageDestroy')
+        logger.info('AutoManagerAbility', 'onWindowStageDestroy')
     }
 
     onForeground() {
         // Ability has brought to foreground
-        logger.info('MainAbility', 'onForeground')
+        logger.info('AutoManagerAbility', 'onForeground')
     }
 
     onBackground() {
         // Ability has back to background
-        logger.info('MainAbility', 'onBackground')
+        logger.info('AutoManagerAbility', 'onBackground')
     }
 };

@@ -63,6 +63,94 @@
     {
       "name": "permissionDescription",
       "value": "Permission required for the application to set the system time"
+    },
+    {
+      "name": "device_mgr_info_content",
+      "value": "您的单位管理员可以监控此设备的设置、应用、权限以及数据（其中包括您的网络活动以及您设备的位置信息、通话记录和联系人搜索记录）。"
+    },
+    {
+      "name": "returnVal",
+      "value": "返回"
+    },
+    {
+      "name": "nextVal",
+      "value": "下一步"
+    },
+    {
+      "name": "tips",
+      "value": "提示"
+    },
+    {
+      "name": "tipsInfo",
+      "value": "当前设置未完成，取消设置后将重置设备，是否继续？"
+    },
+    {
+      "name": "CancelSetting",
+      "value": "取消设置"
+    },
+    {
+      "name": "deviceManageInfo",
+      "value": "设备管理信息"
+    },
+    {
+      "name": "unitManageDevice",
+      "value": "您的单位将管理此设备"
+    },
+    {
+      "name": "unitManage",
+      "value": "单位管理员"
+    },
+    {
+      "name": "textManagerBefore",
+      "value": "，如有疑问，请与您的"
+    },
+    {
+      "name": "textManagerBeforeFinish",
+      "value": "如有疑问，请与您的"
+    },
+    {
+      "name": "textManagerAfter",
+      "value": "联系。"
+    },
+    {
+      "name": "textTerms",
+      "value": "查看条款"
+    },
+    {
+      "name": "textTermsBefore",
+      "value": "您可以"
+    },
+    {
+      "name": "buttonAcceptAndContinue",
+      "value": "接受并继续"
+    },
+    {
+      "name": "loadingSearch",
+      "value": "正在设置设备..."
+    },
+    {
+      "name": "terms",
+      "value": "条款"
+    },
+    {
+      "name": "manageInfo",
+      "value": "管理信息"
+    },
+    {
+      "name": "settingFailed",
+      "value": "设置失败"
+    },
+    {
+      "name": "settingFailedInfo",
+      "value": "您的应用设置失败，请恢复出厂后重新设置。"
+    },
+    {
+      "name": "resetFactorySet",
+      "value": "恢复出厂设置"
+    },
+    {
+      "name": "setupComplete",
+      "value": "设置完成"
     }
   ]
 }

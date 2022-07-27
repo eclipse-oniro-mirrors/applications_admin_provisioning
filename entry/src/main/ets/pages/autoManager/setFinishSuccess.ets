@@ -1,0 +1,117 @@
+/*
+ * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import router from '@ohos.router';
+import doubleButtonComponent from '../component/automanager/doublebuttoncomponent'
+
+@Entry
+@Component
+export default
+struct SetFinishSuccess {
+  @State textContext: string | Resource = $r('app.string.setupComplete');
+  @State textManager: string | Resource = $r('app.string.unitManage');
+  @State textManagerBefore: string | Resource = $r('app.string.textManagerBeforeFinish');
+  @State textManagerAfter: string | Resource = $r('app.string.textManagerAfter');
+
+  build() {
+    Column() {
+      GridContainer({
+        columns: vp2px(1) === 2 ? 12 : 8,
+        sizeType: SizeType.Auto,
+        gutter: '12vp',
+        margin: '12vp'
+      }) {
+        Column() {
+          Image($r('app.media.ic_public_todo'))
+            .width($r('app.float.wh_value_40'))
+            .height($r('app.float.wh_value_40'))
+            .margin({ top: '72vp', bottom: '16vp' })
+            .objectFit(ImageFit.Contain)
+
+          Text(this.textContext)
+            .height('40vp')
+            .textAlign(TextAlign.Center)
+            .fontWeight(FontWeight.Medium)
+            .lineHeight($r('app.float.lineHeight_vp_41'))
+            .fontSize($r('app.float.font_vp_30'))
+            .fontFamily('HarmonyHeiTi')
+        }
+        .useSizeType({
+          xs: { span: 8, offset: 0 }, sm: { span: 8, offset: 0 },
+          md: { span: 8, offset: 0 }, lg: { span: 8, offset: 2 }
+        })
+        .width('100%')
+        .align(Alignment.Center)
+
+        Column() {
+          Row() {
+            Text() {
+              Span(this.textManagerBefore)
+                .fontWeight(FontWeight.Regular)
+                .fontSize($r('app.float.font_vp_16'))
+                .fontFamily('HarmonyHeiTi')
+
+              Span(this.textManager)
+                .decoration({ type: TextDecorationType.None })
+                .fontColor(0x007DFF)
+                .fontSize($r('app.float.font_vp_16'))
+                .fontFamily('HarmonyHeiTi')
+                .fontWeight(FontWeight.Regular)
+                .onClick(() => {
+                  router.push({url: 'pages/autoManager/unitManagerShowPage'})
+                })
+
+              Span(this.textManagerAfter)
+                .fontWeight(FontWeight.Regular)
+                .fontSize($r('app.float.font_vp_16'))
+                .fontFamily('HarmonyHeiTi')
+            }
+            .lineHeight($r('app.float.lineHeight_vp_21_5'))
+          }
+          .useSizeType({
+            xs: { span: 8, offset: 0 }, sm: { span: 8, offset: 0 },
+            md: { span: 8, offset: 0 }, lg: { span: 8, offset: 2 }
+          })
+          .width('100%')
+          .margin({ top: '48vp' })
+          .justifyContent(FlexAlign.Center)
+        }
+        .width('100%')
+      }
+
+      Blank()
+
+      GridContainer({
+        columns: vp2px(1) === 2 ? 12 : 8,
+        sizeType: SizeType.Auto,
+        gutter: '12vp',
+        margin: '12vp'
+      }) {
+        Column() {
+          doubleButtonComponent()
+        }
+        .useSizeType({
+          xs: { span: 8, offset: 0 }, sm: { span: 8, offset: 0 },
+          md: { span: 8, offset: 0 }, lg: { span: 12, offset: 0 }
+        })
+        .width('100%')
+        .margin({ bottom: '16vp' })
+      }
+    }
+    .backgroundColor(0xF1F3F5)
+    .width('100%')
+    .height('100%')
+  }
+}

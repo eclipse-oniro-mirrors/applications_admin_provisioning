@@ -1,0 +1,133 @@
+/*
+ * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import enterpriseDeviceManager from '@ohos.enterpriseDeviceManager';
+import router from '@ohos.router';
+import accountManager from '../../common/accountManager'
+import appDetailData from '../../common/appManagement/appDetailData'
+import baseData from '../../common/baseData'
+import doubleButtonComponent from '../component/automanager/doublebuttoncomponent'
+import logger from '../../common/logger'
+
+@Entry
+@Component
+export default
+struct LoadingInfo {
+  @StorageLink('manageAbilityName') manageAbilityName: string = '';
+  @StorageLink('manageBundleName') manageBundleName: string = '';
+  @StorageLink('manageEnterpriseName') manageEnterpriseName: string = '';
+  @StorageLink('manageEnterpriseDescription') manageEnterpriseDescription: string = '';
+
+  build() {
+    Column() {
+        Stack({ alignContent: Alignment.BottomEnd }) {
+          GridContainer({
+            columns: vp2px(1) === 2 ? 12 : 8,
+            sizeType: SizeType.Auto,
+            gutter: '12vp',
+            margin: '12vp'
+          }) {
+            Column() {
+              LoadingProgress()
+                .width('88vp')
+                .height('88vp')
+                .color(0x000000)
+                .opacity(0.6)
+                .margin({ bottom: '16vp' })
+
+              Text($r('app.string.loadingSearch'))
+                .fontWeight(FontWeight.Regular)
+                .fontSize('14vp')
+                .opacity(0.9)
+                .lineHeight('19.6vp')
+                .fontFamily('HarmonyHeiTi')
+                .height('19vp')
+            }
+            .useSizeType({
+              xs: { span: 8, offset: 0 }, sm: { span: 8, offset: 0 },
+              md: { span: 8, offset: 0 }, lg: { span: 8, offset: 2 }
+            })
+            .height('100%')
+            .justifyContent(FlexAlign.Center)
+          }
+
+          GridContainer({
+            columns: vp2px(1) === 2 ? 12 : 8,
+            sizeType: SizeType.Auto,
+            gutter: '12vp',
+            margin: '12vp'
+          }) {
+            Column() {
+              doubleButtonComponent({ nextFlag: true })
+            }
+            .justifyContent(FlexAlign.End)
+            .width('100%')
+            .margin({ bottom: '16vp' })
+            .useSizeType({
+              xs: { span: 8, offset: 0 }, sm: { span: 8, offset: 0 },
+              md: { span: 8, offset: 0 }, lg: { span: 12, offset: 0 }
+            })
+          }
+        }
+        .width('100%')
+        .height('100%')
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor(0xF1F3F5)
+  }
+
+  aboutToAppear() {
+    this.checkAppValidAndActivate();
+  }
+
+  async checkAppValidAndActivate() {
+    let  admin = {
+      bundleName: this.manageBundleName,
+      abilityName: this.manageAbilityName
+    }
+
+    let enterpriseInfo = {
+      name: this.manageEnterpriseName,
+      description: this.manageEnterpriseDescription
+    }
+    logger.info('LoadingInfo', 'enter loadingInfo admin=' + JSON.stringify(admin) +
+    ' | enterpriseInfo=' + JSON.stringify(enterpriseInfo));
+
+    let ret = await appDetailData.checkAppItem(admin);
+    if (ret.val === false) {
+      router.push({ url: 'pages/autoManager/setFinishFail' });
+      return;
+    }
+
+    let userId = { localId: 0 };
+    let retVal = await accountManager.getAccountUserId(userId);
+    if (retVal === false || userId.localId !== baseData.DEFAULT_USER_ID) {
+      router.push({ url: 'pages/autoManager/setFinishFail' });
+      return;
+    }
+
+    logger.info('LoadingInfo', 'enter loadingInfo start enableAdmin!');
+    enterpriseDeviceManager.enableAdmin(admin, enterpriseInfo,
+      enterpriseDeviceManager.AdminType.ADMIN_TYPE_SUPER, baseData.DEFAULT_USER_ID, (err, flag) => {
+        logger.info('LoadingInfo', 'enter loadingInfo err=' + err + ' | flag=' + flag);
+        if (err || flag === false) {
+          router.push({url: 'pages/autoManager/setFinishFail'});
+        } else {
+          router.push({url: 'pages/autoManager/setFinishSuccess'});
+        }
+      });
+  }
+}

@@ -14,9 +14,10 @@
  */
 
 import AbilityStage from "@ohos.application.AbilityStage"
+import logger from '../common/logger'
 
 export default class MyAbilityStage extends AbilityStage {
     onCreate() {
-        console.info("adminprovisioning MyAbilityStage onCreate is called")
+        logger.info('MyAbilityStage', 'onCreate is called')
     }
 }
