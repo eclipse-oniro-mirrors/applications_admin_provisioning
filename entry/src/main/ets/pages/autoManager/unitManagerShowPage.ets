@@ -13,11 +13,14 @@
  * limitations under the License.
  */
 
+import baseData from '../../common/baseData'
+import logger from '../../common/logger'
 import returnInfo from '../component/automanager/returninfo'
 
 @Entry
 @Component
 struct UnitManagerShowPage {
+  @StorageLink('manageUrl') manageUrl: string = AppStorage.Get('manageUrl');
   controller: WebController = new WebController();
 
   build() {
@@ -44,7 +47,7 @@ struct UnitManagerShowPage {
         margin: '12vp'
       }) {
         Column() {
-          Web({ src: 'https://www.example.com', controller: this.controller })
+          Web({ src: this.manageUrl, controller: this.controller })
             .onErrorReceive((event?: {
               request: WebResourceRequest,
               error: WebResourceError
@@ -80,5 +83,12 @@ struct UnitManagerShowPage {
     .alignItems(HorizontalAlign.Center)
     .width('100%')
     .height('100%')
+  }
+
+  aboutToAppear() {
+    logger.info('UnitManagerShowPage', 'manageUrl=' + this.manageUrl)
+    if (!this.manageUrl.startsWith(baseData.HTTPS)) {
+      this.manageUrl = '';
+    }
   }
 }

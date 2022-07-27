@@ -13,13 +13,11 @@
  * limitations under the License.
  */
 
-@Entry
 @Component
 export default
 struct TermsListComponent {
-  private enterpriseCustomTerms: string;
-  private contentOfEnterpriseTerms: string[];
-  private contentOfEnterpriseTermsTemp: string;
+  @Link enterpriseCustomTerms: string;
+  @Link contentOfEnterpriseTerms: string[];
 
   build() {
     Column() {

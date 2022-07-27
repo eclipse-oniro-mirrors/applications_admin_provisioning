@@ -19,7 +19,8 @@ import termsListComponent from '../component/automanager/termslistcomponent'
 @Entry
 @Component
 struct TermsShowPage {
-  @State contentOfEnterpriseTerms: string[] = [];
+  @StorageLink('manageTermsName') manageTermsName: string = AppStorage.Get('manageTermsName');
+  @StorageLink('manageTermsContent') manageTermsContent: string[] = AppStorage.Get('manageTermsContent');
 
   build() {
     Column() {
@@ -47,8 +48,8 @@ struct TermsShowPage {
       }) {
         Column() {
           termsListComponent({
-            enterpriseCustomTerms: '企业自定义条款',
-            contentOfEnterpriseTerms: this.contentOfEnterpriseTerms,
+            enterpriseCustomTerms: $manageTermsName,
+            contentOfEnterpriseTerms: $manageTermsContent,
           })
         }
         .useSizeType({
@@ -63,12 +64,5 @@ struct TermsShowPage {
     .backgroundColor(0xF1F3F5)
     .width('100%')
     .height('100%')
-  }
-
-  aboutToAppear() {
-    for (let i = 0; i < 50; i++) {
-      this.contentOfEnterpriseTerms.push(`${i}、您的单位管理员可以监控此设备的设置、应用、权限以及数据（其中包括您的网络活动以及您设备的位置信息、通话记录和联系人搜索记录）。`);
-    }
-    console.info(this.contentOfEnterpriseTerms.toLocaleString());
   }
 }

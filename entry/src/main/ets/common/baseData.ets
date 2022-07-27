@@ -17,6 +17,7 @@ export class BaseData {
   MAX_LEN = 30;
   EMPTY_STR = '';
   DEFAULT_USER_ID = 100;
+  HTTPS = 'https';
 }
 
 let baseData = new BaseData();
