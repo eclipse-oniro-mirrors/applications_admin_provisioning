@@ -14,17 +14,20 @@
  */
 
 import account_osAccount from '@ohos.account.osAccount';
+import checkValid from './checkValid'
 import logger from './logger'
+
+const TAG = 'AccountManager';
 
 export class AccountManager {
     async getAccountUserId(accountInfo) : Promise<boolean> {
         let userId = await account_osAccount.getAccountManager().queryCurrentOsAccount();
-        if (userId === null || userId === undefined) {
-            logger.info('AccountManager', 'getAccountUserId queryCurrentOsAccount fail! userId is null');
+        if (!checkValid.isValid(userId)) {
+            logger.warn(TAG, 'getAccountUserId queryCurrentOsAccount fail! userId is null');
             return false;
         }
         accountInfo.localId = userId.localId;
-        logger.info('AccountManager', 'getAccountUserId userId.localId=' + userId.localId);
+        logger.info(TAG, 'getAccountUserId userId.localId=' + userId.localId);
         return true;
     }
 }

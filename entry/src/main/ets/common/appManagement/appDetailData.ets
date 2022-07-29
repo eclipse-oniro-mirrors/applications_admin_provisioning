@@ -16,9 +16,11 @@
 import bundle from '@ohos.bundle';
 import accountManager from '../accountManager';
 import baseData from '../baseData';
+import checkValid from '../checkValid'
 import logger from '../logger'
 
 let icon_default = $r('app.media.icon');
+const TAG = 'AppDetailData';
 
 const permissionsDetailList: Array<any> = [
   {
@@ -32,7 +34,7 @@ export class AppDetailData {
   public ret = { val: true };
 
   async checkAppItem(elementNameVal) {
-    logger.info('AppDetailData', 'checkAppItem in bundleName:' + elementNameVal.bundleName + ' | abilityName:' +
+    logger.info(TAG, 'checkAppItem in bundleName:' + elementNameVal.bundleName + ' | abilityName:' +
     elementNameVal.abilityName);
     let want = {
       "bundleName": elementNameVal.bundleName,
@@ -41,7 +43,7 @@ export class AppDetailData {
     let userId = { localId : 0 };
     let retVal = await accountManager.getAccountUserId(userId);
     if (!retVal) {
-      logger.info('AppDetailData', 'checkAppItem getAccountUserId fail!');
+      logger.warn(TAG, 'checkAppItem getAccountUserId fail!');
       this.ret.val = false;
       return this.ret;
     }
@@ -50,36 +52,36 @@ export class AppDetailData {
       data = await bundle.queryExtensionAbilityInfos(want, bundle.ExtensionAbilityType.ENTERPRISE_ADMIN,
         bundle.ExtensionFlag.GET_EXTENSION_INFO_WITH_APPLICATION, userId.localId);
     } catch (e) {
-      logger.error('AppDetailData', 'checkAppItem queryExtensionAbilityInfos try fail! ' + JSON.stringify(e));
+      logger.error(TAG, 'checkAppItem queryExtensionAbilityInfos try fail! ' + JSON.stringify(e));
     }
-    if (data === null || data === undefined || data.length <= 0) {
-      logger.warn('AppDetailData', 'checkAppItem queryExtensionAbilityInfos fail! data is null');
+    if (!checkValid.isValid(data) || data.length <= 0) {
+      logger.warn(TAG, 'checkAppItem queryExtensionAbilityInfos fail! data is null');
       this.ret.val = false;
       return this.ret;
     }
-    logger.info('AppDetailData', 'checkAppItem success');
+    logger.info(TAG, 'checkAppItem success');
     return this.ret;
   }
 
   async getBundleInfoItem(bundleName: string, appInfo) {
-    logger.info('AppDetailData', 'getBundleInfoItem in bundleName:' + bundleName);
+    logger.info(TAG, 'getBundleInfoItem in bundleName:' + bundleName);
     let userId = { localId : 0 };
     let retVal = await accountManager.getAccountUserId(userId);
     if (!retVal) {
-      logger.warn('AppDetailData', 'getBundleInfoItem getAccountUserId fail!');
+      logger.warn(TAG, 'getBundleInfoItem getAccountUserId fail!');
       return;
     }
     let data = await bundle.getBundleInfo(bundleName, bundle.BundleFlag.GET_BUNDLE_WITH_REQUESTED_PERMISSION,
       { "userId" : userId.localId });
     await this.getResourceItem(bundleName, data, appInfo);
     await this.getPermissionList(data, appInfo);
-    logger.info('AppDetailData', 'getBundleInfoItem out');
+    logger.info(TAG, 'getBundleInfoItem out');
   }
 
   async getAppInfoLabel(resMgr, id) {
     let label = await resMgr.getString(id);
-    logger.info('AppDetailData', 'getAppInfoLabel start label:' + label);
-    if (label === null || label === undefined || label === baseData.EMPTY_STR) {
+    logger.info(TAG, 'getAppInfoLabel start label:' + label);
+    if (!checkValid.isValid(label) || label === baseData.EMPTY_STR) {
       return baseData.EMPTY_STR;
     }
     return label;
@@ -87,15 +89,15 @@ export class AppDetailData {
 
   async getAppInfoIcon(resMgr, id) {
     let iconVal = await resMgr.getMediaBase64(id);
-    logger.info('AppDetailData', 'getAppInfoIcon start iconVal:' + iconVal);
-    if (iconVal === null || iconVal === undefined || iconVal === baseData.EMPTY_STR) {
+    logger.info(TAG, 'getAppInfoIcon start iconVal:' + iconVal);
+    if (!checkValid.isValid(iconVal) || iconVal === baseData.EMPTY_STR) {
       return baseData.EMPTY_STR;
     }
     return iconVal;
   }
 
   async getResourceItem(bundleName, data, appInfo) {
-    logger.info('AppDetailData', 'getResourceItem getResourceManager in');
+    logger.info(TAG, 'getResourceItem getResourceManager in');
     let bundleContext = await globalThis.adminProvisioningContext.createBundleContext(bundleName);
     let resMgr = await bundleContext.resourceManager;
     let appInfoTemp = data.appInfo;
@@ -104,10 +106,10 @@ export class AppDetailData {
 
     if (appInfoTemp.labelId > 0) {
       label = await this.getAppInfoLabel(resMgr, appInfoTemp.labelId);
-      logger.info('AppDetailData', 'getResourceItem success appInfo.label:' + label);
+      logger.info(TAG, 'getResourceItem success appInfo.label:' + label);
     } else {
       label = appInfoTemp.label;
-      logger.info('AppDetailData', 'getResourceItem defaults appInfo.label:' + label);
+      logger.info(TAG, 'getResourceItem defaults appInfo.label:' + label);
     }
 
     if (appInfoTemp.iconId > 0) {
@@ -120,11 +122,11 @@ export class AppDetailData {
       appInfo.appTitle = label;
       AppStorage.SetOrCreate('applicationInfo', appInfo);
     }
-    logger.info('AppDetailData', 'getResourceItem getResourceManager out');
+    logger.info(TAG, 'getResourceItem getResourceManager out');
   }
 
   async terminateAbilityPage() {
-    logger.info('AppDetailData', 'terminateAbilityPage in:');
+    logger.info(TAG, 'terminateAbilityPage in:');
     await globalThis.adminProvisioningContext.terminateSelf();
   }
 
@@ -140,9 +142,9 @@ export class AppDetailData {
   async getPermissionList(data, appInfo) {
     let permissions = data.reqPermissions;
     if (permissions !== null && permissions !== []) {
-      logger.info('AppDetailData', 'getPermissionList permission length:' + permissions.length);
+      logger.info(TAG, 'getPermissionList permission length:' + permissions.length);
       for (var i = 0; i < permissions.length; i++) {
-        logger.info('AppDetailData', 'getPermissionList permission is in val:' + permissions[i]);
+        logger.info(TAG, 'getPermissionList permission is in val:' + permissions[i]);
         let j = this.getPermissionInfoVal(permissions[i]);
         if (j >= 0) {
           appInfo.appPermissionList.push({
@@ -152,10 +154,10 @@ export class AppDetailData {
           });
         }
       }
-      logger.info('AppDetailData', 'getPermissionList permission appInfo.appPermissionList:' +
+      logger.info(TAG, 'getPermissionList permission appInfo.appPermissionList:' +
       JSON.stringify(appInfo.appPermissionList));
     }
-    logger.info('AppDetailData', 'getPermissionList permission out');
+    logger.info(TAG, 'getPermissionList permission out');
   }
 }
 

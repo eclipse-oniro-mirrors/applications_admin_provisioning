@@ -14,8 +14,11 @@
  */
 
 import router from '@ohos.router';
+import checkValid from '../../common/checkValid'
 import doubleButtonComponent from '../component/automanager/doublebuttoncomponent'
 import logger from '../../common/logger'
+
+const TAG = 'ManagerStart';
 
 @Entry
 @Component
@@ -31,7 +34,7 @@ struct ManagerStart {
   build() {
     Column() {
       GridContainer({
-        columns: vp2px(1) === 2 ? 12 : 8,
+        columns: checkValid.isLargeDevice(),
         sizeType: SizeType.Auto,
         gutter: '12vp',
         margin: '12vp'
@@ -112,7 +115,7 @@ struct ManagerStart {
       Blank()
 
       GridContainer({
-        columns: vp2px(1) === 2 ? 12 : 8,
+        columns: checkValid.isLargeDevice(),
         sizeType: SizeType.Auto,
         gutter: '12vp',
         margin: '12vp'
@@ -146,7 +149,7 @@ struct ManagerStart {
       }
 
       GridContainer({
-        columns: vp2px(1) === 2 ? 12 : 8,
+        columns: checkValid.isLargeDevice(),
         sizeType: SizeType.Auto,
         gutter: '12vp',
         margin: '12vp'
@@ -173,52 +176,30 @@ struct ManagerStart {
 
   parseManageParameter() {
     let data = globalThis.autoManagerAbilityWant;
-    let lengthVal = Object.keys(data.parameters).length;
-    let includeElementNameVal = Object.keys(data.parameters).indexOf('elementName');
-    let includeUrlVal = Object.keys(data.parameters).indexOf('url');
-    let includeTermsNameVal = Object.keys(data.parameters).indexOf('termsName');
-    let includeTermsContentVal = Object.keys(data.parameters).indexOf('termsContent');
-    let includeEnterpriseVal = Object.keys(data.parameters).indexOf('enterprise');
 
-    if (lengthVal === 0 || includeElementNameVal === -1 || includeUrlVal === -1 || includeTermsNameVal === -1 ||
-    includeTermsContentVal === -1 || includeEnterpriseVal === -1) {
-      logger.error('ManagerStart', 'parseManageParameter fail! parameters=' + JSON.stringify(data.parameters))
+    if (!checkValid.checkObjPropertyValid(data, 'parameters.elementName.abilityName') ||
+    !checkValid.checkObjPropertyValid(data, 'parameters.enterprise.name') ||
+    !checkValid.isValid(data.parameters.elementName.bundleName) ||
+    !checkValid.isValid(data.parameters.url) ||
+    !checkValid.isValid(data.parameters.termsName) ||
+    (!checkValid.isValid(data.parameters.termsContent) || !Array.isArray(data.parameters.termsContent)) ||
+    !checkValid.isValid(data.parameters.enterprise.description)) {
+      logger.error(TAG, 'parseManageParameter fail! parameters=' + JSON.stringify(data.parameters))
       return;
     }
 
-    if (this.isValid(data.parameters.elementName.abilityName)) {
-      AppStorage.SetOrCreate('manageAbilityName', data.parameters.elementName.abilityName);
-    }
+    let mapVal = new Map([
+      ['manageAbilityName', data.parameters.elementName.abilityName],
+      ['manageBundleName', data.parameters.elementName.bundleName],
+      ['manageUrl', data.parameters.url],
+      ['manageTermsName', data.parameters.termsName],
+      ['manageTermsContent', data.parameters.termsContent],
+      ['manageEnterpriseName', data.parameters.enterprise.name],
+      ['manageEnterpriseDescription', data.parameters.enterprise.description]
+    ]);
 
-    if (this.isValid(data.parameters.elementName.bundleName)) {
-      AppStorage.SetOrCreate('manageBundleName', data.parameters.elementName.bundleName);
+    for (let [key, value] of mapVal) {
+      AppStorage.SetOrCreate(key, value);
     }
-
-    if (this.isValid(data.parameters.url)) {
-      AppStorage.SetOrCreate('manageUrl', data.parameters.url);
-    }
-
-    if (this.isValid(data.parameters.termsName)) {
-      AppStorage.SetOrCreate('manageTermsName', data.parameters.termsName);
-    }
-
-    if (this.isValid(data.parameters.termsContent) && Array.isArray(data.parameters.termsContent)) {
-      AppStorage.SetOrCreate('manageTermsContent', data.parameters.termsContent);
-    }
-
-    if (this.isValid(data.parameters.enterprise.name)) {
-      AppStorage.SetOrCreate('manageEnterpriseName', data.parameters.enterprise.name);
-    }
-
-    if (this.isValid(data.parameters.enterprise.description)) {
-      AppStorage.SetOrCreate('manageEnterpriseDescription', data.parameters.enterprise.description);
-    }
-  }
-
-  isValid(item) : boolean {
-    if (item !== null && item !== undefined) {
-      return true;
-    }
-    return false;
   }
 }

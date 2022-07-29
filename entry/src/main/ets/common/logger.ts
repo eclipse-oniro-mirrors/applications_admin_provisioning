@@ -22,7 +22,8 @@ class Logger {
 
     constructor(prefix: string) {
         this.prefix = prefix
-        this.domain = 0x9527
+        // "EM" ascii
+        this.domain = 0x6977
     }
 
     debug(...args: any[]) {

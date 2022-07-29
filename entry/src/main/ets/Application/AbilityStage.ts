@@ -16,8 +16,10 @@
 import AbilityStage from "@ohos.application.AbilityStage"
 import logger from '../common/logger'
 
+const TAG = 'MyAbilityStage';
+
 export default class MyAbilityStage extends AbilityStage {
     onCreate() {
-        logger.info('MyAbilityStage', 'onCreate is called')
+        logger.info(TAG, 'onCreate is called')
     }
 }

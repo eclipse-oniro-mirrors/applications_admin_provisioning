@@ -14,8 +14,11 @@
  */
 
 import baseData from '../../common/baseData'
+import checkValid from '../../common/checkValid'
 import logger from '../../common/logger'
 import returnInfo from '../component/automanager/returninfo'
+
+const TAG = 'UnitManagerShowPage';
 
 @Entry
 @Component
@@ -26,7 +29,7 @@ struct UnitManagerShowPage {
   build() {
     Column() {
       GridContainer({
-        columns: vp2px(1) === 2 ? 12 : 8,
+        columns: checkValid.isLargeDevice(),
         sizeType: SizeType.Auto,
         gutter: '12vp',
         margin: '12vp'
@@ -41,32 +44,35 @@ struct UnitManagerShowPage {
       }
 
       GridContainer({
-        columns: vp2px(1) === 2 ? 12 : 8,
+        columns: checkValid.isLargeDevice(),
         sizeType: SizeType.Auto,
         gutter: '12vp',
         margin: '12vp'
       }) {
         Column() {
           Web({ src: this.manageUrl, controller: this.controller })
+            .fileAccess(false)
+            .fileFromUrlAccess(false)
+            .javaScriptAccess(false)
             .onErrorReceive((event?: {
               request: WebResourceRequest,
               error: WebResourceError
             }) => {
-              logger.warn('UnitManagerShowPage', 'error code=' + event.error.getErrorCode() +
-              ', error info=' + event.error.getErrorInfo() + ', request url=' + event.request.getRequestUrl())
+              logger.warn(TAG, 'error code=' + event.error.getErrorCode() +
+              ', error info=' + event.error.getErrorInfo())
             })
             .onHttpErrorReceive((event?: {
               request: WebResourceRequest,
               response: WebResourceResponse
             }) => {
-              logger.warn('UnitManagerShowPage', 'response code=' + event.response.getResponseCode() +
+              logger.warn(TAG, 'response code=' + event.response.getResponseCode() +
               ', response message=' + event.response.getReasonMessage() +
-              ', response data=' + event.response.getResponseData() + ', request url=' + event.request.getRequestUrl())
+              ', response data=' + event.response.getResponseData())
             })
             .onRenderExited((event?: {
               renderExitReason: RenderExitReason
             }) => {
-              logger.warn('UnitManagerShowPage', 'renderExitReason=' + event.renderExitReason);
+              logger.warn(TAG, 'renderExitReason=' + event.renderExitReason);
             })
             .useSizeType({
               xs: { span: 4, offset: 2 }, sm: { span: 4, offset: 2 },
@@ -86,7 +92,7 @@ struct UnitManagerShowPage {
   }
 
   aboutToAppear() {
-    logger.info('UnitManagerShowPage', 'manageUrl=' + this.manageUrl)
+    logger.info(TAG, 'enter UnitManagerShowPage')
     if (!this.manageUrl.startsWith(baseData.HTTPS)) {
       this.manageUrl = '';
     }

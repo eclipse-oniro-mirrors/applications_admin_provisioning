@@ -18,8 +18,11 @@ import router from '@ohos.router';
 import accountManager from '../../common/accountManager'
 import appDetailData from '../../common/appManagement/appDetailData'
 import baseData from '../../common/baseData'
+import checkValid from '../../common/checkValid'
 import doubleButtonComponent from '../component/automanager/doublebuttoncomponent'
 import logger from '../../common/logger'
+
+const TAG = 'LoadingInfo';
 
 @Entry
 @Component
@@ -34,7 +37,7 @@ struct LoadingInfo {
     Column() {
         Stack({ alignContent: Alignment.BottomEnd }) {
           GridContainer({
-            columns: vp2px(1) === 2 ? 12 : 8,
+            columns: checkValid.isLargeDevice(),
             sizeType: SizeType.Auto,
             gutter: '12vp',
             margin: '12vp'
@@ -64,7 +67,7 @@ struct LoadingInfo {
           }
 
           GridContainer({
-            columns: vp2px(1) === 2 ? 12 : 8,
+            columns: checkValid.isLargeDevice(),
             sizeType: SizeType.Auto,
             gutter: '12vp',
             margin: '12vp'
@@ -103,27 +106,27 @@ struct LoadingInfo {
       name: this.manageEnterpriseName,
       description: this.manageEnterpriseDescription
     }
-    logger.info('LoadingInfo', 'enter loadingInfo admin=' + JSON.stringify(admin) +
+    logger.info(TAG, 'enter loadingInfo admin=' + JSON.stringify(admin) +
     ' | enterpriseInfo=' + JSON.stringify(enterpriseInfo));
 
     let ret = await appDetailData.checkAppItem(admin);
-    if (ret.val === false) {
+    if (!(ret.val)) {
       router.push({ url: 'pages/autoManager/setFinishFail' });
       return;
     }
 
     let userId = { localId: 0 };
     let retVal = await accountManager.getAccountUserId(userId);
-    if (retVal === false || userId.localId !== baseData.DEFAULT_USER_ID) {
+    if (!retVal || userId.localId !== baseData.DEFAULT_USER_ID) {
       router.push({ url: 'pages/autoManager/setFinishFail' });
       return;
     }
 
-    logger.info('LoadingInfo', 'enter loadingInfo start enableAdmin!');
+    logger.info(TAG, 'enter loadingInfo start enableAdmin!');
     enterpriseDeviceManager.enableAdmin(admin, enterpriseInfo,
       enterpriseDeviceManager.AdminType.ADMIN_TYPE_SUPER, baseData.DEFAULT_USER_ID, (err, flag) => {
-        logger.info('LoadingInfo', 'enter loadingInfo err=' + err + ' | flag=' + flag);
-        if (err || flag === false) {
+        logger.info(TAG, 'enter loadingInfo err=' + err + ' | flag=' + flag);
+        if (err || !flag) {
           router.push({url: 'pages/autoManager/setFinishFail'});
         } else {
           router.push({url: 'pages/autoManager/setFinishSuccess'});

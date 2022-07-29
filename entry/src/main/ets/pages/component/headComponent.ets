@@ -32,7 +32,7 @@ export default struct HeadComponent {
         })
         .backgroundColor($r('app.color.color_00000000_transparent'))
         .visibility(Visibility.Visible)
-        .onTouch(() => {
+        .onClick(() => {
           router.back();
         })
       Text(this.headName)

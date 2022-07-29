@@ -16,13 +16,15 @@
 import update from '@ohos.update';
 import logger from './logger'
 
+const TAG = 'ResetFactory';
+
 export class ResetFactory {
   rebootAndCleanUserData() {
     let restorer = update.getRestorer();
     restorer.factoryReset().then(() => {
-      logger.info('ResetFactory', 'rebootAndCleanUserData factoryReset success')
+      logger.info(TAG, 'rebootAndCleanUserData factoryReset success')
     }).catch((err) => {
-      logger.info('ResetFactory', 'rebootAndCleanUserData err=' + JSON.stringify(err))
+      logger.error(TAG, 'rebootAndCleanUserData err=' + JSON.stringify(err))
     })
   }
 }

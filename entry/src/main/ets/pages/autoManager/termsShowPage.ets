@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import checkValid from '../../common/checkValid'
 import returnInfo from '../component/automanager/returninfo'
 import termsListComponent from '../component/automanager/termslistcomponent'
 
@@ -25,7 +26,7 @@ struct TermsShowPage {
   build() {
     Column() {
       GridContainer({
-        columns: vp2px(1) === 2 ? 12 : 8,
+        columns: checkValid.isLargeDevice(),
         sizeType: SizeType.Auto,
         gutter: '12vp',
         margin: '12vp'
@@ -41,7 +42,7 @@ struct TermsShowPage {
       }
 
       GridContainer({
-        columns: vp2px(1) === 2 ? 12 : 8,
+        columns: checkValid.isLargeDevice(),
         sizeType: SizeType.Auto,
         gutter: '12vp',
         margin: '12vp'

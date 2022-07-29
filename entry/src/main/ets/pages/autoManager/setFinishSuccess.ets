@@ -14,6 +14,7 @@
  */
 
 import router from '@ohos.router';
+import checkValid from '../../common/checkValid'
 import doubleButtonComponent from '../component/automanager/doublebuttoncomponent'
 
 @Entry
@@ -28,7 +29,7 @@ struct SetFinishSuccess {
   build() {
     Column() {
       GridContainer({
-        columns: vp2px(1) === 2 ? 12 : 8,
+        columns: checkValid.isLargeDevice(),
         sizeType: SizeType.Auto,
         gutter: '12vp',
         margin: '12vp'
@@ -94,7 +95,7 @@ struct SetFinishSuccess {
       Blank()
 
       GridContainer({
-        columns: vp2px(1) === 2 ? 12 : 8,
+        columns: checkValid.isLargeDevice(),
         sizeType: SizeType.Auto,
         gutter: '12vp',
         margin: '12vp'

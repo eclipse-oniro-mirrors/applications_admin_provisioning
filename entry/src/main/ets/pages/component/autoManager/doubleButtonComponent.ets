@@ -19,6 +19,8 @@ import baseData from '../../../common/baseData'
 import logger from '../../../common/logger'
 import resetFactory from '../../../common/resetFactory'
 
+const TAG = 'DoubleButtonComponent';
+
 @Component
 export default
 struct DoubleButtonComponent {
@@ -90,27 +92,27 @@ struct DoubleButtonComponent {
   }
 
   async startSpecificActionAbility() {
-    let actionVal = 'ohos.action.ENT_START_SDA_MODE_ADMIN';
+    let actionVal = 'ohos.action.ENTERPRISE_DEVICE_ADMIN_POLICY_COMPLIANCE';
     let queryWant = { action: actionVal, bundleName: this.nextBundleName };
-    logger.info('DoubleButtonComponent', 'startSpecificActionAbility startAbility in:');
+    logger.info(TAG, 'startSpecificActionAbility startAbility in:');
 
     let data;
     try {
       data = await bundle.queryAbilityByWant(queryWant, bundle.BundleFlag.GET_BUNDLE_WITH_ABILITIES,
         baseData.DEFAULT_USER_ID);
     } catch (e) {
-      logger.error('DoubleButtonComponent', 'startSpecificActionAbility queryAbilityByWant try fail! ' +
+      logger.error(TAG, 'startSpecificActionAbility queryAbilityByWant try fail! ' +
       JSON.stringify(e));
     }
 
     if (data !== null && data !== undefined && data.length) {
-      logger.info('DoubleButtonComponent', 'startSpecificActionAbility data len=' +
+      logger.info(TAG, 'startSpecificActionAbility data len=' +
       data.length + ' | data content=' + data[0].name)
       try {
         await globalThis.autoManagerAbilityContext.startAbility({ bundleName: this.nextBundleName,
           abilityName: data[0].name });
       } catch (e) {
-        logger.error('DoubleButtonComponent', "startSpecificActionAbility startAbility fail! " + e)
+        logger.error(TAG, "startSpecificActionAbility startAbility fail! " + e)
       }
     }
     await globalThis.autoManagerAbilityContext.terminateSelf();
