@@ -29,7 +29,8 @@
         "description": "$string:description_mainability",
         "icon": "$media:icon",
         "visible": true,
-        "launchType": "singleton"
+        "launchType": "singleton",
+        "permissions": ["ohos.permission.PROVISIONING_MESSAGE"]
       }
     ],
     "requestPermissions": [
@@ -40,7 +41,7 @@
         "name": "ohos.permission.GET_BUNDLE_INFO_PRIVILEGED"
       },
       {
-        "name": "ohos.permission.MANAGE_ADMIN"
+        "name": "ohos.permission.MANAGE_ENTERPRISE_DEVICE_ADMIN"
       },
       {
         "name": "ohos.permission.FACTORY_RESET"
