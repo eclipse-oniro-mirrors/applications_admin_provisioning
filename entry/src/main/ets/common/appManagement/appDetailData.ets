@@ -16,8 +16,8 @@
 import bundle from '@ohos.bundle';
 import accountManager from '../accountManager';
 import baseData from '../baseData';
-import checkValid from '../checkValid'
 import logger from '../logger'
+import utils from '../utils'
 
 let icon_default = $r('app.media.icon');
 const TAG = 'AppDetailData';
@@ -34,8 +34,8 @@ export class AppDetailData {
   public ret = { val: true };
 
   async checkAppItem(elementNameVal) {
-    logger.info(TAG, 'checkAppItem in bundleName:' + elementNameVal.bundleName + ' | abilityName:' +
-    elementNameVal.abilityName);
+    logger.info(TAG, 'checkAppItem in bundleName:' + elementNameVal.bundleName + ' | abilityName:'
+      + elementNameVal.abilityName);
     let want = {
       "bundleName": elementNameVal.bundleName,
       "abilityName": elementNameVal.abilityName
@@ -54,7 +54,7 @@ export class AppDetailData {
     } catch (e) {
       logger.error(TAG, 'checkAppItem queryExtensionAbilityInfos try fail! ' + JSON.stringify(e));
     }
-    if (!checkValid.isValid(data) || data.length <= 0) {
+    if (!utils.isValid(data) || data.length <= 0) {
       logger.warn(TAG, 'checkAppItem queryExtensionAbilityInfos fail! data is null');
       this.ret.val = false;
       return this.ret;
@@ -81,7 +81,7 @@ export class AppDetailData {
   async getAppInfoLabel(resMgr, id) {
     let label = await resMgr.getString(id);
     logger.info(TAG, 'getAppInfoLabel start label:' + label);
-    if (!checkValid.isValid(label) || label === baseData.EMPTY_STR) {
+    if (!utils.isValid(label) || label === baseData.EMPTY_STR) {
       return baseData.EMPTY_STR;
     }
     return label;
@@ -90,7 +90,7 @@ export class AppDetailData {
   async getAppInfoIcon(resMgr, id) {
     let iconVal = await resMgr.getMediaBase64(id);
     logger.info(TAG, 'getAppInfoIcon start iconVal:' + iconVal);
-    if (!checkValid.isValid(iconVal) || iconVal === baseData.EMPTY_STR) {
+    if (!utils.isValid(iconVal) || iconVal === baseData.EMPTY_STR) {
       return baseData.EMPTY_STR;
     }
     return iconVal;
@@ -154,8 +154,8 @@ export class AppDetailData {
           });
         }
       }
-      logger.info(TAG, 'getPermissionList permission appInfo.appPermissionList:' +
-      JSON.stringify(appInfo.appPermissionList));
+      logger.info(TAG, 'getPermissionList permission appInfo.appPermissionList:'
+        + JSON.stringify(appInfo.appPermissionList));
     }
     logger.info(TAG, 'getPermissionList permission out');
   }

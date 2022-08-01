@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import checkValid from '../../common/checkValid'
 import resetFactory from '../../common/resetFactory'
+import utils from '../../common/utils'
 
 @Entry
 @Component
@@ -26,7 +26,7 @@ struct SetFinishFail {
   build() {
     Column() {
       GridContainer({
-        columns: checkValid.isLargeDevice(),
+        columns: utils.isLargeDevice(),
         sizeType: SizeType.Auto,
         gutter: '12vp',
         margin: '12vp'
@@ -77,7 +77,7 @@ struct SetFinishFail {
       Blank()
 
       GridContainer({
-        columns: checkValid.isLargeDevice(),
+        columns: utils.isLargeDevice(),
         sizeType: SizeType.Auto,
         gutter: '12vp',
         margin: '12vp'

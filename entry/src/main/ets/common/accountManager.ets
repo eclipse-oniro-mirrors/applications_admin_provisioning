@@ -14,15 +14,15 @@
  */
 
 import account_osAccount from '@ohos.account.osAccount';
-import checkValid from './checkValid'
 import logger from './logger'
+import utils from './utils'
 
 const TAG = 'AccountManager';
 
 export class AccountManager {
     async getAccountUserId(accountInfo) : Promise<boolean> {
         let userId = await account_osAccount.getAccountManager().queryCurrentOsAccount();
-        if (!checkValid.isValid(userId)) {
+        if (!utils.isValid(userId)) {
             logger.warn(TAG, 'getAccountUserId queryCurrentOsAccount fail! userId is null');
             return false;
         }

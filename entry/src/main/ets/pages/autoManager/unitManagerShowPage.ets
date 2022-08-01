@@ -14,9 +14,9 @@
  */
 
 import baseData from '../../common/baseData'
-import checkValid from '../../common/checkValid'
 import logger from '../../common/logger'
 import returnInfo from '../component/automanager/returninfo'
+import utils from '../../common/utils'
 
 const TAG = 'UnitManagerShowPage';
 
@@ -29,7 +29,7 @@ struct UnitManagerShowPage {
   build() {
     Column() {
       GridContainer({
-        columns: checkValid.isLargeDevice(),
+        columns: utils.isLargeDevice(),
         sizeType: SizeType.Auto,
         gutter: '12vp',
         margin: '12vp'
@@ -44,7 +44,7 @@ struct UnitManagerShowPage {
       }
 
       GridContainer({
-        columns: checkValid.isLargeDevice(),
+        columns: utils.isLargeDevice(),
         sizeType: SizeType.Auto,
         gutter: '12vp',
         margin: '12vp'
@@ -58,16 +58,15 @@ struct UnitManagerShowPage {
               request: WebResourceRequest,
               error: WebResourceError
             }) => {
-              logger.warn(TAG, 'error code=' + event.error.getErrorCode() +
-              ', error info=' + event.error.getErrorInfo())
+              logger.warn(TAG, 'error code=' + event.error.getErrorCode()
+                + ', error info=' + event.error.getErrorInfo())
             })
             .onHttpErrorReceive((event?: {
               request: WebResourceRequest,
               response: WebResourceResponse
             }) => {
-              logger.warn(TAG, 'response code=' + event.response.getResponseCode() +
-              ', response message=' + event.response.getReasonMessage() +
-              ', response data=' + event.response.getResponseData())
+              logger.warn(TAG, 'response code=' + event.response.getResponseCode()
+                + ', response message=' + event.response.getReasonMessage())
             })
             .onRenderExited((event?: {
               renderExitReason: RenderExitReason

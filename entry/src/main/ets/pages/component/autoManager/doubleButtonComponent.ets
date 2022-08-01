@@ -18,6 +18,7 @@ import router from '@ohos.router';
 import baseData from '../../../common/baseData'
 import logger from '../../../common/logger'
 import resetFactory from '../../../common/resetFactory'
+import utils from '../../../common/utils'
 
 const TAG = 'DoubleButtonComponent';
 
@@ -53,7 +54,7 @@ struct DoubleButtonComponent {
           .lineHeight($r('app.float.lineHeight_vp_22'))
           .textAlign(TextAlign.Start)
           .onClick(() => {
-            if (this.returnDialogFlag === true) {
+            if (this.returnDialogFlag) {
               this.buttonDialog.open();
             } else {
               router.back();
@@ -101,13 +102,13 @@ struct DoubleButtonComponent {
       data = await bundle.queryAbilityByWant(queryWant, bundle.BundleFlag.GET_BUNDLE_WITH_ABILITIES,
         baseData.DEFAULT_USER_ID);
     } catch (e) {
-      logger.error(TAG, 'startSpecificActionAbility queryAbilityByWant try fail! ' +
-      JSON.stringify(e));
+      logger.error(TAG, 'startSpecificActionAbility queryAbilityByWant try fail! '
+        + JSON.stringify(e));
     }
 
-    if (data !== null && data !== undefined && data.length) {
-      logger.info(TAG, 'startSpecificActionAbility data len=' +
-      data.length + ' | data content=' + data[0].name)
+    if (utils.isValid(data) && data.length) {
+      logger.info(TAG, 'startSpecificActionAbility data len='
+        + data.length + ' | data content=' + data[0].name)
       try {
         await globalThis.autoManagerAbilityContext.startAbility({ bundleName: this.nextBundleName,
           abilityName: data[0].name });

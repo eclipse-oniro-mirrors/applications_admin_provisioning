@@ -14,7 +14,7 @@
  */
 
 import router from '@ohos.router';
-import checkValid from '../../common/checkValid'
+import utils from '../../common/utils'
 import doubleButtonComponent from '../component/automanager/doublebuttoncomponent'
 import logger from '../../common/logger'
 
@@ -34,7 +34,7 @@ struct ManagerStart {
   build() {
     Column() {
       GridContainer({
-        columns: checkValid.isLargeDevice(),
+        columns: utils.isLargeDevice(),
         sizeType: SizeType.Auto,
         gutter: '12vp',
         margin: '12vp'
@@ -115,7 +115,7 @@ struct ManagerStart {
       Blank()
 
       GridContainer({
-        columns: checkValid.isLargeDevice(),
+        columns: utils.isLargeDevice(),
         sizeType: SizeType.Auto,
         gutter: '12vp',
         margin: '12vp'
@@ -149,7 +149,7 @@ struct ManagerStart {
       }
 
       GridContainer({
-        columns: checkValid.isLargeDevice(),
+        columns: utils.isLargeDevice(),
         sizeType: SizeType.Auto,
         gutter: '12vp',
         margin: '12vp'
@@ -177,13 +177,13 @@ struct ManagerStart {
   parseManageParameter() {
     let data = globalThis.autoManagerAbilityWant;
 
-    if (!checkValid.checkObjPropertyValid(data, 'parameters.elementName.abilityName') ||
-    !checkValid.checkObjPropertyValid(data, 'parameters.enterprise.name') ||
-    !checkValid.isValid(data.parameters.elementName.bundleName) ||
-    !checkValid.isValid(data.parameters.url) ||
-    !checkValid.isValid(data.parameters.termsName) ||
-    (!checkValid.isValid(data.parameters.termsContent) || !Array.isArray(data.parameters.termsContent)) ||
-    !checkValid.isValid(data.parameters.enterprise.description)) {
+    if (!utils.checkObjPropertyValid(data, 'parameters.elementName.abilityName')
+      || !utils.checkObjPropertyValid(data, 'parameters.enterprise.name')
+      || !utils.isValid(data.parameters.elementName.bundleName)
+      || !utils.isValid(data.parameters.url)
+      || !utils.isValid(data.parameters.termsName)
+      || (!utils.isValid(data.parameters.termsContent) || !Array.isArray(data.parameters.termsContent))
+      || !utils.isValid(data.parameters.enterprise.description)) {
       logger.error(TAG, 'parseManageParameter fail! parameters=' + JSON.stringify(data.parameters))
       return;
     }

@@ -17,11 +17,11 @@ import edmEnterpriseDeviceManager from '@ohos.enterpriseDeviceManager';
 import router from '@ohos.router';
 import appDetailData from '../common/appManagement/appDetailData'
 import baseData from '../common/baseData';
-import checkValid from '../common/checkValid'
 import entryComponent from './component/entryComponent'
 import headComponent from './component/headComponent';
 import logger from '../common/logger'
 import permissionListComponent from './component/permissionListComponent';
+import utils from '../common/utils'
 
 let appInfo;
 let elementNameVal;
@@ -46,7 +46,7 @@ struct ApplicationInfo {
     Column() {
       Column() {
         GridContainer({
-          columns: checkValid.isLargeDevice(),
+          columns: utils.isLargeDevice(),
           sizeType: SizeType.Auto,
           gutter: '12vp',
           margin: '12vp'
@@ -129,7 +129,7 @@ struct ApplicationInfo {
 
       Column() {
         GridContainer({
-          columns: checkValid.isLargeDevice(),
+          columns: utils.isLargeDevice(),
           sizeType: SizeType.Auto,
           gutter: '12vp',
           margin: '12vp'
@@ -230,7 +230,7 @@ struct ApplicationInfo {
     logger.info(TAG, 'onPageShow in');
     this.isAdminActive();
     logger.info(TAG, 'onPageShow isActiveState =' + isActiveState);
-    if (isActiveState === undefined || isActiveState === null) {
+    if (!utils.isValid(isActiveState)) {
       return;
     }
     this.isShowActive = isActiveState;
@@ -253,8 +253,8 @@ struct ApplicationInfo {
     };
     let retAppState;
     let retSuperState;
-    logger.info(TAG, 'isAdminActive elementNameVal.bundleName=' + elementNameVal.bundleName +
-    ' | elementNameVal.abilityName=' + elementNameVal.abilityName);
+    logger.info(TAG, 'isAdminActive elementNameVal.bundleName=' + elementNameVal.bundleName
+      + ' | elementNameVal.abilityName=' + elementNameVal.abilityName);
     if (elementNameVal.bundleName === baseData.EMPTY_STR || elementNameVal.abilityName === baseData.EMPTY_STR) {
       logger.info(TAG, 'isAdminActive elementNameVal is null');
       return;
@@ -273,8 +273,8 @@ struct ApplicationInfo {
       }
       this.isShowActive = true;
     }
-    logger.info(TAG, 'isAdminActive retAppState:' + retAppState +
-    ' | retSuperState:' + retSuperState);
+    logger.info(TAG, 'isAdminActive retAppState:' + retAppState
+      + ' | retSuperState:' + retSuperState);
     isActiveState = this.isShowActive;
   }
 
@@ -315,7 +315,7 @@ struct ApplicationInfo {
     logger.info(TAG, 'getSelfResourceVal in:');
     let value = await resMgr.getString(resource.id);
     logger.info(TAG, 'getSelfResourceVal finish value:' + value);
-    if (value === undefined || value === null || value === baseData.EMPTY_STR) {
+    if (!utils.isValid(value) || value === baseData.EMPTY_STR) {
       return baseData.EMPTY_STR;
     }
     return value;
@@ -325,11 +325,11 @@ struct ApplicationInfo {
     logger.info(TAG, 'getAbilityWantVal in:');
     let data = await globalThis.adminProvisioningWant;
 
-    if (!checkValid.checkObjPropertyValid(data, 'parameters.elementName.abilityName') ||
-    !checkValid.checkObjPropertyValid(data, 'parameters.enterprise.name') ||
-    !checkValid.isValid(data.parameters.elementName.bundleName) ||
-    !checkValid.isValid(data.parameters.activeType) ||
-    !checkValid.isValid(data.parameters.enterprise.description)) {
+    if (!utils.checkObjPropertyValid(data, 'parameters.elementName.abilityName')
+      || !utils.checkObjPropertyValid(data, 'parameters.enterprise.name')
+      || !utils.isValid(data.parameters.elementName.bundleName)
+      || !utils.isValid(data.parameters.activeType)
+      || !utils.isValid(data.parameters.enterprise.description)) {
       logger.warn(TAG, 'data.parameters = ' + JSON.stringify(data.parameters));
       return;
     }
@@ -342,8 +342,8 @@ struct ApplicationInfo {
 
     enterInfo.name = data.parameters.enterprise.name.substring(0, baseData.MAX_LEN);
     enterInfo.description = data.parameters.enterprise.description.substring(0, baseData.MAX_LEN);
-    logger.info(TAG, 'getAbilityWantVal out isAdminTypeVal.admintype:' +
-    isAdminTypeVal.admintype + ' enter.name=' + enterInfo.name + ' enter.des=' + enterInfo.description);
+    logger.info(TAG, 'getAbilityWantVal out isAdminTypeVal.admintype:'
+      + isAdminTypeVal.admintype + ' enter.name=' + enterInfo.name + ' enter.des=' + enterInfo.description);
   }
 
   async getCheckAbilityList(appInfo, elementNameVal, adminType) {
@@ -392,11 +392,11 @@ struct ApplicationInfo {
     }
 
     logger.info(TAG, 'getCheckAbilityList start enterpriseName=' + getEnterInfo.name
-    + ' enterpriseDescription=' + getEnterInfo.description);
-    if (checkValid.isValid(getEnterInfo.name)) {
+      + ' enterpriseDescription=' + getEnterInfo.description);
+    if (utils.isValid(getEnterInfo.name)) {
       getName = getEnterInfo.name.substring(0, baseData.MAX_LEN);
     }
-    if (checkValid.isValid(getEnterInfo.description)) {
+    if (utils.isValid(getEnterInfo.description)) {
       getDescription = getEnterInfo.description.substring(0, baseData.MAX_LEN);
     }
 
@@ -408,6 +408,6 @@ struct ApplicationInfo {
       this.enterpriseDescription = enterDescription + enterInfo.description;
     }
     logger.info(TAG, 'getCheckAbilityList enterpriseName=' + this.enterpriseName
-    + ' enterpriseDescription=' + this.enterpriseDescription);
+      + ' enterpriseDescription=' + this.enterpriseDescription);
   }
 }

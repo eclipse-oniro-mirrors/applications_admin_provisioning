@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-class CheckValid {
+class Utils {
     isValid(item: any): boolean {
         if (item === null || item === undefined) {
             return false;
@@ -22,14 +22,14 @@ class CheckValid {
     }
 
     checkObjPropertyValid(obj: any, tree: string) {
-        if (!obj ||  obj === 'undefined' || obj === undefined) {
+        if (!this.isValid(obj) || obj === 'undefined' || !this.isValid(tree)) {
             return false;
         }
 
         let arr = tree.split('.');
         let tempObj = obj;
         for (let i = 0; i < arr.length; i++) {
-            if(tempObj[arr[i]] === undefined || tempObj[arr[i]] === null) {
+            if(!this.isValid(tempObj[arr[i]])) {
                 return false;
             } else {
                 tempObj = tempObj[arr[i]];
@@ -43,4 +43,4 @@ class CheckValid {
     }
 }
 
-export default new CheckValid();
+export default new Utils();

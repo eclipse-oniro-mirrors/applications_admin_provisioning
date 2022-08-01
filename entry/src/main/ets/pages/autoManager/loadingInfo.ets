@@ -18,9 +18,9 @@ import router from '@ohos.router';
 import accountManager from '../../common/accountManager'
 import appDetailData from '../../common/appManagement/appDetailData'
 import baseData from '../../common/baseData'
-import checkValid from '../../common/checkValid'
 import doubleButtonComponent from '../component/automanager/doublebuttoncomponent'
 import logger from '../../common/logger'
+import utils from '../../common/utils'
 
 const TAG = 'LoadingInfo';
 
@@ -37,7 +37,7 @@ struct LoadingInfo {
     Column() {
         Stack({ alignContent: Alignment.BottomEnd }) {
           GridContainer({
-            columns: checkValid.isLargeDevice(),
+            columns: utils.isLargeDevice(),
             sizeType: SizeType.Auto,
             gutter: '12vp',
             margin: '12vp'
@@ -67,7 +67,7 @@ struct LoadingInfo {
           }
 
           GridContainer({
-            columns: checkValid.isLargeDevice(),
+            columns: utils.isLargeDevice(),
             sizeType: SizeType.Auto,
             gutter: '12vp',
             margin: '12vp'
@@ -106,8 +106,8 @@ struct LoadingInfo {
       name: this.manageEnterpriseName,
       description: this.manageEnterpriseDescription
     }
-    logger.info(TAG, 'enter loadingInfo admin=' + JSON.stringify(admin) +
-    ' | enterpriseInfo=' + JSON.stringify(enterpriseInfo));
+    logger.info(TAG, 'enter loadingInfo admin=' + JSON.stringify(admin)
+      + ' | enterpriseInfo=' + JSON.stringify(enterpriseInfo));
 
     let ret = await appDetailData.checkAppItem(admin);
     if (!(ret.val)) {
