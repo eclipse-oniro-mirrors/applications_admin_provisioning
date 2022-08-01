@@ -22,7 +22,7 @@ class Utils {
     }
 
     checkObjPropertyValid(obj: any, tree: string) {
-        if (!this.isValid(obj) || obj === 'undefined' || !this.isValid(tree)) {
+        if (!this.isValid(obj) || !this.isValid(tree)) {
             return false;
         }
 
