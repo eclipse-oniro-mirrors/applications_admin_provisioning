@@ -14,16 +14,20 @@
  */
 
 import account_osAccount from '@ohos.account.osAccount';
+import logger from './logger'
+import utils from './utils'
+
+const TAG = 'AccountManager';
 
 export class AccountManager {
     async getAccountUserId(accountInfo) : Promise<boolean> {
         let userId = await account_osAccount.getAccountManager().queryCurrentOsAccount();
-        if (userId === null || userId === undefined) {
-            console.info('adminprovisioning getAccountUserId queryCurrentOsAccount fail! userId is null');
+        if (!utils.isValid(userId)) {
+            logger.warn(TAG, 'getAccountUserId queryCurrentOsAccount fail! userId is null');
             return false;
         }
         accountInfo.localId = userId.localId;
-        console.info('adminprovisioning getAccountUserId userId.localId=' + userId.localId);
+        logger.info(TAG, 'getAccountUserId userId.localId=' + userId.localId);
         return true;
     }
 }

@@ -13,11 +13,22 @@
  * limitations under the License.
  */
 
-export class BaseData {
-  MAX_LEN = 30;
-  EMPTY_STR = '';
+import update from '@ohos.update';
+import logger from './logger'
+
+const TAG = 'ResetFactory';
+
+export class ResetFactory {
+  rebootAndCleanUserData() {
+    let restorer = update.getRestorer();
+    restorer.factoryReset().then(() => {
+      logger.info(TAG, 'rebootAndCleanUserData factoryReset success')
+    }).catch((err) => {
+      logger.error(TAG, 'rebootAndCleanUserData err=' + JSON.stringify(err))
+    })
+  }
 }
 
-let baseData = new BaseData();
+let resetFactory = new ResetFactory();
 
-export default baseData as BaseData;
+export default resetFactory as ResetFactory;

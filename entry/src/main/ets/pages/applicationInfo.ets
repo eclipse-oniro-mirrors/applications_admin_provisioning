@@ -14,18 +14,21 @@
  */
 
 import edmEnterpriseDeviceManager from '@ohos.enterpriseDeviceManager';
-import router from '@system.router';
-import appDetailData from '../model/appManagementImpl/appDetailData'
-import baseData from '../model/baseData';
+import router from '@ohos.router';
+import appDetailData from '../common/appManagement/appDetailData'
+import baseData from '../common/baseData';
 import entryComponent from './component/entryComponent'
 import headComponent from './component/headComponent';
+import logger from '../common/logger'
 import permissionListComponent from './component/permissionListComponent';
+import utils from '../common/utils'
 
 let appInfo;
 let elementNameVal;
 let isAdminTypeVal;
 let isActiveState;
 let enterInfo;
+const TAG = 'ApplicationInfo';
 
 @Entry
 @Component
@@ -41,113 +44,154 @@ struct ApplicationInfo {
 
   build() {
     Column() {
-      headComponent({ headName: $r('app.string.adminprovisioning') });
-
-      Row() {
-        entryComponent({
-          appIcon: this.applicationInfo.appIcon,
-          appTitle: this.applicationInfo.appTitle,
-        })
-      }
-
       Column() {
-        Text(this.enterpriseName)
-          .height($r('app.float.wh_value_21'))
-          .fontColor($r('sys.color.ohos_id_color_text_primary'))
-          .fontSize($r('app.float.font_16'))
-          .fontWeight(FontWeight.Medium)
-          .textAlign(TextAlign.Start)
-          .maxLines(3)
-          .textOverflow({ overflow: TextOverflow.Ellipsis })
-          .margin({
-            left: $r('app.float.wh_value_36'),
-            top: $r('app.float.wh_value_12'),
-          });
+        GridContainer({
+          columns: utils.isLargeDevice(),
+          sizeType: SizeType.Auto,
+          gutter: '12vp',
+          margin: '12vp'
+        }) {
+          Column() {
+            headComponent({ headName: $r('app.string.adminprovisioning') });
 
-        Text(this.enterpriseDescription)
-          .height($r('app.float.wh_value_19'))
-          .fontColor($r('sys.color.ohos_id_color_text_secondary'))
-          .fontSize($r('app.float.font_14'))
-          .fontWeight(FontWeight.Regular)
-          .textAlign(TextAlign.Start)
-          .maxLines(3)
-          .textOverflow({ overflow: TextOverflow.Ellipsis })
-          .margin({
-            left: $r('app.float.wh_value_36'),
-            top: $r('app.float.wh_value_2'),
-          });
-      }
-      .width('100%')
-      .alignItems(HorizontalAlign.Start)
-      .align(Alignment.Start)
-
-      Column() {
-        Text(this.isShowActive ? this.deviceAdminActive : this.deviceAdminDisActive)
-          .fontColor($r('sys.color.ohos_id_color_text_primary'))
-          .fontSize($r('app.float.font_16'))
-          .fontWeight(FontWeight.Medium)
-          .textAlign(TextAlign.Start)
-          .maxLines(3)
-          .textOverflow({ overflow: TextOverflow.Ellipsis })
-          .margin({
-            left: $r('app.float.wh_value_36'),
-            top: $r('app.float.wh_value_24'),
-          });
-
-        List() {
-          ForEach(appInfo.appPermissionList, (item) => {
-            ListItem() {
-              permissionListComponent({
-                permissionName: item.permissionLabel,
-                permissionDescription: item.permissionDescription,
-              });
+            Row() {
+              entryComponent({
+                appIcon: this.applicationInfo.appIcon,
+                appTitle: this.applicationInfo.appTitle,
+              })
             }
-          }, item => JSON.stringify(item));
+
+            Column() {
+              Text(this.enterpriseName)
+                .height($r('app.float.wh_value_21'))
+                .fontColor($r('sys.color.ohos_id_color_text_primary'))
+                .fontSize($r('app.float.font_16'))
+                .fontWeight(FontWeight.Medium)
+                .textAlign(TextAlign.Start)
+                .maxLines(3)
+                .textOverflow({ overflow: TextOverflow.Ellipsis })
+                .margin({
+                  left: $r('app.float.wh_value_36'),
+                  top: $r('app.float.wh_value_12'),
+                });
+
+              Text(this.enterpriseDescription)
+                .height($r('app.float.wh_value_19'))
+                .fontColor($r('sys.color.ohos_id_color_text_secondary'))
+                .fontSize($r('app.float.font_14'))
+                .fontWeight(FontWeight.Regular)
+                .textAlign(TextAlign.Start)
+                .maxLines(3)
+                .textOverflow({ overflow: TextOverflow.Ellipsis })
+                .margin({
+                  left: $r('app.float.wh_value_36'),
+                  top: $r('app.float.wh_value_2'),
+                });
+            }
+            .width('100%')
+            .alignItems(HorizontalAlign.Start)
+            .align(Alignment.Start)
+
+            Column() {
+              Text(this.isShowActive ? this.deviceAdminActive : this.deviceAdminDisActive)
+                .fontColor($r('sys.color.ohos_id_color_text_primary'))
+                .fontSize($r('app.float.font_16'))
+                .fontWeight(FontWeight.Medium)
+                .textAlign(TextAlign.Start)
+                .maxLines(3)
+                .textOverflow({ overflow: TextOverflow.Ellipsis })
+                .margin({
+                  left: $r('app.float.wh_value_36'),
+                  top: $r('app.float.wh_value_24'),
+                });
+
+              List() {
+                ForEach(appInfo.appPermissionList, (item) => {
+                  ListItem() {
+                    permissionListComponent({
+                      permissionName: item.permissionLabel,
+                      permissionDescription: item.permissionDescription,
+                    });
+                  }
+                }, item => JSON.stringify(item));
+              }
+            }
+            .alignItems(HorizontalAlign.Start)
+            .align(Alignment.Start)
+          }
+          .useSizeType({
+            xs: { span: 8, offset: 0 }, sm: { span: 8, offset: 0 },
+            md: { span: 8, offset: 0 }, lg: { span: 8, offset: 2 }
+          })
         }
       }
-      .alignItems(HorizontalAlign.Start)
-      .align(Alignment.Start)
       .layoutWeight(1)
 
-      Row() {
-        Button() {
-          Text(this.isShowActive ? $r('app.string.deActivate') : $r('app.string.activation'))
-            .opacity(this.isEnableButton ? 1 : 0.38)
-            .fontSize($r('sys.float.ohos_id_text_size_button1'))
-            .fontColor($r('sys.color.ohos_id_color_text_primary_activated'))
-        }
-        .enabled(this.isEnableButton)
-        .backgroundColor($r('sys.color.ohos_id_color_button_normal'))
-        .height($r('app.float.button_height'))
-        .width($r('app.float.button_width'))
-        .margin({
-          bottom: $r('app.float.wh_value_24'),
-          left: $r('app.float.wh_value_36')
-        })
-        .onClick(() => {
-          console.info('adminprovisioning ApplicationInfo in button active:' + this.isShowActive);
-          this.activateAdmin(this.isAdminType);
-        })
+      Column() {
+        GridContainer({
+          columns: utils.isLargeDevice(),
+          sizeType: SizeType.Auto,
+          gutter: '12vp',
+          margin: '12vp'
+        }) {
+          Row() {
+            Row()
+              .useSizeType({
+                xs: { span: 1, offset: 0 }, sm: { span: 1, offset: 0 },
+                md: { span: 1, offset: 0 }, lg: { span: 3, offset: 0 }
+              })
 
-        Button() {
-          Text($r('app.string.cancel'))
-            .fontSize($r('sys.float.ohos_id_text_size_button1'))
-            .fontColor($r('sys.color.ohos_id_color_text_primary_activated'))
+            Button() {
+              Text(this.isShowActive ? $r('app.string.deActivate') : $r('app.string.activation'))
+                .opacity(this.isEnableButton ? 1 : 0.38)
+                .fontSize($r('sys.float.ohos_id_text_size_button1'))
+                .fontColor($r('sys.color.ohos_id_color_text_primary_activated'))
+            }
+            .enabled(this.isEnableButton)
+            .backgroundColor($r('sys.color.ohos_id_color_button_normal'))
+            .height($r('app.float.button_height'))
+            .margin({
+              right: $r('app.float.wh_value_6'),
+              bottom: $r('app.float.wh_value_24')
+            })
+            .onClick(() => {
+              logger.info(TAG, 'button active:' + this.isShowActive);
+              this.activateAdmin(this.isAdminType);
+            })
+            .useSizeType({
+              xs: { span: 3, offset: 1 }, sm: { span: 3, offset: 1 },
+              md: { span: 3, offset: 1 }, lg: { span: 3, offset: 3 }
+            })
+
+            Button() {
+              Text($r('app.string.cancel'))
+                .fontSize($r('sys.float.ohos_id_text_size_button1'))
+                .fontColor($r('sys.color.ohos_id_color_text_primary_activated'))
+            }
+            .backgroundColor($r('sys.color.ohos_id_color_button_normal'))
+            .height($r('app.float.button_height'))
+            .margin({
+              left: $r('app.float.wh_value_6'),
+              bottom: $r('app.float.wh_value_24')
+            })
+            .onClick(() => {
+              logger.info(TAG, 'button cancel in isShowActive:' + this.isShowActive);
+              appDetailData.terminateAbilityPage();
+            })
+            .useSizeType({
+              xs: { span: 3, offset: 4 }, sm: { span: 3, offset: 4 },
+              md: { span: 3, offset: 4 }, lg: { span: 3, offset: 6 }
+            })
+
+            Row()
+              .useSizeType({
+                xs: { span: 1, offset: 7 }, sm: { span: 1, offset: 7 },
+                md: { span: 1, offset: 7 }, lg: { span: 3, offset: 9 }
+              })
+          }
+          .justifyContent(FlexAlign.Center)
         }
-        .backgroundColor($r('sys.color.ohos_id_color_button_normal'))
-        .height($r('app.float.button_height'))
-        .width($r('app.float.button_width'))
-        .margin({
-          left: $r('app.float.wh_value_24'),
-          right: $r('app.float.wh_value_36'),
-          bottom: $r('app.float.wh_value_24')
-        })
-        .onClick(() => {
-          console.info('adminprovisioning ApplicationInfo button cancel in isShowActive:' + this.isShowActive);
-          appDetailData.terminateAbilityPage();
-        })
-      }
-      .alignItems(VerticalAlign.Center)
+      }.width('100%')
     }
     .height('100%')
     .width('100%')
@@ -173,32 +217,32 @@ struct ApplicationInfo {
     };
 
     isAdminTypeVal = { admintype: 0 };
-    console.info('adminprovisioning ApplicationInfo aboutToAppear in');
+    logger.info(TAG, 'aboutToAppear in');
     this.getCheckAbilityList(appInfo, elementNameVal, isAdminTypeVal);
-    console.info('adminprovisioning ApplicationInfo aboutToAppear out');
+    logger.info(TAG, 'aboutToAppear out');
   }
 
   aboutToDisappear(): void {
-    console.info('adminprovisioning ApplicationInfo aboutToDisappear');
+    logger.info(TAG, 'aboutToDisappear');
   }
 
   onPageShow(): void {
-    console.info('adminprovisioning ApplicationInfo onPageShow in');
+    logger.info(TAG, 'onPageShow in');
     this.isAdminActive();
-    console.info('adminprovisioning ApplicationInfo onPageShow isActiveState =' + isActiveState);
-    if (isActiveState === undefined || isActiveState === null) {
+    logger.info(TAG, 'onPageShow isActiveState =' + isActiveState);
+    if (!utils.isValid(isActiveState)) {
       return;
     }
     this.isShowActive = isActiveState;
-    console.info('adminprovisioning ApplicationInfo onPageShow out');
+    logger.info(TAG, 'onPageShow out');
   }
 
   onPageHide() {
-    console.info('adminprovisioning ApplicationInfo onPageHide');
+    logger.info(TAG, 'onPageHide');
   }
 
   onBackPress() {
-    console.info('adminprovisioning ApplicationInfo onBackPress');
+    logger.info(TAG, 'onBackPress');
     router.back();
   }
 
@@ -209,102 +253,95 @@ struct ApplicationInfo {
     };
     let retAppState;
     let retSuperState;
-    console.info('adminprovisioning isAdminActive elementNameVal.bundleName=' + elementNameVal.bundleName +
-    ' | elementNameVal.abilityName=' + elementNameVal.abilityName);
+    logger.info(TAG, 'isAdminActive elementNameVal.bundleName=' + elementNameVal.bundleName
+      + ' | elementNameVal.abilityName=' + elementNameVal.abilityName);
     if (elementNameVal.bundleName === baseData.EMPTY_STR || elementNameVal.abilityName === baseData.EMPTY_STR) {
-      console.info('adminprovisioning isAdminActive elementNameVal is null');
+      logger.info(TAG, 'isAdminActive elementNameVal is null');
       return;
     }
 
     retAppState = await edmEnterpriseDeviceManager.isAdminEnabled(wantTemp);
     retSuperState = await edmEnterpriseDeviceManager.isSuperAdmin(elementNameVal.bundleName);
-    if (retAppState === false) {
+    if (!retAppState) {
       this.isShowActive = false;
       this.isEnableButton = true;
     } else {
-      if (retSuperState === true) {
+      if (retSuperState) {
         this.isEnableButton = false;
       } else {
         this.isEnableButton = true;
       }
       this.isShowActive = true;
     }
-    console.info('adminprovisioning isAdminActive retAppState:' + retAppState +
-    ' | retSuperState:' + retSuperState);
+    logger.info(TAG, 'isAdminActive retAppState:' + retAppState
+      + ' | retSuperState:' + retSuperState);
     isActiveState = this.isShowActive;
   }
 
   async activateAdmin(adminType) {
-    console.info('adminprovisioning activateAdmin isShowActive:' + this.isShowActive);
+    logger.info(TAG, 'activateAdmin isShowActive:' + this.isShowActive);
     let wantTemp = {
       bundleName: elementNameVal.bundleName,
       abilityName: elementNameVal.abilityName,
     };
     await this.isAdminActive();
     let ret;
-    if (this.isShowActive === false) {
+    if (!this.isShowActive) {
       if (adminType === edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_NORMAL) {
         ret = await edmEnterpriseDeviceManager.enableAdmin(wantTemp,
           { name: enterInfo.name, description: enterInfo.description },
           edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_NORMAL);
       } else {
-        ret = await edmEnterpriseDeviceManager.enableAdmin(wantTemp,
-          { name: enterInfo.name, description: enterInfo.description },
-          edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_SUPER);
+        logger.warn(TAG, 'not support AdminType.ADMIN_TYPE_SUPER enable Admin')
       }
-      console.info('adminprovisioning activateAdmin Activate admin end');
+      logger.info(TAG, 'activateAdmin Activate admin end');
     } else {
-      if (this.isEnableButton === true) {
+      if (this.isEnableButton) {
         ret = await edmEnterpriseDeviceManager.disableAdmin(wantTemp);
       } else {
-        console.info('adminprovisioning activateAdmin not support super admin active');
+        logger.info(TAG, 'activateAdmin not support super admin active');
       }
     }
-    console.info('adminprovisioning activateAdmin adminType:' + adminType + ' | ret:' + ret);
-    appDetailData.terminateAbilityPage();
+    logger.info(TAG, 'activateAdmin adminType:' + adminType + ' | ret:' + ret);
+    if (ret) {
+      appDetailData.terminateAbilityPage();
+    }
   }
 
   async getSelfResourceVal(resource) {
     let resMgr = await globalThis.adminProvisioningContext.resourceManager;
-    console.info('adminprovisioning getSelfResourceVal in:');
+    logger.info(TAG, 'getSelfResourceVal in:');
     let value = await resMgr.getString(resource.id);
-    console.info('adminprovisioning getSelfResourceVal finish value:' + value);
-    if (value === undefined || value === null || value === baseData.EMPTY_STR) {
+    logger.info(TAG, 'getSelfResourceVal finish value:' + value);
+    if (!utils.isValid(value) || value === baseData.EMPTY_STR) {
       return baseData.EMPTY_STR;
     }
     return value;
   }
 
   async getAbilityWantVal(appInfo, elementNameVal, adminType) {
-    console.info('adminprovisioning ApplicationInfo getAbilityWantVal in:');
+    logger.info(TAG, 'getAbilityWantVal in:');
     let data = await globalThis.adminProvisioningWant;
-    let lengthVal = Object.keys(data.parameters).length;
-    let includeElementNameVal = Object.keys(data.parameters).indexOf('elementName');
-    let includeActiveTypeVal = Object.keys(data.parameters).indexOf('activeType');
-    let includeEnterpriseVal = Object.keys(data.parameters).indexOf('enterprise');
-    if (lengthVal === 0 || includeElementNameVal === -1 || includeActiveTypeVal === -1 ||
-    includeEnterpriseVal === -1) {
-      console.info('adminprovisioning data.parameters = ' + JSON.stringify(data.parameters));
+
+    if (!utils.checkObjPropertyValid(data, 'parameters.elementName.abilityName')
+      || !utils.checkObjPropertyValid(data, 'parameters.enterprise.name')
+      || !utils.isValid(data.parameters.elementName.bundleName)
+      || !utils.isValid(data.parameters.activeType)
+      || !utils.isValid(data.parameters.enterprise.description)) {
+      logger.warn(TAG, 'data.parameters = ' + JSON.stringify(data.parameters));
       return;
     }
+
     elementNameVal.abilityName = data.parameters.elementName.abilityName;
     elementNameVal.bundleName = data.parameters.elementName.bundleName;
-
     appInfo.appBundleName = data.parameters.elementName.bundleName;
     adminType.admintype = data.parameters.activeType;
     AppStorage.SetOrCreate('activeType', adminType.admintype);
 
-    if (data.parameters.enterprise.name !== null && data.parameters.enterprise.name !== undefined) {
-      enterInfo.name = data.parameters.enterprise.name.substring(0, baseData.MAX_LEN);
-    }
-
-    if (data.parameters.enterprise.description !== null &&
-    data.parameters.enterprise.description !== undefined) {
-      enterInfo.description = data.parameters.enterprise.description.substring(0, baseData.MAX_LEN);
-    }
-
-    console.info('adminprovisioning ApplicationInfo getAbilityWantVal out isAdminTypeVal.admintype:' +
-    isAdminTypeVal.admintype + ' enter.name=' + enterInfo.name + ' enter.des=' + enterInfo.description);
+    enterInfo.name = data.parameters.enterprise.name.substring(0, baseData.MAX_LEN);
+    enterInfo.description = data.parameters.enterprise.description.substring(0, baseData.MAX_LEN);
+    logger.info(TAG, 'getAbilityWantVal out isAdminTypeVal.admintype:'
+      + isAdminTypeVal.admintype + ' enter.name=' + enterInfo.name + ' enter.des=' + enterInfo.description);
   }
 
   async getCheckAbilityList(appInfo, elementNameVal, adminType) {
@@ -315,12 +352,12 @@ struct ApplicationInfo {
     let enterDescription = '';
     let getName = '';
     let getDescription = '';
-    console.info('adminprovisioning ApplicationInfo getCheckAbilityList in:');
+    logger.info(TAG, 'getCheckAbilityList in:');
     await this.getAbilityWantVal(appInfo, elementNameVal, adminType);
 
     let ret = await appDetailData.checkAppItem(elementNameVal);
     if (!ret.val) {
-      console.info('adminprovisioning ApplicationInfo aboutToAppear not exist bundleName:' + appInfo.appBundleName);
+      logger.info(TAG, 'aboutToAppear not exist bundleName:' + appInfo.appBundleName);
       appDetailData.terminateAbilityPage();
       return;
     }
@@ -348,16 +385,16 @@ struct ApplicationInfo {
       description: '',
     };
     if (this.isShowActive) {
-      console.info('adminprovisioning ApplicationInfo getCheckAbilityList get getEnterInfo');
+      logger.info(TAG, 'getCheckAbilityList get getEnterInfo');
       getEnterInfo = await edmEnterpriseDeviceManager.getEnterpriseInfo(want);
     }
 
-    console.info('adminprovisioning ApplicationInfo getCheckAbilityList start enterpriseName=' + getEnterInfo.name
-    + ' enterpriseDescription=' + getEnterInfo.description);
-    if (getEnterInfo.name !== null && getEnterInfo.name !== undefined) {
+    logger.info(TAG, 'getCheckAbilityList start enterpriseName=' + getEnterInfo.name
+      + ' enterpriseDescription=' + getEnterInfo.description);
+    if (utils.isValid(getEnterInfo.name)) {
       getName = getEnterInfo.name.substring(0, baseData.MAX_LEN);
     }
-    if (getEnterInfo.description !== null && getEnterInfo.description !== undefined) {
+    if (utils.isValid(getEnterInfo.description)) {
       getDescription = getEnterInfo.description.substring(0, baseData.MAX_LEN);
     }
 
@@ -368,7 +405,7 @@ struct ApplicationInfo {
       this.enterpriseName = enterName + enterInfo.name;
       this.enterpriseDescription = enterDescription + enterInfo.description;
     }
-    console.info('adminprovisioning ApplicationInfo getCheckAbilityList enterpriseName=' + this.enterpriseName
-    + ' enterpriseDescription=' + this.enterpriseDescription);
+    logger.info(TAG, 'getCheckAbilityList enterpriseName=' + this.enterpriseName
+      + ' enterpriseDescription=' + this.enterpriseDescription);
   }
 }

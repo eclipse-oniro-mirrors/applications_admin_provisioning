@@ -16,13 +16,13 @@
 import Ability from '@ohos.application.Ability'
 import logger from '../common/logger'
 
-const TAG = 'MainAbility';
+const TAG = 'AutoManagerAbility';
 
-export default class MainAbility extends Ability {
+export default class AutoManagerAbility extends Ability {
     onCreate(want, launchParam) {
         logger.info(TAG, 'onCreate')
-        globalThis.adminProvisioningWant = want;
-        globalThis.adminProvisioningContext = this.context;
+        globalThis.autoManagerAbilityWant = want;
+        globalThis.autoManagerAbilityContext = this.context;
     }
 
     onDestroy() {
@@ -32,7 +32,7 @@ export default class MainAbility extends Ability {
     onWindowStageCreate(windowStage) {
         // Main window is created, set main page for this ability
         logger.info(TAG, 'onWindowStageCreate')
-        windowStage.setUIContent(this.context, "pages/applicationInfo", null)
+        windowStage.setUIContent(this.context, "pages/autoManager/managerStart", null)
     }
 
     onWindowStageDestroy() {
