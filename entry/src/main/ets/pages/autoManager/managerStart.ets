@@ -184,7 +184,7 @@ struct ManagerStart {
       || !utils.isValid(data.parameters.termsName)
       || (!utils.isValid(data.parameters.termsContent) || !Array.isArray(data.parameters.termsContent))
       || !utils.isValid(data.parameters.enterprise.description)) {
-      logger.error(TAG, 'parseManageParameter fail! parameters=' + JSON.stringify(data.parameters))
+      logger.error(TAG, 'parseManageParameter fail! parameters is not valid')
       return;
     }
 

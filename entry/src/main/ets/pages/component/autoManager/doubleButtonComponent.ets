@@ -106,7 +106,7 @@ struct DoubleButtonComponent {
         + JSON.stringify(e));
     }
 
-    if (utils.isValid(data) && data.length) {
+    if (utils.isValid(data) && data.length > 0) {
       logger.info(TAG, 'startSpecificActionAbility data len='
         + data.length + ' | data content=' + data[0].name)
       try {

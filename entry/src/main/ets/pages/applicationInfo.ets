@@ -292,9 +292,7 @@ struct ApplicationInfo {
           { name: enterInfo.name, description: enterInfo.description },
           edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_NORMAL);
       } else {
-        ret = await edmEnterpriseDeviceManager.enableAdmin(wantTemp,
-          { name: enterInfo.name, description: enterInfo.description },
-          edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_SUPER);
+        logger.warn(TAG, 'not support AdminType.ADMIN_TYPE_SUPER enable Admin')
       }
       logger.info(TAG, 'activateAdmin Activate admin end');
     } else {
