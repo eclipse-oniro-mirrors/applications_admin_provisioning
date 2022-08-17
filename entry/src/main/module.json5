@@ -6,7 +6,7 @@
     "description": "$string:description_mainability",
     "mainElement": "com.ohos.adminprovisioning.MainAbility",
     "deviceTypes": [
-      "phone",
+      "default",
       "tablet"
     ],
     "deliveryWithInstall": true,
@@ -32,7 +32,9 @@
         "icon": "$media:icon",
         "label": "$string:entry_MainAbility",
         "visible": true,
-        "launchType": "singleton"
+        "launchType": "singleton",
+        "startWindowIcon": "$media:transparent",
+        "startWindowBackground": "$color:color_00000000_transparent"
       },
       {
         "removeMissionAfterTerminate": true,
@@ -42,7 +44,9 @@
         "icon": "$media:icon",
         "visible": true,
         "launchType": "singleton",
-        "permissions": ["ohos.permission.PROVISIONING_MESSAGE"]
+        "permissions": ["ohos.permission.PROVISIONING_MESSAGE"],
+        "startWindowIcon": "$media:transparent",
+        "startWindowBackground": "$color:color_00000000_transparent"
       }
     ],
     "requestPermissions": [
