@@ -14,7 +14,7 @@
 import("//build/ohos.gni")
 
 ohos_hap("adminprovisioning_hap") {
-  hap_profile = "entry/src/main/module.json5"
+  hap_profile = "entry/src/main/module.json"
   deps = [
     ":adminprovisioning_js_assets",
     ":adminprovisioning_resources",
@@ -27,18 +27,17 @@ ohos_hap("adminprovisioning_hap") {
 }
 
 ohos_js_assets("adminprovisioning_js_assets") {
-  hap_profile = "entry/src/main/module.json5"
   ets2abc = true
   source_dir = "entry/src/main/ets"
 }
 
 ohos_app_scope("adminprovisioning_app_profile") {
-  app_profile = "AppScope/app.json5"
+  app_profile = "AppScope/app.json"
   sources = [ "AppScope/resources" ]
 }
 
 ohos_resources("adminprovisioning_resources") {
   sources = [ "entry/src/main/resources" ]
   deps = [ ":adminprovisioning_app_profile" ]
-  hap_profile = "entry/src/main/module.json5"
+  hap_profile = "entry/src/main/module.json"
 }
