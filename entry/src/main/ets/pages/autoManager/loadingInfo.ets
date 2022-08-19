@@ -18,7 +18,7 @@ import router from '@ohos.router';
 import accountManager from '../../common/accountManager'
 import appDetailData from '../../common/appManagement/appDetailData'
 import baseData from '../../common/baseData'
-import doubleButtonComponent from '../component/automanager/doublebuttoncomponent'
+import doubleButtonComponent from '../component/autoManager/doubleButtonComponent'
 import logger from '../../common/logger'
 import utils from '../../common/utils'
 

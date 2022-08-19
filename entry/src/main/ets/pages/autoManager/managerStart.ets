@@ -15,7 +15,7 @@
 
 import router from '@ohos.router';
 import utils from '../../common/utils'
-import doubleButtonComponent from '../component/automanager/doublebuttoncomponent'
+import doubleButtonComponent from '../component/autoManager/doubleButtonComponent'
 import logger from '../../common/logger'
 
 const TAG = 'ManagerStart';
@@ -24,12 +24,12 @@ const TAG = 'ManagerStart';
 @Component
 export default
 struct ManagerStart {
-  @State textContext: string | Resource = $r('app.string.unitManageDevice');
-  @State textManager: string | Resource = $r('app.string.unitManage');
-  @State textManagerBefore: string | Resource = $r('app.string.textManagerBefore');
-  @State textManagerAfter: string | Resource = $r('app.string.textManagerAfter');
-  @State textTerms: string | Resource = $r('app.string.textTerms');
-  @State textTermsBefore: string | Resource = $r('app.string.textTermsBefore');
+  @State textContext: Resource = $r('app.string.unitManageDevice');
+  @State textManager: Resource = $r('app.string.unitManage');
+  @State textManagerBefore: Resource = $r('app.string.textManagerBefore');
+  @State textManagerAfter: Resource = $r('app.string.textManagerAfter');
+  @State textTerms: Resource = $r('app.string.textTerms');
+  @State textTermsBefore: Resource = $r('app.string.textTermsBefore');
 
   build() {
     Column() {

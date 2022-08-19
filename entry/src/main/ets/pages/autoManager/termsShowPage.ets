@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import returnInfo from '../component/automanager/returninfo'
-import termsListComponent from '../component/automanager/termslistcomponent'
+import returnInfo from '../component/autoManager/returnInfo'
+import termsListComponent from '../component/autoManager/termsListComponent'
 import utils from '../../common/utils'
 
 @Entry

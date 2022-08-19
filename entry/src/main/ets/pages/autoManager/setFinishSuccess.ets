@@ -14,17 +14,17 @@
  */
 
 import router from '@ohos.router';
-import doubleButtonComponent from '../component/automanager/doublebuttoncomponent'
+import doubleButtonComponent from '../component/autoManager/doubleButtonComponent'
 import utils from '../../common/utils'
 
 @Entry
 @Component
 export default
 struct SetFinishSuccess {
-  @State textContext: string | Resource = $r('app.string.setupComplete');
-  @State textManager: string | Resource = $r('app.string.unitManage');
-  @State textManagerBefore: string | Resource = $r('app.string.textManagerBeforeFinish');
-  @State textManagerAfter: string | Resource = $r('app.string.textManagerAfter');
+  @State textContext: Resource = $r('app.string.setupComplete');
+  @State textManager: Resource = $r('app.string.unitManage');
+  @State textManagerBefore: Resource = $r('app.string.textManagerBeforeFinish');
+  @State textManagerAfter: Resource = $r('app.string.textManagerAfter');
 
   build() {
     Column() {

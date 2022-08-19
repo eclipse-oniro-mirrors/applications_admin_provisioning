@@ -20,8 +20,8 @@ import utils from '../../common/utils'
 @Component
 export default
 struct SetFinishFail {
-  @State textContext: string | Resource = $r('app.string.settingFailed');
-  @State textFail: string | Resource = $r('app.string.settingFailedInfo');
+  @State textContext: Resource = $r('app.string.settingFailed');
+  @State textFail: Resource = $r('app.string.settingFailedInfo');
 
   build() {
     Column() {

@@ -15,7 +15,7 @@
 
 import baseData from '../../common/baseData'
 import logger from '../../common/logger'
-import returnInfo from '../component/automanager/returninfo'
+import returnInfo from '../component/autoManager/returnInfo'
 import utils from '../../common/utils'
 
 const TAG = 'UnitManagerShowPage';
