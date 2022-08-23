@@ -51,6 +51,7 @@ struct UnitManagerShowPage {
       }) {
         Column() {
           Web({ src: this.manageUrl, controller: this.controller })
+            .cacheMode(CacheMode.Online)
             .fileAccess(false)
             .fileFromUrlAccess(false)
             .javaScriptAccess(false)

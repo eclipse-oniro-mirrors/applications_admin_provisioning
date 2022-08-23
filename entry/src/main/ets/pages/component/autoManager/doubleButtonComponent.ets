@@ -31,7 +31,7 @@ struct DoubleButtonComponent {
 
   buttonDialog: CustomDialogController = new CustomDialogController({
     builder: DialogButtonLayout(),
-    autoCancel: true,
+    autoCancel: false,
     alignment: DialogAlignment.Center,
     gridCount: 4,
   })
