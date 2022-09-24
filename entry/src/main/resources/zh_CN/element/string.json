@@ -5,10 +5,6 @@
       "value": "设备管理配置"
     },
     {
-      "name": "description_mainability",
-      "value": "ETS空能力"
-    },
-    {
       "name": "adminprovisioning",
       "value": "是否激活设备管理器?"
     },

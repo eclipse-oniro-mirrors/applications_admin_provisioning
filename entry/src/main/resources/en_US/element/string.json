@@ -5,10 +5,6 @@
       "value": "Device Management Configuration"
     },
     {
-      "name": "description_mainability",
-      "value": "ETS_Empty Ability"
-    },
-    {
       "name": "adminprovisioning",
       "value": "Activate Device Manager?"
     },
