@@ -5,6 +5,18 @@
       "value": "设备管理配置"
     },
     {
+      "name": "description_mainability",
+      "value": "激活设备管理器"
+    },
+    {
+      "name": "description_autoManagerAbility",
+      "value": "激活超级设备管理器"
+    },
+    {
+      "name": "description_adminProvisioning",
+      "value": "支撑企业设备管理下发业务"
+    },
+    {
       "name": "adminprovisioning",
       "value": "是否激活设备管理器?"
     },

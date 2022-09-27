@@ -5,6 +5,18 @@
       "value": "Device Management Configuration"
     },
     {
+      "name": "description_mainability",
+      "value": "激活DeviceAdmin"
+    },
+    {
+      "name": "description_autoManagerAbility",
+      "value": "激活SuperDeviceAdmin"
+    },
+    {
+      "name": "description_adminProvisioning",
+      "value": "支撑EDM下发业务"
+    },
+    {
       "name": "adminprovisioning",
       "value": "Activate Device Manager?"
     },
