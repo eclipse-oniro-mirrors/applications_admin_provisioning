@@ -53,7 +53,6 @@ struct UnitManagerShowPage {
           Web({ src: this.manageUrl, controller: this.controller })
             .cacheMode(CacheMode.Online)
             .fileAccess(false)
-            .fileFromUrlAccess(false)
             .javaScriptAccess(false)
             .onErrorReceive((event?: {
               request: WebResourceRequest,
