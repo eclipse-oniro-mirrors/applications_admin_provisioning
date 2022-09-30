@@ -3,7 +3,7 @@
     "name": "adminprovisioning",
     "type": "entry",
     "srcEntrance": "./ets/Application/AbilityStage.ts",
-    "description": "$string:description_mainability",
+    "description": "$string:description_adminProvisioning",
     "mainElement": "com.ohos.adminprovisioning.MainAbility",
     "deviceTypes": [
       "default",
@@ -40,7 +40,7 @@
         "removeMissionAfterTerminate": true,
         "name": "com.ohos.automanager.AutoManagerAbility",
         "srcEntrance": "./ets/MainAbility/AutoManagerAbility.ts",
-        "description": "$string:description_mainability",
+        "description": "$string:description_autoManagerAbility",
         "icon": "$media:icon",
         "visible": true,
         "launchType": "singleton",
