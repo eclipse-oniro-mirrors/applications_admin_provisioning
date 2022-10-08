@@ -285,19 +285,27 @@ struct ApplicationInfo {
       abilityName: elementNameVal.abilityName,
     };
     await this.isAdminActive();
-    let ret;
+    let ret = true;
     if (!this.isShowActive) {
       if (adminType === edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_NORMAL) {
-        ret = await edmEnterpriseDeviceManager.enableAdmin(wantTemp,
+        await edmEnterpriseDeviceManager.enableAdmin(wantTemp,
           { name: enterInfo.name, description: enterInfo.description },
-          edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_NORMAL);
+          edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_NORMAL)
+          .catch((error) => {
+            ret = false;
+            logger.info(TAG, 'errorCode : ' + error.code + 'errorMessage : ' + error.message);
+          });
       } else {
         logger.warn(TAG, 'not support AdminType.ADMIN_TYPE_SUPER enable Admin')
       }
       logger.info(TAG, 'activateAdmin Activate admin end');
     } else {
       if (this.isEnableButton) {
-        ret = await edmEnterpriseDeviceManager.disableAdmin(wantTemp);
+        await edmEnterpriseDeviceManager.disableAdmin(wantTemp)
+          .catch((error) => {
+            ret = false;
+            logger.info(TAG, 'errorCode : ' + error.code + 'errorMessage : ' + error.message);
+          });
       } else {
         logger.info(TAG, 'activateAdmin not support super admin active');
       }
