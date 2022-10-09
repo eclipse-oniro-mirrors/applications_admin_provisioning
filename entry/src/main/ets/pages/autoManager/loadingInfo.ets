@@ -124,9 +124,9 @@ struct LoadingInfo {
 
     logger.info(TAG, 'enter loadingInfo start enableAdmin!');
     enterpriseDeviceManager.enableAdmin(admin, enterpriseInfo,
-      enterpriseDeviceManager.AdminType.ADMIN_TYPE_SUPER, baseData.DEFAULT_USER_ID, (err, flag) => {
-        logger.info(TAG, 'enter loadingInfo err=' + err + ' | flag=' + flag);
-        if (err || !flag) {
+      enterpriseDeviceManager.AdminType.ADMIN_TYPE_SUPER, baseData.DEFAULT_USER_ID, err => {
+        if (err !== null) {
+          logger.info(TAG, 'enter loadingInfo errCode : ' + err.code + ' errMessage : ' + err.message);
           router.push({url: 'pages/autoManager/setFinishFail'});
         } else {
           router.push({url: 'pages/autoManager/setFinishSuccess'});
