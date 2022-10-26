@@ -18,7 +18,6 @@ import utils from '../../common/utils'
 
 @Entry
 @Component
-export default
 struct SetFinishFail {
   @State textContext: Resource = $r('app.string.settingFailed');
   @State textFail: Resource = $r('app.string.settingFailedInfo');

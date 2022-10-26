@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import web_webview from '@ohos.web.webview';
 import baseData from '../../common/baseData'
 import logger from '../../common/logger'
 import returnInfo from '../component/autoManager/returnInfo'
@@ -24,7 +25,7 @@ const TAG = 'UnitManagerShowPage';
 @Component
 struct UnitManagerShowPage {
   @StorageLink('manageUrl') manageUrl: string = AppStorage.Get('manageUrl');
-  controller: WebController = new WebController();
+  webviewController: web_webview.WebviewController = new web_webview.WebviewController();
 
   build() {
     Column() {
@@ -50,7 +51,7 @@ struct UnitManagerShowPage {
         margin: '12vp'
       }) {
         Column() {
-          Web({ src: this.manageUrl, controller: this.controller })
+          Web({ src: this.manageUrl, controller: this.webviewController })
             .cacheMode(CacheMode.Online)
             .fileAccess(false)
             .javaScriptAccess(false)

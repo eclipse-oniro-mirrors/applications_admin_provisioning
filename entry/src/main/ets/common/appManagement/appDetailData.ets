@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import bundle from '@ohos.bundle';
+import bundle from '@ohos.bundle.bundleManager';
 import accountManager from '../accountManager';
 import baseData from '../baseData';
 import logger from '../logger'
@@ -24,7 +24,7 @@ const TAG = 'AppDetailData';
 
 const permissionsDetailList: Array<any> = [
   {
-    "permissionName": 'ohos.permission.EDM_MANAGE_DATETIME',
+    "permissionName": 'ohos.permission.ENTERPRISE_SET_DATETIME',
     "permissionLabel": $r('app.string.permissionLabel'),
     "permissionDescription": $r('app.string.permissionDescription')
   },
@@ -49,13 +49,13 @@ export class AppDetailData {
     }
     let data;
     try {
-      data = await bundle.queryExtensionAbilityInfos(want, bundle.ExtensionAbilityType.ENTERPRISE_ADMIN,
-        bundle.ExtensionFlag.GET_EXTENSION_INFO_WITH_APPLICATION, userId.localId);
+      data = await bundle.queryExtensionAbilityInfo(want, bundle.ExtensionAbilityType.ENTERPRISE_ADMIN,
+        bundle.ExtensionAbilityFlag.GET_EXTENSION_ABILITY_INFO_WITH_APPLICATION, userId.localId);
     } catch (e) {
-      logger.error(TAG, 'checkAppItem queryExtensionAbilityInfos try fail! ' + JSON.stringify(e));
+      logger.error(TAG, 'checkAppItem queryExtensionAbilityInfo try fail! ' + JSON.stringify(e));
     }
     if (!utils.isValid(data) || data.length <= 0) {
-      logger.warn(TAG, 'checkAppItem queryExtensionAbilityInfos fail! data is null');
+      logger.warn(TAG, 'checkAppItem queryExtensionAbilityInfo fail! data is null');
       this.ret.val = false;
       return this.ret;
     }
@@ -71,8 +71,8 @@ export class AppDetailData {
       logger.warn(TAG, 'getBundleInfoItem getAccountUserId fail!');
       return;
     }
-    let data = await bundle.getBundleInfo(bundleName, bundle.BundleFlag.GET_BUNDLE_WITH_REQUESTED_PERMISSION,
-      { "userId" : userId.localId });
+    let data = await bundle.getBundleInfo(bundleName, bundle.BundleFlag.GET_BUNDLE_INFO_WITH_REQUESTED_PERMISSION |
+      bundle.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION, userId.localId);
     await this.getResourceItem(bundleName, data, appInfo);
     await this.getPermissionList(data, appInfo);
     logger.info(TAG, 'getBundleInfoItem out');
@@ -140,12 +140,12 @@ export class AppDetailData {
   }
 
   async getPermissionList(data, appInfo) {
-    let permissions = data.reqPermissions;
+    let permissions = data.reqPermissionDetails;
     if (permissions !== null && permissions !== []) {
       logger.info(TAG, 'getPermissionList permission length:' + permissions.length);
       for (var i = 0; i < permissions.length; i++) {
-        logger.info(TAG, 'getPermissionList permission is in val:' + permissions[i]);
-        let j = this.getPermissionInfoVal(permissions[i]);
+        logger.info(TAG, 'getPermissionList permission is in val:' + permissions[i].name);
+        let j = this.getPermissionInfoVal(permissions[i].name);
         if (j >= 0) {
           appInfo.appPermissionList.push({
             permissionName: permissionsDetailList[j].permissionName,
