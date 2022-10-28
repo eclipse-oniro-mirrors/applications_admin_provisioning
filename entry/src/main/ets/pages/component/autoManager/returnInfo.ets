@@ -15,7 +15,6 @@
 
 import router from '@ohos.router';
 
-@Entry
 @Component
 export default struct ReturnInfo {
   private headName: string | Resource = '';

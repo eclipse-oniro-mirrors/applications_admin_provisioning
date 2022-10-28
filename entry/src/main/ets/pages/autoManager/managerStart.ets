@@ -22,7 +22,6 @@ const TAG = 'ManagerStart';
 
 @Entry
 @Component
-export default
 struct ManagerStart {
   @State textContext: Resource = $r('app.string.unitManageDevice');
   @State textManager: Resource = $r('app.string.unitManage');
@@ -131,7 +130,7 @@ struct ManagerStart {
           }
           .backgroundColor(0x007DFF)
           .onClick(() => {
-            router.push({ url: 'pages/autoManager/loadingInfo' })
+            router.pushUrl({ url: 'pages/autoManager/loadingInfo' })
           })
           .width('100%')
           .height('40vp')

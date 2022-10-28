@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import bundle from '@ohos.bundle';
+import bundle from '@ohos.bundle.bundleManager';
 import router from '@ohos.router';
 import baseData from '../../../common/baseData'
 import logger from '../../../common/logger'
@@ -99,7 +99,7 @@ struct DoubleButtonComponent {
 
     let data;
     try {
-      data = await bundle.queryAbilityByWant(queryWant, bundle.BundleFlag.GET_BUNDLE_WITH_ABILITIES,
+      data = await bundle.queryAbilityInfo(queryWant, bundle.AbilityFlag.GET_ABILITY_INFO_DEFAULT,
         baseData.DEFAULT_USER_ID);
     } catch (e) {
       logger.error(TAG, 'startSpecificActionAbility queryAbilityByWant try fail! '

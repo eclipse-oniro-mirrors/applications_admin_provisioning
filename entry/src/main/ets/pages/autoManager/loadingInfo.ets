@@ -26,7 +26,6 @@ const TAG = 'LoadingInfo';
 
 @Entry
 @Component
-export default
 struct LoadingInfo {
   @StorageLink('manageAbilityName') manageAbilityName: string = '';
   @StorageLink('manageBundleName') manageBundleName: string = '';
@@ -111,14 +110,14 @@ struct LoadingInfo {
 
     let ret = await appDetailData.checkAppItem(admin);
     if (!(ret.val)) {
-      router.push({ url: 'pages/autoManager/setFinishFail' });
+      router.pushUrl({ url: 'pages/autoManager/setFinishFail' });
       return;
     }
 
     let userId = { localId: 0 };
     let retVal = await accountManager.getAccountUserId(userId);
     if (!retVal || userId.localId !== baseData.DEFAULT_USER_ID) {
-      router.push({ url: 'pages/autoManager/setFinishFail' });
+      router.pushUrl({ url: 'pages/autoManager/setFinishFail' });
       return;
     }
 
@@ -127,9 +126,9 @@ struct LoadingInfo {
       enterpriseDeviceManager.AdminType.ADMIN_TYPE_SUPER, baseData.DEFAULT_USER_ID, err => {
         if (err !== null) {
           logger.info(TAG, 'enter loadingInfo errCode : ' + err.code + ' errMessage : ' + err.message);
-          router.push({url: 'pages/autoManager/setFinishFail'});
+          router.pushUrl({url: 'pages/autoManager/setFinishFail'});
         } else {
-          router.push({url: 'pages/autoManager/setFinishSuccess'});
+          router.pushUrl({url: 'pages/autoManager/setFinishSuccess'});
         }
       });
   }

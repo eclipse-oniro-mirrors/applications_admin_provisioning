@@ -19,7 +19,6 @@ import utils from '../../common/utils'
 
 @Entry
 @Component
-export default
 struct SetFinishSuccess {
   @State textContext: Resource = $r('app.string.setupComplete');
   @State textManager: Resource = $r('app.string.unitManage');
@@ -71,7 +70,7 @@ struct SetFinishSuccess {
                 .fontFamily('HarmonyHeiTi')
                 .fontWeight(FontWeight.Regular)
                 .onClick(() => {
-                  router.push({url: 'pages/autoManager/unitManagerShowPage'})
+                  router.pushUrl({url: 'pages/autoManager/unitManagerShowPage'})
                 })
 
               Span(this.textManagerAfter)
