@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import edmEnterpriseDeviceManager from '@ohos.enterpriseDeviceManager';
+import edmEnterpriseDeviceManager from '@ohos.enterprise.adminManager';
 import router from '@ohos.router';
 import appDetailData from '../common/appManagement/appDetailData'
 import baseData from '../common/baseData';
