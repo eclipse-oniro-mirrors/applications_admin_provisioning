@@ -75,7 +75,7 @@ struct ManagerStart {
                 .fontFamily('HarmonyHeiTi')
                 .fontWeight(FontWeight.Regular)
                 .onClick(() => {
-                  router.push({ url: 'pages/autoManager/termsShowPage' })
+                  router.pushUrl({ url: 'pages/autoManager/termsShowPage' })
                 })
 
               Span(this.textManagerBefore)
@@ -90,7 +90,7 @@ struct ManagerStart {
                 .fontFamily('HarmonyHeiTi')
                 .fontWeight(FontWeight.Regular)
                 .onClick(() => {
-                  router.push({ url: 'pages/autoManager/unitManagerShowPage' })
+                  router.pushUrl({ url: 'pages/autoManager/unitManagerShowPage' })
                 })
 
               Span(this.textManagerAfter)
