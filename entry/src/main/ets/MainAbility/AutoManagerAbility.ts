@@ -13,12 +13,12 @@
  * limitations under the License.
  */
 
-import Ability from '@ohos.application.Ability'
+import UIAbility from '@ohos.app.ability.UIAbility'
 import logger from '../common/logger'
 
 const TAG = 'AutoManagerAbility';
 
-export default class AutoManagerAbility extends Ability {
+export default class AutoManagerAbility extends UIAbility {
     onCreate(want, launchParam) {
         logger.info(TAG, 'onCreate')
         globalThis.autoManagerAbilityWant = want;
