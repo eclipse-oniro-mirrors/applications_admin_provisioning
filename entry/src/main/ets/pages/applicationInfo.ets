@@ -22,6 +22,7 @@ import headComponent from './component/headComponent';
 import logger from '../common/logger'
 import permissionListComponent from './component/permissionListComponent';
 import utils from '../common/utils'
+import { MyApplicationInfo } from '../common/myApplicationInfo'
 
 let appInfo;
 let elementNameVal;
@@ -33,7 +34,12 @@ const TAG = 'ApplicationInfo';
 @Entry
 @Component
 struct ApplicationInfo {
-  @StorageLink('applicationInfo') applicationInfo: any = {};
+  @StorageLink('applicationInfo') applicationInfo: MyApplicationInfo = {
+    "appIcon": '',
+    "appTitle": '',
+    "appBundleName": '',
+    "appPermissionList": []
+  };
   @State isShowActive: boolean = false;
   @State isEnableButton: boolean = false;
   @StorageLink('activeType') isAdminType: number = 0;
