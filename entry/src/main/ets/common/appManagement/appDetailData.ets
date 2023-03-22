@@ -18,11 +18,12 @@ import accountManager from '../accountManager';
 import baseData from '../baseData';
 import logger from '../logger'
 import utils from '../utils'
+import { AppPermission } from '../myApplicationInfo'
 
 let icon_default = $r('app.media.icon');
 const TAG = 'AppDetailData';
 
-const permissionsDetailList: Array<any> = [
+const permissionsDetailList: Array<AppPermission> = [
   {
     "permissionName": 'ohos.permission.ENTERPRISE_SET_DATETIME',
     "permissionLabel": $r('app.string.permissionLabel'),
