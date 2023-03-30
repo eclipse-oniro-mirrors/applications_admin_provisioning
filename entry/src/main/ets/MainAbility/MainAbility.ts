@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,40 +13,40 @@
  * limitations under the License.
  */
 
-import UIAbility from '@ohos.app.ability.UIAbility'
-import logger from '../common/logger'
+import UIAbility from '@ohos.app.ability.UIAbility';
+import Logger from '../common/logger';
 
 const TAG = 'MainAbility';
 
 export default class MainAbility extends UIAbility {
-    onCreate(want, launchParam) {
-        logger.info(TAG, 'onCreate')
-        globalThis.adminProvisioningWant = want;
-        globalThis.adminProvisioningContext = this.context;
-    }
+  onCreate(want, launchParam): void {
+    Logger.info(TAG, 'onCreate');
+    globalThis.adminProvisioningWant = want;
+    globalThis.adminProvisioningContext = this.context;
+  }
 
-    onDestroy() {
-        logger.info(TAG, 'onDestroy')
-    }
+  onDestroy(): void {
+    Logger.info(TAG, 'onDestroy');
+  }
 
-    onWindowStageCreate(windowStage) {
-        // Main window is created, set main page for this ability
-        logger.info(TAG, 'onWindowStageCreate')
-        windowStage.setUIContent(this.context, "pages/applicationInfo", null)
-    }
+  onWindowStageCreate(windowStage): void {
+    // Main window is created, set main page for this ability
+    Logger.info(TAG, 'onWindowStageCreate');
+    windowStage.setUIContent(this.context, 'pages/applicationInfo', null);
+  }
 
-    onWindowStageDestroy() {
-        // Main window is destroyed, release UI related resources
-        logger.info(TAG, 'onWindowStageDestroy')
-    }
+  onWindowStageDestroy(): void {
+    // Main window is destroyed, release UI related resources
+    Logger.info(TAG, 'onWindowStageDestroy');
+  }
 
-    onForeground() {
-        // Ability has brought to foreground
-        logger.info(TAG, 'onForeground')
-    }
+  onForeground(): void {
+    // Ability has brought to foreground
+    Logger.info(TAG, 'onForeground');
+  }
 
-    onBackground() {
-        // Ability has back to background
-        logger.info(TAG, 'onBackground')
-    }
+  onBackground(): void {
+    // Ability has back to background
+    Logger.info(TAG, 'onBackground');
+  }
 };

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,40 +13,43 @@
  * limitations under the License.
  */
 
-import UIAbility from '@ohos.app.ability.UIAbility'
-import logger from '../common/logger'
+import UIAbility from '@ohos.app.ability.UIAbility';
+import logger from '../common/logger';
+import type Want from '@ohos.app.ability.Want';
+import type AbilityConstant from '@ohos.app.ability.AbilityConstant';
+import type window from '@ohos.window';
 
 const TAG = 'AutoManagerAbility';
 
 export default class AutoManagerAbility extends UIAbility {
-    onCreate(want, launchParam) {
-        logger.info(TAG, 'onCreate')
-        globalThis.autoManagerAbilityWant = want;
-        globalThis.autoManagerAbilityContext = this.context;
-    }
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    logger.info(TAG, 'onCreate');
+    globalThis.autoManagerAbilityWant = want;
+    globalThis.autoManagerAbilityContext = this.context;
+  }
 
-    onDestroy() {
-        logger.info(TAG, 'onDestroy')
-    }
+  onDestroy(): void {
+    logger.info(TAG, 'onDestroy');
+  }
 
-    onWindowStageCreate(windowStage) {
-        // Main window is created, set main page for this ability
-        logger.info(TAG, 'onWindowStageCreate')
-        windowStage.setUIContent(this.context, "pages/autoManager/managerStart", null)
-    }
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    // Main window is created, set main page for this ability
+    logger.info(TAG, 'onWindowStageCreate');
+    windowStage.loadContent('pages/autoManager/managerStart', null);
+  }
 
-    onWindowStageDestroy() {
-        // Main window is destroyed, release UI related resources
-        logger.info(TAG, 'onWindowStageDestroy')
-    }
+  onWindowStageDestroy(): void {
+    // Main window is destroyed, release UI related resources
+    logger.info(TAG, 'onWindowStageDestroy');
+  }
 
-    onForeground() {
-        // Ability has brought to foreground
-        logger.info(TAG, 'onForeground')
-    }
+  onForeground(): void {
+    // Ability has brought to foreground
+    logger.info(TAG, 'onForeground');
+  }
 
-    onBackground() {
-        // Ability has back to background
-        logger.info(TAG, 'onBackground')
-    }
+  onBackground(): void {
+    // Ability has back to background
+    logger.info(TAG, 'onBackground');
+  }
 };
