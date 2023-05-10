@@ -139,7 +139,7 @@ DevEco Studio 支持 debug 与 release 两种打包类型。可以在 OhosBuild 
     ![](image/sdk_catalogue.png)
 
 > ![icon-note.gif](image/icon-note.gif) **说明：**
-> 若此处的hdc.exe版本较老，可能不能正常使用，需要获取新的hdc.exe文件。hdc命令介绍与下载详见：[hdc仓库地址](https://gitee.com/openharmony/developtools_hdc_standard)
+> 若此处的hdc.exe版本较老，可能不能正常使用，需要获取新的hdc.exe文件。hdc命令介绍与下载详见：[hdc仓库地址](https://gitee.com/openharmony/developtools_hdc)
 
 
 2. 并将此路径配置到环境变量中。
