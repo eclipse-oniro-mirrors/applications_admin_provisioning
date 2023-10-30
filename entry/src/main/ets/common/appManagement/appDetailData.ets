@@ -142,7 +142,7 @@ export class AppDetailData {
 
   async getPermissionList(data, appInfo) {
     let permissions = data.reqPermissionDetails;
-    if (permissions !== null && permissions !== []) {
+    if (permissions !== null && permissions.length !== 0) {
       logger.info(TAG, 'getPermissionList permission length:' + permissions.length);
       for (var i = 0; i < permissions.length; i++) {
         logger.info(TAG, 'getPermissionList permission is in val:' + permissions[i].name);
