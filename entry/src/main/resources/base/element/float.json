@@ -81,6 +81,10 @@
       "value": "14fp"
     },
     {
+      "name": "font_12",
+      "value": "12fp"
+    },
+    {
       "name": "font_16",
       "value": "16fp"
     },
@@ -93,6 +97,10 @@
       "value": "16vp"
     },
     {
+      "name": "font_vp_18",
+      "value": "18vp"
+    },
+    {
       "name": "font_vp_24",
       "value": "24vp"
     },
@@ -101,12 +109,24 @@
       "value": "30vp"
     },
     {
+      "name": "font_vp_32",
+      "value": "32vp"
+    },
+    {
       "name": "lineHeight_vp_21_5",
       "value": "21.5vp"
     },
     {
       "name": "lineHeight_vp_22",
       "value": "22vp"
+    },
+    {
+      "name": "lineHeight_vp_25",
+      "value": "25vp"
+    },
+    {
+      "name": "lineHeight_vp_35",
+      "value": "35vp"
     },
     {
       "name": "lineHeight_vp_41",
@@ -119,6 +139,34 @@
     {
       "name": "button_height",
       "value": "40vp"
+    },
+    {
+      "name": "button_continue_width",
+      "value": "186vp"
+    },
+    {
+      "name": "value_100",
+      "value": "100vp"
+    },
+    {
+      "name": "value_156",
+      "value": "156vp"
+    },
+    {
+      "name": "value_35",
+      "value": "35vp"
+    },
+    {
+      "name": "value_248",
+      "value": "248vp"
+    },
+    {
+      "name": "value_32",
+      "value": "32vp"
+    },
+    {
+      "name": "value_302",
+      "value": "302vp"
     }
   ]
 }

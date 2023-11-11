@@ -16,13 +16,34 @@
 import UIAbility from '@ohos.app.ability.UIAbility';
 import Logger from '../common/logger';
 
+export class GlobalContext {
+  private constructor() {}
+  private static instance: GlobalContext;
+  private _objects = new Map<string, Object>();
+
+  public static getContext(): GlobalContext {
+    if (!GlobalContext.instance) {
+      GlobalContext.instance = new GlobalContext();
+    }
+    return GlobalContext.instance;
+  }
+
+  getObject(value: string): Object | undefined {
+    return this._objects.get(value);
+  }
+
+  setObject(key: string, objectClass: Object): void {
+    this._objects.set(key, objectClass);
+  }
+}
+
 const TAG = 'MainAbility';
 
 export default class MainAbility extends UIAbility {
   onCreate(want, launchParam): void {
     Logger.info(TAG, 'onCreate');
-    globalThis.adminProvisioningWant = want;
-    globalThis.adminProvisioningContext = this.context;
+    GlobalContext.getContext().setObject('adminProvisioningWant', want);
+    GlobalContext.getContext().setObject('adminProvisioningContext', this.context);
   }
 
   onDestroy(): void {

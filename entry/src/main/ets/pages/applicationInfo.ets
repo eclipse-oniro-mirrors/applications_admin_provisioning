@@ -22,23 +22,27 @@ import headComponent from './component/headComponent';
 import logger from '../common/logger'
 import permissionListComponent from './component/permissionListComponent';
 import utils from '../common/utils'
-import { MyApplicationInfo } from '../common/myApplicationInfo'
+import { AppPermission, MyApplicationInfo } from '../common/myApplicationInfo'
+import Want from '@ohos.app.ability.Want';
+import adminManager from '@ohos.enterprise.adminManager';
+import { BusinessError } from '@ohos.base';
+import { GlobalContext } from '../MainAbility/MainAbility';
 
-let appInfo;
-let elementNameVal;
-let isAdminTypeVal;
-let isActiveState;
-let enterInfo;
+let appInfo: MyApplicationInfo;
+let elementNameVal: Want;
+let isAdminTypeVal: adminManager.AdminType;
+let isActiveState: boolean;
+let enterInfo: adminManager.EnterpriseInfo;
 const TAG = 'ApplicationInfo';
 
 @Entry
 @Component
 struct ApplicationInfo {
   @StorageLink('applicationInfo') applicationInfo: MyApplicationInfo = {
-    "appIcon": '',
-    "appTitle": '',
-    "appBundleName": '',
-    "appPermissionList": []
+    appIcon: '',
+    appTitle: '',
+    appBundleName: '',
+    appPermissionList: []
   };
   @State isShowActive: boolean = false;
   @State isEnableButton: boolean = false;
@@ -112,14 +116,14 @@ struct ApplicationInfo {
                 });
 
               List() {
-                ForEach(appInfo.appPermissionList, (item) => {
+                ForEach(appInfo.appPermissionList, (item: AppPermission) => {
                   ListItem() {
                     permissionListComponent({
                       permissionName: item.permissionLabel,
                       permissionDescription: item.permissionDescription,
                     });
                   }
-                }, item => JSON.stringify(item));
+                }, (item: AppPermission) => JSON.stringify(item));
               }
             }
             .alignItems(HorizontalAlign.Start)
@@ -222,7 +226,7 @@ struct ApplicationInfo {
       description: '',
     };
 
-    isAdminTypeVal = { admintype: 0 };
+    isAdminTypeVal = 0;
     logger.info(TAG, 'aboutToAppear in');
     this.getCheckAbilityList(appInfo, elementNameVal, isAdminTypeVal);
     logger.info(TAG, 'aboutToAppear out');
@@ -253,12 +257,12 @@ struct ApplicationInfo {
   }
 
   async isAdminActive() {
-    let wantTemp = {
+    let wantTemp: Want = {
       bundleName: elementNameVal.bundleName,
       abilityName: elementNameVal.abilityName,
     };
-    let retAppState;
-    let retSuperState;
+    let retAppState: boolean;
+    let retSuperState: boolean;
     logger.info(TAG, 'isAdminActive elementNameVal.bundleName=' + elementNameVal.bundleName
       + ' | elementNameVal.abilityName=' + elementNameVal.abilityName);
     if (elementNameVal.bundleName === baseData.EMPTY_STR || elementNameVal.abilityName === baseData.EMPTY_STR) {
@@ -267,7 +271,8 @@ struct ApplicationInfo {
     }
 
     retAppState = await edmEnterpriseDeviceManager.isAdminEnabled(wantTemp);
-    retSuperState = await edmEnterpriseDeviceManager.isSuperAdmin(elementNameVal.bundleName);
+    let name: string = elementNameVal.bundleName;
+    retSuperState = await edmEnterpriseDeviceManager.isSuperAdmin(name);
     if (!retAppState) {
       this.isShowActive = false;
       this.isEnableButton = true;
@@ -284,9 +289,9 @@ struct ApplicationInfo {
     isActiveState = this.isShowActive;
   }
 
-  async activateAdmin(adminType) {
+  async activateAdmin(adminType: adminManager.AdminType) {
     logger.info(TAG, 'activateAdmin isShowActive:' + this.isShowActive);
-    let wantTemp = {
+    let wantTemp: Want = {
       bundleName: elementNameVal.bundleName,
       abilityName: elementNameVal.abilityName,
     };
@@ -297,7 +302,7 @@ struct ApplicationInfo {
         await edmEnterpriseDeviceManager.enableAdmin(wantTemp,
           { name: enterInfo.name, description: enterInfo.description },
           edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_NORMAL)
-          .catch((error) => {
+          .catch((error: BusinessError) => {
             ret = false;
             logger.info(TAG, 'errorCode : ' + error.code + 'errorMessage : ' + error.message);
           });
@@ -308,7 +313,7 @@ struct ApplicationInfo {
     } else {
       if (this.isEnableButton) {
         await edmEnterpriseDeviceManager.disableAdmin(wantTemp)
-          .catch((error) => {
+          .catch((error: BusinessError) => {
             ret = false;
             logger.info(TAG, 'errorCode : ' + error.code + 'errorMessage : ' + error.message);
           });
@@ -322,8 +327,8 @@ struct ApplicationInfo {
     }
   }
 
-  async getSelfResourceVal(resource) {
-    let resMgr = await globalThis.adminProvisioningContext.resourceManager;
+  async getSelfResourceVal(resource: Resource) {
+    let resMgr = getContext().resourceManager;
     logger.info(TAG, 'getSelfResourceVal in:');
     let value = await resMgr.getString(resource.id);
     logger.info(TAG, 'getSelfResourceVal finish value:' + value);
@@ -333,32 +338,32 @@ struct ApplicationInfo {
     return value;
   }
 
-  async getAbilityWantVal(appInfo, elementNameVal, adminType) {
+  async getAbilityWantVal(appInfo: MyApplicationInfo, elementNameVal: Want, adminType: adminManager.AdminType) {
     logger.info(TAG, 'getAbilityWantVal in:');
-    let data = await globalThis.adminProvisioningWant;
+    let data = GlobalContext.getContext().getObject("adminProvisioningWant") as Want;
 
     if (!utils.checkObjPropertyValid(data, 'parameters.elementName.abilityName')
       || !utils.checkObjPropertyValid(data, 'parameters.enterprise.name')
-      || !utils.isValid(data.parameters.elementName.bundleName)
-      || !utils.isValid(data.parameters.activeType)
-      || !utils.isValid(data.parameters.enterprise.description)) {
+      || !utils.isValid((data.parameters?.elementName as Record<string, string>).bundleName)
+      || !utils.isValid(data.parameters?.activeType)
+      || !utils.isValid((data.parameters?.enterprise as Record<string, string>).description)) {
       logger.warn(TAG, 'data.parameters = ' + JSON.stringify(data.parameters));
       return;
     }
 
-    elementNameVal.abilityName = data.parameters.elementName.abilityName;
-    elementNameVal.bundleName = data.parameters.elementName.bundleName;
-    appInfo.appBundleName = data.parameters.elementName.bundleName;
-    adminType.admintype = data.parameters.activeType;
-    AppStorage.SetOrCreate('activeType', adminType.admintype);
+    elementNameVal.abilityName = (data.parameters?.elementName as Record<string, string>).abilityName;
+    elementNameVal.bundleName = (data.parameters?.elementName as Record<string, string>).bundleName;
+    appInfo.appBundleName = (data.parameters?.elementName as Record<string, string>).bundleName;
+    adminType = data.parameters?.activeType as adminManager.AdminType;
+    AppStorage.SetOrCreate('activeType', adminType);
 
-    enterInfo.name = data.parameters.enterprise.name.substring(0, baseData.MAX_LEN);
-    enterInfo.description = data.parameters.enterprise.description.substring(0, baseData.MAX_LEN);
+    enterInfo.name = (data.parameters?.enterprise as Record<string, string>).name.substring(0, baseData.MAX_LEN);
+    enterInfo.description = (data.parameters?.enterprise as Record<string, string>).description.substring(0, baseData.MAX_LEN);
     logger.info(TAG, 'getAbilityWantVal out isAdminTypeVal.admintype:'
-      + isAdminTypeVal.admintype + ' enter.name=' + enterInfo.name + ' enter.des=' + enterInfo.description);
+      + isAdminTypeVal + ' enter.name=' + enterInfo.name + ' enter.des=' + enterInfo.description);
   }
 
-  async getCheckAbilityList(appInfo, elementNameVal, adminType) {
+  async getCheckAbilityList(appInfo: MyApplicationInfo, elementNameVal: Want, adminType: adminManager.AdminType) {
     let deviceActiveOne = '';
     let deviceActiveTwo = '';
     let deviceDeactivate = '';
@@ -370,7 +375,7 @@ struct ApplicationInfo {
     await this.getAbilityWantVal(appInfo, elementNameVal, adminType);
 
     let ret = await appDetailData.checkAppItem(elementNameVal);
-    if (!ret.val) {
+    if (!ret) {
       logger.info(TAG, 'aboutToAppear not exist bundleName:' + appInfo.appBundleName);
       appDetailData.terminateAbilityPage();
       return;
@@ -390,11 +395,11 @@ struct ApplicationInfo {
     this.deviceAdminActive = deviceActiveOne + `${appInfo.appTitle}` + deviceActiveTwo;
     this.deviceAdminDisActive = deviceDeactivate + `${appInfo.appTitle}` + deviceActiveTwo;
 
-    let want = {
+    let want: Want = {
       bundleName: elementNameVal.bundleName,
       abilityName: elementNameVal.abilityName,
     };
-    let getEnterInfo = {
+    let getEnterInfo: adminManager.EnterpriseInfo = {
       name: '',
       description: '',
     };

@@ -64,7 +64,7 @@ struct TermsListComponent {
 
         ListItem() {
           Column() {
-            ForEach(this.contentOfEnterpriseTerms, (item, index) => {
+            ForEach(this.contentOfEnterpriseTerms, (item: string, index) => {
               Row() {
                 Text(item)
                   .fontWeight(FontWeight.Regular)
@@ -77,7 +77,7 @@ struct TermsListComponent {
                   })
               }
               .width('100%')
-            }, item => JSON.stringify(item));
+            }, (item: string) => JSON.stringify(item));
           }
           .flexShrink(1)
         }

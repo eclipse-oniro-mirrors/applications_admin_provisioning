@@ -17,6 +17,8 @@ import router from '@ohos.router';
 import utils from '../../common/utils'
 import doubleButtonComponent from '../component/autoManager/doubleButtonComponent'
 import logger from '../../common/logger'
+import { GlobalContext } from '../../MainAbility/MainAbility';
+import Want from '@ohos.app.ability.Want';
 
 const TAG = 'ManagerStart';
 
@@ -174,31 +176,31 @@ struct ManagerStart {
   }
 
   parseManageParameter() {
-    let data = globalThis.autoManagerAbilityWant;
+    let data = GlobalContext.getContext().getObject('adminProvisioningWant') as Want;
 
     if (!utils.checkObjPropertyValid(data, 'parameters.elementName.abilityName')
       || !utils.checkObjPropertyValid(data, 'parameters.enterprise.name')
-      || !utils.isValid(data.parameters.elementName.bundleName)
-      || !utils.isValid(data.parameters.url)
-      || !utils.isValid(data.parameters.termsName)
-      || (!utils.isValid(data.parameters.termsContent) || !Array.isArray(data.parameters.termsContent))
-      || !utils.isValid(data.parameters.enterprise.description)) {
+      || !utils.isValid((data.parameters?.elementName as Record<string, string>).bundleName)
+      || !utils.isValid(data.parameters?.url)
+      || !utils.isValid(data.parameters?.termsName)
+      || (!utils.isValid(data.parameters?.termsContent) || !(data.parameters?.termsContent instanceof Array))
+      || !utils.isValid((data.parameters?.enterprise as Record<string, string>).description)) {
       logger.error(TAG, 'parseManageParameter fail! parameters is not valid')
       return;
     }
 
     let mapVal = new Map([
-      ['manageAbilityName', data.parameters.elementName.abilityName],
-      ['manageBundleName', data.parameters.elementName.bundleName],
-      ['manageUrl', data.parameters.url],
-      ['manageTermsName', data.parameters.termsName],
-      ['manageTermsContent', data.parameters.termsContent],
-      ['manageEnterpriseName', data.parameters.enterprise.name],
-      ['manageEnterpriseDescription', data.parameters.enterprise.description]
+      ['manageAbilityName', (data.parameters?.elementName as Record<string, string>).abilityName],
+      ['manageBundleName', (data.parameters?.elementName as Record<string, string>).bundleName],
+      ['manageUrl', data.parameters?.url],
+      ['manageTermsName', data.parameters?.termsName],
+      ['manageTermsContent', data.parameters?.termsContent],
+      ['manageEnterpriseName', (data.parameters?.enterprise as Record<string, string>).name],
+      ['manageEnterpriseDescription', (data.parameters?.enterprise as Record<string, string>).description]
     ]);
 
-    for (let [key, value] of mapVal) {
-      AppStorage.SetOrCreate(key, value);
+    for (let item of Array.from(mapVal.keys())) {
+      AppStorage.setOrCreate(item, mapVal.get(item));
     }
   }
 }

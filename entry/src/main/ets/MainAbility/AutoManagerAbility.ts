@@ -18,14 +18,15 @@ import logger from '../common/logger';
 import type Want from '@ohos.app.ability.Want';
 import type AbilityConstant from '@ohos.app.ability.AbilityConstant';
 import type window from '@ohos.window';
+import { GlobalContext } from './MainAbility';
 
 const TAG = 'AutoManagerAbility';
 
 export default class AutoManagerAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     logger.info(TAG, 'onCreate');
-    globalThis.autoManagerAbilityWant = want;
-    globalThis.autoManagerAbilityContext = this.context;
+    GlobalContext.getContext().setObject('autoManagerAbilityWant', want);
+    GlobalContext.getContext().setObject('autoManagerAbilityContext', this.context);
   }
 
   onDestroy(): void {

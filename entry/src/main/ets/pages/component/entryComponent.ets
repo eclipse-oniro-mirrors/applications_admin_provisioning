@@ -15,8 +15,8 @@
 
 @Component
 export default struct EntryComponent {
-  @Prop appIcon: string;
-  @Prop appTitle: string;
+  @Prop appIcon: string = '';
+  @Prop appTitle: string = '';
 
   build() {
     Flex({ justifyContent: FlexAlign.SpaceBetween }) {
