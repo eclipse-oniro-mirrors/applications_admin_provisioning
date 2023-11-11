@@ -1,5 +1,6 @@
 {
   "src": [
+    "pages/custProvisioning/custProvisioning",
     "pages/applicationInfo",
     "pages/autoManager/managerStart",
     "pages/autoManager/unitManagerShowPage",

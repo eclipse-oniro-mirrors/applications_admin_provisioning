@@ -159,6 +159,18 @@
     {
       "name": "setupComplete",
       "value": "setup complete"
+    },
+    {
+      "name": "AutoDeployText",
+      "value": "This device is configured and managed by your organization, contact your organization if you have questions."
+    },
+    {
+      "name": "continue",
+      "value": "continue."
+    },
+    {
+      "name": "PreviousStep",
+      "value": "previous step."
     }
   ]
 }

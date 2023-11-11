@@ -19,15 +19,19 @@ import utils from './utils'
 
 const TAG = 'AccountManager';
 
+export interface UserId {
+  localId: number;
+}
+
 export class AccountManager {
-    async getAccountUserId(accountInfo) : Promise<boolean> {
-        let userId = await account_osAccount.getAccountManager().queryCurrentOsAccount();
-        if (!utils.isValid(userId)) {
+    async getAccountUserId(userId: UserId) : Promise<boolean> {
+        let accountInfo = await account_osAccount.getAccountManager().queryCurrentOsAccount();
+        if (!utils.isValid(accountInfo)) {
             logger.warn(TAG, 'getAccountUserId queryCurrentOsAccount fail! userId is null');
             return false;
         }
-        accountInfo.localId = userId.localId;
-        logger.info(TAG, 'getAccountUserId userId.localId=' + userId.localId);
+        userId.localId = accountInfo.localId;
+        logger.info(TAG, 'getAccountUserId accountInfo.localId=' + accountInfo.localId);
         return true;
     }
 }

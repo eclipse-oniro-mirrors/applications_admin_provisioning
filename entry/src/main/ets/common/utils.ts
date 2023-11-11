@@ -22,7 +22,7 @@ class Utils {
     return item !== null && item !== undefined;
   }
 
-  checkObjPropertyValid(obj: unknown, tree: string): boolean {
+  checkObjPropertyValid<T>(obj: T, tree: string): boolean {
     if (!this.isValid(obj) || !this.isValid(tree)) {
       return false;
     }

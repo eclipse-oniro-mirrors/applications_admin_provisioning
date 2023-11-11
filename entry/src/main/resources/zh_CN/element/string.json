@@ -159,6 +159,18 @@
     {
       "name": "setupComplete",
       "value": "设置完成"
+    },
+    {
+      "name": "AutoDeployText",
+      "value": "此设备由您所属的单位配置和管理，如有疑问，请联系您的单位处理。"
+    },
+    {
+      "name": "continue",
+      "value": "继续。"
+    },
+    {
+      "name": "PreviousStep",
+      "value": "上一步。"
     }
   ]
 }

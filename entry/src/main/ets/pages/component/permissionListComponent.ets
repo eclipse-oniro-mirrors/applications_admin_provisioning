@@ -38,8 +38,7 @@ export default struct PermissionListComponent {
           .maxLines(3)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           .visibility(('' === this.permissionName || 'undefined' === typeof (this.permissionName)
-            || null === this.permissionName || 0 === Object.keys(this.permissionName).length)
-            ? Visibility.None : Visibility.Visible)
+            || null === this.permissionName) ? Visibility.None : Visibility.Visible)
           .margin({
             bottom: $r('app.float.wh_value_2'),
           });
@@ -53,8 +52,7 @@ export default struct PermissionListComponent {
           .maxLines(3)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           .visibility(('' === this.permissionDescription || 'undefined' === typeof (this.permissionDescription)
-            || null === this.permissionDescription || 0 === Object.keys(this.permissionDescription).length)
-            ? Visibility.None : Visibility.Visible)
+            || null === this.permissionDescription) ? Visibility.None : Visibility.Visible)
       }
       .alignItems(HorizontalAlign.Start)
     }

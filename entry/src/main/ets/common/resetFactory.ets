@@ -15,6 +15,7 @@
 
 import update from '@ohos.update';
 import logger from './logger'
+import { BusinessError } from '@ohos.base';
 
 const TAG = 'ResetFactory';
 
@@ -23,7 +24,7 @@ export class ResetFactory {
     let restorer = update.getRestorer();
     restorer.factoryReset().then(() => {
       logger.info(TAG, 'rebootAndCleanUserData factoryReset success')
-    }).catch((err) => {
+    }).catch((err: BusinessError) => {
       logger.error(TAG, 'rebootAndCleanUserData err=' + JSON.stringify(err))
     })
   }

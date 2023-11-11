@@ -24,7 +24,7 @@ const TAG = 'UnitManagerShowPage';
 @Entry
 @Component
 struct UnitManagerShowPage {
-  @StorageLink('manageUrl') manageUrl: string = AppStorage.Get('manageUrl');
+  @StorageLink('manageUrl') manageUrl: string = AppStorage.Get('manageUrl') as string;
   webviewController: web_webview.WebviewController = new web_webview.WebviewController();
 
   build() {
@@ -55,24 +55,16 @@ struct UnitManagerShowPage {
             .cacheMode(CacheMode.Online)
             .fileAccess(false)
             .javaScriptAccess(false)
-            .onErrorReceive((event?: {
-              request: WebResourceRequest,
-              error: WebResourceError
-            }) => {
-              logger.warn(TAG, 'error code=' + event.error.getErrorCode()
-                + ', error info=' + event.error.getErrorInfo())
+            .onErrorReceive((event?: ErrorReceiveEvent) => {
+              logger.warn(TAG, 'error code=' + event?.error.getErrorCode()
+                + ', error info=' + event?.error.getErrorInfo())
             })
-            .onHttpErrorReceive((event?: {
-              request: WebResourceRequest,
-              response: WebResourceResponse
-            }) => {
-              logger.warn(TAG, 'response code=' + event.response.getResponseCode()
-                + ', response message=' + event.response.getReasonMessage())
+            .onHttpErrorReceive((event?: HttpErrorReceiveEvent) => {
+              logger.warn(TAG, 'response code=' + event?.response.getResponseCode()
+                + ', response message=' + event?.response.getReasonMessage())
             })
-            .onRenderExited((event?: {
-              renderExitReason: RenderExitReason
-            }) => {
-              logger.warn(TAG, 'renderExitReason=' + event.renderExitReason);
+            .onRenderExited((event?: RenderExitedEvent) => {
+              logger.warn(TAG, 'renderExitReason=' + event?.renderExitReason);
             })
             .useSizeType({
               xs: { span: 4, offset: 2 }, sm: { span: 4, offset: 2 },
@@ -97,4 +89,18 @@ struct UnitManagerShowPage {
       this.manageUrl = '';
     }
   }
+}
+
+interface ErrorReceiveEvent {
+  request: WebResourceRequest,
+  error: WebResourceError
+}
+
+interface HttpErrorReceiveEvent {
+  request: WebResourceRequest,
+  response: WebResourceResponse
+}
+
+interface RenderExitedEvent {
+  renderExitReason: RenderExitReason
 }

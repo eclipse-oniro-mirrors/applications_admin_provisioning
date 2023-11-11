@@ -7,7 +7,8 @@
     "mainElement": "com.ohos.adminprovisioning.MainAbility",
     "deviceTypes": [
       "default",
-      "tablet"
+      "tablet",
+      "2in1"
     ],
     "deliveryWithInstall": true,
     "installationFree": false,
@@ -47,6 +48,17 @@
         "permissions": ["ohos.permission.PROVISIONING_MESSAGE"],
         "startWindowIcon": "$media:transparent",
         "startWindowBackground": "$color:color_00000000_transparent"
+      }
+    ],
+    "extensionAbilities": [
+      {
+        "name": "MDMUIExtensionAbility",
+        "icon": "$media:icon",
+        "description": "UIExtensionAbility",
+        "exported": true,
+        "type": "ui",
+        "visible": false,
+        "srcEntrance": "./ets/MainAbility/UIExtensionAbility.ets"
       }
     ],
     "requestPermissions": [

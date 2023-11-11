@@ -19,16 +19,17 @@ import baseData from '../../../common/baseData'
 import logger from '../../../common/logger'
 import resetFactory from '../../../common/resetFactory'
 import utils from '../../../common/utils'
+import Want from '@ohos.app.ability.Want';
+import { GlobalContext } from '../../../MainAbility/MainAbility';
+import common from '@ohos.app.ability.common';
 
 const TAG = 'DoubleButtonComponent';
 
 @Component
-export default
-struct DoubleButtonComponent {
+export default struct DoubleButtonComponent {
   private nextFlag: boolean = false;
   private returnDialogFlag: boolean = true;
   @StorageLink('manageBundleName') nextBundleName: string = '';
-
   buttonDialog: CustomDialogController = new CustomDialogController({
     builder: DialogButtonLayout(),
     autoCancel: false,
@@ -37,7 +38,7 @@ struct DoubleButtonComponent {
   })
 
   build() {
-    Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems:ItemAlign.Center }) {
+    Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
       Row() {
         Image($r('app.media.ic_public_arrow_left'))
           .width($r('app.float.wh_value_24'))
@@ -94,10 +95,10 @@ struct DoubleButtonComponent {
 
   async startSpecificActionAbility() {
     let actionVal = 'ohos.action.ENTERPRISE_DEVICE_ADMIN_POLICY_COMPLIANCE';
-    let queryWant = { action: actionVal, bundleName: this.nextBundleName };
+    let queryWant: Want = { action: actionVal, bundleName: this.nextBundleName };
     logger.info(TAG, 'startSpecificActionAbility startAbility in:');
 
-    let data;
+    let data: Array<bundle.AbilityInfo> = [];
     try {
       data = await bundle.queryAbilityInfo(queryWant, bundle.AbilityFlag.GET_ABILITY_INFO_DEFAULT,
         baseData.DEFAULT_USER_ID);
@@ -110,19 +111,23 @@ struct DoubleButtonComponent {
       logger.info(TAG, 'startSpecificActionAbility data len='
         + data.length + ' | data content=' + data[0].name)
       try {
-        await globalThis.autoManagerAbilityContext.startAbility({ bundleName: this.nextBundleName,
-          abilityName: data[0].name });
+        await (GlobalContext.getContext()
+          .getObject("autoManagerAbilityContext") as common.UIAbilityContext).startAbility({
+          bundleName: this.nextBundleName,
+          abilityName: data[0].name
+        });
       } catch (e) {
         logger.error(TAG, "startSpecificActionAbility startAbility fail! " + e)
       }
     }
-    await globalThis.autoManagerAbilityContext.terminateSelf();
+    await (GlobalContext.getContext()
+      .getObject("autoManagerAbilityContext") as common.UIAbilityContext).terminateSelf();
   }
 }
 
 @CustomDialog
 struct DialogButtonLayout {
-  controller: CustomDialogController
+  controller?: CustomDialogController
 
   build() {
     Column() {
@@ -173,7 +178,7 @@ struct DialogButtonLayout {
           .height('40vp')
           .flexGrow(1)
           .onClick(() => {
-            this.controller.close();
+            this.controller?.close();
           })
 
           Divider()
@@ -194,7 +199,7 @@ struct DialogButtonLayout {
           .height('40vp')
           .flexGrow(1)
           .onClick(() => {
-            this.controller.close();
+            this.controller?.close();
             resetFactory.rebootAndCleanUserData();
           })
         }

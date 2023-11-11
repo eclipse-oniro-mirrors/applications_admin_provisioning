@@ -15,12 +15,14 @@
 
 import enterpriseDeviceManager from '@ohos.enterprise.adminManager';
 import router from '@ohos.router';
-import accountManager from '../../common/accountManager'
+import accountManager, { UserId } from '../../common/accountManager'
 import appDetailData from '../../common/appManagement/appDetailData'
 import baseData from '../../common/baseData'
 import doubleButtonComponent from '../component/autoManager/doubleButtonComponent'
 import logger from '../../common/logger'
 import utils from '../../common/utils'
+import Want from '@ohos.app.ability.Want';
+import adminManager from '@ohos.enterprise.adminManager';
 
 const TAG = 'LoadingInfo';
 
@@ -96,12 +98,12 @@ struct LoadingInfo {
   }
 
   async checkAppValidAndActivate() {
-    let  admin = {
+    let admin: Want = {
       bundleName: this.manageBundleName,
       abilityName: this.manageAbilityName
     }
 
-    let enterpriseInfo = {
+    let enterpriseInfo: adminManager.EnterpriseInfo = {
       name: this.manageEnterpriseName,
       description: this.manageEnterpriseDescription
     }
@@ -109,14 +111,18 @@ struct LoadingInfo {
       + ' | enterpriseInfo=' + JSON.stringify(enterpriseInfo));
 
     let ret = await appDetailData.checkAppItem(admin);
-    if (!(ret.val)) {
+    if (!(ret)) {
+      logger.info(TAG, 'checkAppItem fail');
       router.pushUrl({ url: 'pages/autoManager/setFinishFail' });
       return;
     }
 
-    let userId = { localId: 0 };
+    let userId: UserId = {localId : 0};
     let retVal = await accountManager.getAccountUserId(userId);
+    logger.info(TAG, 'getAccountUserId retVal : ' + retVal);
+    logger.info(TAG, 'getAccountUserId userId : ' + userId.localId);
     if (!retVal || userId.localId !== baseData.DEFAULT_USER_ID) {
+      logger.info(TAG, 'getAccountUserId fail');
       router.pushUrl({ url: 'pages/autoManager/setFinishFail' });
       return;
     }

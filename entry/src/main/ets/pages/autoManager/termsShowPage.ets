@@ -20,8 +20,8 @@ import utils from '../../common/utils'
 @Entry
 @Component
 struct TermsShowPage {
-  @StorageLink('manageTermsName') manageTermsName: string = AppStorage.Get('manageTermsName');
-  @StorageLink('manageTermsContent') manageTermsContent: string[] = AppStorage.Get('manageTermsContent');
+  @StorageLink('manageTermsName') manageTermsName: string = AppStorage.Get('manageTermsName') as string;
+  @StorageLink('manageTermsContent') manageTermsContent: string[] = AppStorage.Get('manageTermsContent') as string[];
 
   build() {
     Column() {
