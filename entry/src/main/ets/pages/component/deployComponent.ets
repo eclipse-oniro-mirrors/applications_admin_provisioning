@@ -154,8 +154,8 @@ export struct deployComponent {
   @Builder
   pcPageContent() {
     Column() {
-      GridRow({ columns : { xs: 4, sm: 6, md: 8, lg: 12 }, gutter: { x: 12 } }) {
-        GridCol({ span : { xs: 4, sm: 6, md: 8, lg: 12 }, offset: { lg: 2 } }) {
+      GridRow({ columns : 12, gutter: { x: 12 } }) {
+        GridCol({ span : 8, offset: 2 }) {
           Column() {
             Column() {
               Column() {
@@ -275,11 +275,11 @@ export struct deployComponent {
         this.terminateAbility(baseData.OOBE_NEXT_STEP_CODE);
       }).catch((err: BusinessError) => {
         logger.error(TAG, `enableAdmin failed, errCode: ${err.code}, errMessage: ${err.message}`);
-        this.terminateAbility(baseData.OOBE_PRE_STEP_CODE);
+        this.terminateAbility(baseData.ENABLE_ADMIN_FAILED);
       })
     } catch (err) {
       logger.error(TAG, `enableAdmin failed, errCode: ${err.code}, errMessage: ${err.message}`);
-      this.terminateAbility(baseData.OOBE_PRE_STEP_CODE);
+      this.terminateAbility(baseData.ENABLE_ADMIN_FAILED);
     }
   }
 }

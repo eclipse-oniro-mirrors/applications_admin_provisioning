@@ -166,11 +166,11 @@
     },
     {
       "name": "continue",
-      "value": "continue."
+      "value": "continue"
     },
     {
       "name": "PreviousStep",
-      "value": "previous step."
+      "value": "previous step"
     }
   ]
 }
