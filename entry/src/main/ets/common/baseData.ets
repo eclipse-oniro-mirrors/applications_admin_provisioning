@@ -18,8 +18,9 @@ export class BaseData {
   EMPTY_STR = '';
   DEFAULT_USER_ID = 100;
   HTTPS = 'https';
-  OOBE_PRE_STEP_CODE = 101;
   OOBE_NEXT_STEP_CODE = 100;
+  OOBE_PRE_STEP_CODE = 101;
+  ENABLE_ADMIN_FAILED = 102;
 }
 
 let baseData = new BaseData();

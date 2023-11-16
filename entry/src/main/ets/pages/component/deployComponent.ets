@@ -54,9 +54,13 @@ export struct deployComponent {
   @Builder
   phonePageContent() {
     Column() {
-      GridRow({ columns : { xs: 4, sm: 6, md: 8, lg: 12 }, gutter: { x: 12 } }) {
-        GridCol({ span : { xs: 4, sm: 6, md: 8, lg: 12 }}) {
-          Column() {
+      GridRow({ columns : 4, gutter: { x: 12 } }) {
+        GridCol({ span : 4}) {
+          Flex({
+            direction: FlexDirection.Column,
+            justifyContent: FlexAlign.Start,
+            alignItems: ItemAlign.Center
+          }) {
             Column() {
               Column() {
                 Column() {
@@ -89,7 +93,8 @@ export struct deployComponent {
               .alignItems(HorizontalAlign.Center)
             }
             .margin({ bottom: $r('app.float.wh_value_48')})
-            .alignItems(HorizontalAlign.Center)
+            .flexShrink(0)
+            .width('100%')
 
             Column() {
               Text() {
@@ -97,7 +102,7 @@ export struct deployComponent {
                   .height($r('app.float.lineHeight_vp_25'))
                   .fontWeight(FontWeight.Medium)
                   .lineHeight($r('app.float.lineHeight_vp_25'))
-                  .fontSize($r('app.float.font_vp_18'))
+                  .fontSize($r('sys.float.ohos_id_text_size_sub_title2'))
                   .fontFamily('HarmonyHeiTi')
               }
               .width('100%')
@@ -105,9 +110,8 @@ export struct deployComponent {
               .maxLines(2)
               .align(Alignment.Center)
             }
-            .padding({ left: $r('app.float.font_12'), right: $r('app.float.font_12') })
+            .flexGrow(1)
             .width('100%')
-            .layoutWeight(1);
 
             Column() {
               Button() {
@@ -126,18 +130,23 @@ export struct deployComponent {
               .height($r('app.float.wh_value_40'))
               .margin({ bottom: $r('app.float.value_100')})
             }
-            .margin({ top: $r('app.float.wh_value_16')})
-            .justifyContent(FlexAlign.Center)
+            .flexShrink(0)
             .width('100%')
-            .height($r('app.float.value_156'))
-          }
-          .padding({
-            left: $r('sys.float.ohos_id_max_padding_start'),
-            right: $r('sys.float.ohos_id_max_padding_end'),
-          })
-        }
+            .padding({
+              top: $r('app.float.wh_value_16'),
+              bottom: $r('sys.float.ohos_id_default_padding_bottom_fixed')
+            })
+          }.size({ width: '100%', height: '100%' })
+        }.size({ width: '100%', height: '100%' })
       }
+      .height('100%')
+      .width('100%')
+      .backgroundColor($r('sys.color.ohos_id_color_sub_background'))
     }
+    .padding({
+      left: $r('sys.float.ohos_id_max_padding_start'),
+      right: $r('sys.float.ohos_id_max_padding_end')
+    })
     .size({ width: '100%', height: '100%' })
     .backgroundColor($r('sys.color.ohos_id_color_sub_background'))
   }
@@ -145,8 +154,8 @@ export struct deployComponent {
   @Builder
   pcPageContent() {
     Column() {
-      GridRow({ columns : { xs: 4, sm: 6, md: 8, lg: 12 }, gutter: { x: 12 } }) {
-        GridCol({ span : { xs: 4, sm: 6, md: 8, lg: 12 }, offset: { lg: 2 } }) {
+      GridRow({ columns : 12, gutter: { x: 12 } }) {
+        GridCol({ span : 8, offset: 2 }) {
           Column() {
             Column() {
               Column() {
@@ -266,11 +275,11 @@ export struct deployComponent {
         this.terminateAbility(baseData.OOBE_NEXT_STEP_CODE);
       }).catch((err: BusinessError) => {
         logger.error(TAG, `enableAdmin failed, errCode: ${err.code}, errMessage: ${err.message}`);
-        this.terminateAbility(baseData.OOBE_PRE_STEP_CODE);
+        this.terminateAbility(baseData.ENABLE_ADMIN_FAILED);
       })
     } catch (err) {
       logger.error(TAG, `enableAdmin failed, errCode: ${err.code}, errMessage: ${err.message}`);
-      this.terminateAbility(baseData.OOBE_PRE_STEP_CODE);
+      this.terminateAbility(baseData.ENABLE_ADMIN_FAILED);
     }
   }
 }
