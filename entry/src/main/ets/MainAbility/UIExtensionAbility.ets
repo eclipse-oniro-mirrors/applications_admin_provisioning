@@ -56,14 +56,16 @@ export default class AutoDeployAbility extends UIExtensionAbility {
           this.localStorage.setOrCreate('adminInfo', admin);
           this.localStorage.setOrCreate('enterpriseInfo', enterpriseInfo);
           this.localStorage.setOrCreate('adminType', adminType);
-          this.localStorage.setOrCreate('session', session);
         }
+      }).catch((err: BusinessError) => {
+        logger.error(`getOneCfgFile edm_provision_config.json fail, errCode: ${err.code}, errMessage: ${err.message}`);
       })
     } catch (error) {
       let code = (error as BusinessError).code;
       let message = (error as BusinessError).message;
       logger.info(TAG, 'getOneCfgFile error: ' + code + message);
     }
+    this.localStorage.setOrCreate('session', session);
     session.loadContent('pages/custProvisioning/custProvisioning', this.localStorage);
   }
 
