@@ -99,7 +99,6 @@ export struct deployComponent {
             Column() {
               Text() {
                 Span(this.autoDeployText)
-                  .height($r('app.float.lineHeight_vp_25'))
                   .fontWeight(FontWeight.Medium)
                   .lineHeight($r('app.float.lineHeight_vp_25'))
                   .fontSize($r('sys.float.ohos_id_text_size_sub_title2'))
@@ -186,7 +185,6 @@ export struct deployComponent {
             Column() {
               Text() {
                 Span(this.autoDeployText)
-                  .height($r('app.float.lineHeight_vp_25'))
                   .fontWeight(FontWeight.Medium)
                   .lineHeight($r('app.float.lineHeight_vp_25'))
                   .fontSize($r('app.float.font_vp_18'))
