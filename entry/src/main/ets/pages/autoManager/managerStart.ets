@@ -176,7 +176,7 @@ struct ManagerStart {
   }
 
   parseManageParameter() {
-    let data = GlobalContext.getContext().getObject('adminProvisioningWant') as Want;
+    let data = GlobalContext.getContext().getObject('autoManagerAbilityWant') as Want;
 
     if (!utils.checkObjPropertyValid(data, 'parameters.elementName.abilityName')
       || !utils.checkObjPropertyValid(data, 'parameters.enterprise.name')
