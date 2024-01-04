@@ -55,9 +55,8 @@
         "name": "MDMUIExtensionAbility",
         "icon": "$media:icon",
         "description": "UIExtensionAbility",
-        "exported": true,
+        "exported": false,
         "type": "ui",
-        "visible": false,
         "srcEntrance": "./ets/MainAbility/UIExtensionAbility.ets"
       }
     ],
