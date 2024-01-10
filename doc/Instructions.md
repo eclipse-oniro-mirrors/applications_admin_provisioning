@@ -191,10 +191,10 @@ AdminProvisioning属于系统应用，在将签名的 hap 包放入 `/system/app
       reboot（不可以直接执行hdc reboot，命令是无效的)
     ```
 > ![icon-note.gif](image/icon-note.gif) **说明：**
-> 如果设备之前安装过系统应用，则需要执行如下两条命令清除设备中存储的应用信息才能够在设备重启的时候将我们装入设备的新 hap 包正常拉起。
+> 如果设备之前安装过系统应用，则需要执行如下两条命令清除设备中存储的应用信息才能够在设备重启的时候将当前装入设备的新 hap 包正常拉起。
 > ```
->   hdc  shell rm -rf  /data/misc_de/0/mdds/0/default/bundle_manager_service
->   hdc  shell rm -rf  /data/accounts
+>   hdc shell rm -rf  /data/misc_de/0/mdds/0/default/bundle_manager_service
+>   hdc shell rm -rf  /data/accounts
 > ```
 ### 应用调试
 #### log打印
@@ -235,7 +235,7 @@ AdminProvisioning属于系统应用，在将签名的 hap 包放入 `/system/app
 3. Fork 成功之后，会在自己的账号下看见 fork 的代码仓库。
 
 ### 提交代码
-1. 访问我们自己在码云账号上 fork 的代码仓库，点击“克隆/下载”按钮，选择 SSH，点击“复制”按钮。
+1. 访问自己在码云账号上 fork 的代码仓库，点击“克隆/下载”按钮，选择 SSH，点击“复制”按钮。
 
     ![](image/ssh_1.png)
 
@@ -248,11 +248,11 @@ AdminProvisioning属于系统应用，在将签名的 hap 包放入 `/system/app
    将代码引入工程，以及编译工程等相关内容请参见 **代码使用章节** 部分的相关内容。
 
 4. 提交代码到 fork 仓库。  
-   修改后的代码，首先执行 `git add` 命令，然后执行 `git commit` 命令与 `git push` 命令，将代码 push 到我们自己的 fork 仓中。
+   修改后的代码，首先执行 `git add` 命令，然后执行 `git commit` 命令与 `git push` 命令，将代码 push 到自己的 fork 仓中。
    关于代码提交的这部分内容涉及 git 的使用，可以参照 [git官网](https://git-scm.com/) 的内容，在此不再赘述。
 
 ### 发起 Pull Request (PR)
-在将代码提交到 fork 仓之后，我们可以通过发起 Pull Request（PR）的方式来为 OpenHarmony 的相关项目贡献代码。
+在将代码提交到 fork 仓之后，可以通过发起 Pull Request（PR）的方式来为 OpenHarmony 的相关项目贡献代码。
 
 1. 打开 fork 仓库。选择 `Pull Requests` → `新建 Pull Request`。
    
