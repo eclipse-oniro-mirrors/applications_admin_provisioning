@@ -72,6 +72,7 @@ export struct deployComponent {
                     })
                 }
                 .width('100%')
+                .margin({ top : $r('app.float.wh_value_36') })
                 .height($r('app.float.wh_value_56'))
                 .alignItems(HorizontalAlign.Start)
                 .justifyContent(FlexAlign.Center)
