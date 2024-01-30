@@ -21,14 +21,6 @@
       "value": "Activate Device Manager?"
     },
     {
-      "name": "appManagement",
-      "value": "Application Management"
-    },
-    {
-      "name": "description_appmanagementmodel",
-      "value": "hap sample empty service"
-    },
-    {
       "name": "activation",
       "value": "activate"
     },
@@ -39,10 +31,6 @@
     {
       "name": "cancel",
       "value": "cancel"
-    },
-    {
-      "name": "inActivated",
-      "value": "Inactive"
     },
     {
       "name": "device_active_1",
@@ -171,6 +159,26 @@
     {
       "name": "PreviousStep",
       "value": "previous step"
+    },
+    {
+      "name": "textManageSuccessContentVal1",
+      "value": "%1$s"
+    },
+    {
+      "name": "textManageSuccessContentVal2",
+      "value": "%2$s"
+    },
+    {
+      "name": "textManageSuccessContent",
+      "value": "if you have any questions, please contact your %1$s contact."
+    },
+    {
+      "name": "textApplicationInfoActive",
+      "value": "This device administrator is currently active and allows \"%1$s\" to perform the following operations:"
+    },
+    {
+      "name": "textApplicationInfoInactive",
+      "value": "Activating this administrator will allow \"%1$s\" to perform the following operations:"
     }
   ]
 }
