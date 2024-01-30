@@ -21,14 +21,6 @@
       "value": "是否激活设备管理器?"
     },
     {
-      "name": "appManagement",
-      "value": "应用管理"
-    },
-    {
-      "name": "description_appmanagementmodel",
-      "value": "hap样例空服务"
-    },
-    {
       "name": "activation",
       "value": "激活"
     },
@@ -39,10 +31,6 @@
     {
       "name": "cancel",
       "value": "取消"
-    },
-    {
-      "name": "inActivated",
-      "value": "未激活"
     },
     {
       "name": "device_active_1",
@@ -171,6 +159,26 @@
     {
       "name": "PreviousStep",
       "value": "上一步"
+    },
+    {
+      "name": "textManageSuccessContentVal1",
+      "value": "%1$s"
+    },
+    {
+      "name": "textManageSuccessContentVal2",
+      "value": "%2$s"
+    },
+    {
+      "name": "textManageSuccessContent",
+      "value": "如有疑问，请与您的%1$s联系。"
+    },
+    {
+      "name": "textApplicationInfoActive",
+      "value": "此管理器已激活，允许应用\"%1$s\"执行以下操作："
+    },
+    {
+      "name": "textApplicationInfoInactive",
+      "value": "激活此管理器可允许应用\"%1$s\"执行以下操作："
     }
   ]
 }
