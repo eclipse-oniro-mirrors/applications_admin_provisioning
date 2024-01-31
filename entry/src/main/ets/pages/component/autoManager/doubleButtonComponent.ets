@@ -14,13 +14,11 @@
  */
 
 import bundle from '@ohos.bundle.bundleManager';
-import router from '@ohos.router';
 import baseData from '../../../common/baseData'
 import logger from '../../../common/logger'
 import resetFactory from '../../../common/resetFactory'
 import utils from '../../../common/utils'
 import Want from '@ohos.app.ability.Want';
-import { GlobalContext } from '../../../MainAbility/MainAbility';
 import common from '@ohos.app.ability.common';
 
 const TAG = 'DoubleButtonComponent';
@@ -58,7 +56,7 @@ export default struct DoubleButtonComponent {
             if (this.returnDialogFlag) {
               this.buttonDialog.open();
             } else {
-              router.back();
+              (getContext(this) as common.UIAbilityContext).terminateSelf();
             }
           })
       }
@@ -111,8 +109,7 @@ export default struct DoubleButtonComponent {
       logger.info(TAG, 'startSpecificActionAbility data len='
         + data.length + ' | data content=' + data[0].name)
       try {
-        await (GlobalContext.getContext()
-          .getObject("autoManagerAbilityContext") as common.UIAbilityContext).startAbility({
+        await (getContext(this) as common.UIAbilityContext).startAbility({
           bundleName: this.nextBundleName,
           abilityName: data[0].name
         });
@@ -120,8 +117,7 @@ export default struct DoubleButtonComponent {
         logger.error(TAG, "startSpecificActionAbility startAbility fail! " + e)
       }
     }
-    await (GlobalContext.getContext()
-      .getObject("autoManagerAbilityContext") as common.UIAbilityContext).terminateSelf();
+    await (getContext(this) as common.UIAbilityContext).terminateSelf();
   }
 }
 

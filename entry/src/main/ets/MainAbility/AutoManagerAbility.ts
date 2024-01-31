@@ -18,15 +18,15 @@ import logger from '../common/logger';
 import type Want from '@ohos.app.ability.Want';
 import type AbilityConstant from '@ohos.app.ability.AbilityConstant';
 import type window from '@ohos.window';
-import { GlobalContext } from './MainAbility';
 
 const TAG = 'AutoManagerAbility';
 
 export default class AutoManagerAbility extends UIAbility {
+  private localStorage: LocalStorage = new LocalStorage();
+
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     logger.info(TAG, 'onCreate');
-    GlobalContext.getContext().setObject('autoManagerAbilityWant', want);
-    GlobalContext.getContext().setObject('autoManagerAbilityContext', this.context);
+    this.localStorage.setOrCreate('autoManagerAbilityWant', want);
   }
 
   onDestroy(): void {
@@ -36,7 +36,7 @@ export default class AutoManagerAbility extends UIAbility {
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     logger.info(TAG, 'onWindowStageCreate');
-    windowStage.loadContent('pages/autoManager/managerStart', null);
+    windowStage.loadContent('pages/autoManager/managerStart', this.localStorage);
   }
 
   onWindowStageDestroy(): void {

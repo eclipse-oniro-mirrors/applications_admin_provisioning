@@ -21,9 +21,20 @@ import utils from '../../common/utils'
 @Component
 struct SetFinishSuccess {
   @State textContext: Resource = $r('app.string.setupComplete');
-  @State textManager: Resource = $r('app.string.unitManage');
-  @State textManagerBefore: Resource = $r('app.string.textManagerBeforeFinish');
-  @State textManagerAfter: Resource = $r('app.string.textManagerAfter');
+  @State textManager: string = getContext().resourceManager.getStringSync($r('app.string.unitManage').id);
+  private textContent: string = getContext().resourceManager.getStringSync($r('app.string.textManageSuccessContent').id, this.textManager);
+  private getTextList: (source: string, target: string) => Array<string> = (source: string, target: string) => {
+    let result: Array<string> = new Array<string>();
+    if (source) {
+      let position: number = source.indexOf(target);
+      let before: string = source.substring(0, position);
+      let after: string = source.substring(position + target.length);
+      result.push(before);
+      result.push(target);
+      result.push(after);
+    }
+    return result;
+  }
 
   build() {
     Column() {
@@ -58,26 +69,19 @@ struct SetFinishSuccess {
         Column() {
           Row() {
             Text() {
-              Span(this.textManagerBefore)
-                .fontWeight(FontWeight.Regular)
-                .fontSize($r('app.float.font_vp_16'))
-                .fontFamily('HarmonyHeiTi')
-
-              Span(this.textManager)
-                .decoration({ type: TextDecorationType.None })
-                .fontColor(0x007DFF)
-                .fontSize($r('app.float.font_vp_16'))
-                .fontFamily('HarmonyHeiTi')
-                .fontWeight(FontWeight.Regular)
-                .onClick(() => {
-                  router.pushUrl({url: 'pages/autoManager/unitManagerShowPage'})
-                })
-
-              Span(this.textManagerAfter)
-                .fontWeight(FontWeight.Regular)
-                .fontSize($r('app.float.font_vp_16'))
-                .fontFamily('HarmonyHeiTi')
+              ForEach(this.getTextList(this.textContent, this.textManager), (item: string) => {
+                Span(item)
+                  .fontColor(item === this.textManager ? 0x007DFF: 0x000000)
+                  .onClick(() => {
+                    if (item === this.textManager) {
+                      router.pushUrl({url: 'pages/autoManager/unitManagerShowPage'})
+                    }
+                  })
+              })
             }
+            .fontWeight(FontWeight.Regular)
+            .fontSize($r('app.float.font_vp_16'))
+            .fontFamily('HarmonyHeiTi')
             .lineHeight($r('app.float.lineHeight_vp_21_5'))
           }
           .useSizeType({
