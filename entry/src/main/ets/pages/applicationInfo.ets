@@ -26,7 +26,7 @@ import { AppPermission, MyApplicationInfo } from '../common/myApplicationInfo'
 import Want from '@ohos.app.ability.Want';
 import adminManager from '@ohos.enterprise.adminManager';
 import { BusinessError } from '@ohos.base';
-import { GlobalContext } from '../MainAbility/MainAbility';
+import common from '@ohos.app.ability.common';
 
 let appInfo: MyApplicationInfo;
 let elementNameVal: Want;
@@ -51,6 +51,7 @@ struct ApplicationInfo {
   @State deviceAdminDisActive: string = '';
   @State enterpriseName: string = '';
   @State enterpriseDescription: string = '';
+  private storage = LocalStorage.getShared();
 
   build() {
     Column() {
@@ -116,7 +117,7 @@ struct ApplicationInfo {
                 });
 
               List() {
-                ForEach(appInfo.appPermissionList, (item: AppPermission) => {
+                ForEach(this.applicationInfo.appPermissionList, (item: AppPermission) => {
                   ListItem() {
                     permissionListComponent({
                       permissionName: item.permissionLabel,
@@ -208,14 +209,7 @@ struct ApplicationInfo {
     .backgroundColor($r('sys.color.ohos_id_color_sub_background'))
   }
 
-  aboutToAppear(): void {
-    appInfo = {
-      appIcon: '',
-      appTitle: '',
-      appBundleName: '',
-      appPermissionList: [],
-    };
-
+  async aboutToAppear(): Promise<void> {
     elementNameVal = {
       abilityName: '',
       bundleName: '',
@@ -228,7 +222,7 @@ struct ApplicationInfo {
 
     isAdminTypeVal = 0;
     logger.info(TAG, 'aboutToAppear in');
-    this.getCheckAbilityList(appInfo, elementNameVal, isAdminTypeVal);
+    await this.getCheckAbilityList(this.applicationInfo, elementNameVal, isAdminTypeVal);
     logger.info(TAG, 'aboutToAppear out');
   }
 
@@ -340,7 +334,8 @@ struct ApplicationInfo {
 
   async getAbilityWantVal(appInfo: MyApplicationInfo, elementNameVal: Want, adminType: adminManager.AdminType) {
     logger.info(TAG, 'getAbilityWantVal in:');
-    let data = GlobalContext.getContext().getObject("adminProvisioningWant") as Want;
+    this.storage = LocalStorage.getShared();
+    let data = this.storage.get<Want>('adminProvisioningWant');
 
     if (!utils.checkObjPropertyValid(data, 'parameters.elementName.abilityName')
       || !utils.checkObjPropertyValid(data, 'parameters.enterprise.name')
@@ -348,6 +343,7 @@ struct ApplicationInfo {
       || !utils.isValid(data.parameters?.activeType)
       || !utils.isValid((data.parameters?.enterprise as Record<string, string>).description)) {
       logger.warn(TAG, 'data.parameters = ' + JSON.stringify(data.parameters));
+      (getContext(this) as common.UIAbilityContext).terminateSelf();
       return;
     }
 
@@ -387,13 +383,10 @@ struct ApplicationInfo {
       await appDetailData.getBundleInfoItem(appInfo.appBundleName, appInfo);
     }
 
-    deviceActiveOne = await this.getSelfResourceVal($r('app.string.device_active_1'));
-    deviceActiveTwo = await this.getSelfResourceVal($r('app.string.device_active_2'));
-    deviceDeactivate = await this.getSelfResourceVal($r('app.string.device_deactivate'));
     enterName = await this.getSelfResourceVal($r('app.string.enterprise_name'));
     enterDescription = await this.getSelfResourceVal($r('app.string.enterprise_description'));
-    this.deviceAdminActive = deviceActiveOne + `${appInfo.appTitle}` + deviceActiveTwo;
-    this.deviceAdminDisActive = deviceDeactivate + `${appInfo.appTitle}` + deviceActiveTwo;
+    this.deviceAdminActive = getContext().resourceManager.getStringSync($r('app.string.textApplicationInfoActive').id, `${appInfo.appTitle}`);
+    this.deviceAdminDisActive = getContext().resourceManager.getStringSync($r('app.string.textApplicationInfoInactive').id, `${appInfo.appTitle}`);
 
     let want: Want = {
       bundleName: elementNameVal.bundleName,

@@ -21,7 +21,6 @@ import utils from '../utils'
 import { AppPermission, MyApplicationInfo } from '../myApplicationInfo'
 import Want from '@ohos.app.ability.Want';
 import resourceManager from '@ohos.resourceManager';
-import { GlobalContext }  from '../../MainAbility/MainAbility';
 import common from '@ohos.app.ability.common';
 
 let icon_default = $r('app.media.icon');
@@ -54,7 +53,7 @@ export class AppDetailData {
     }
     let data: Array<bundle.ExtensionAbilityInfo> = [];
     try {
-      bundle.queryExtensionAbilityInfo(want, bundle.ExtensionAbilityType.ENTERPRISE_ADMIN,
+      await bundle.queryExtensionAbilityInfo(want, bundle.ExtensionAbilityType.ENTERPRISE_ADMIN,
         bundle.ExtensionAbilityFlag.GET_EXTENSION_ABILITY_INFO_WITH_APPLICATION, userId.localId).then((result)=>{
         data = result;
       })
@@ -141,7 +140,7 @@ export class AppDetailData {
 
   async terminateAbilityPage() {
     logger.info(TAG, 'terminateAbilityPage in:');
-    await (GlobalContext.getContext().getObject("adminProvisioningContext") as common.UIAbilityContext).terminateSelf();
+    await (getContext(this) as common.UIAbilityContext).terminateSelf();
   }
 
   getPermissionInfoVal(permissionName: string): number {

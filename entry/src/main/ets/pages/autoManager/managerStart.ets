@@ -17,8 +17,8 @@ import router from '@ohos.router';
 import utils from '../../common/utils'
 import doubleButtonComponent from '../component/autoManager/doubleButtonComponent'
 import logger from '../../common/logger'
-import { GlobalContext } from '../../MainAbility/MainAbility';
 import Want from '@ohos.app.ability.Want';
+import common from '@ohos.app.ability.common';
 
 const TAG = 'ManagerStart';
 
@@ -31,6 +31,7 @@ struct ManagerStart {
   @State textManagerAfter: Resource = $r('app.string.textManagerAfter');
   @State textTerms: Resource = $r('app.string.textTerms');
   @State textTermsBefore: Resource = $r('app.string.textTermsBefore');
+  private storage = LocalStorage.getShared();
 
   build() {
     Column() {
@@ -176,7 +177,8 @@ struct ManagerStart {
   }
 
   parseManageParameter() {
-    let data = GlobalContext.getContext().getObject('autoManagerAbilityWant') as Want;
+    this.storage = LocalStorage.getShared();
+    let data = this.storage.get<Want>('autoManagerAbilityWant');
 
     if (!utils.checkObjPropertyValid(data, 'parameters.elementName.abilityName')
       || !utils.checkObjPropertyValid(data, 'parameters.enterprise.name')
@@ -185,7 +187,8 @@ struct ManagerStart {
       || !utils.isValid(data.parameters?.termsName)
       || (!utils.isValid(data.parameters?.termsContent) || !(data.parameters?.termsContent instanceof Array))
       || !utils.isValid((data.parameters?.enterprise as Record<string, string>).description)) {
-      logger.error(TAG, 'parseManageParameter fail! parameters is not valid')
+      logger.error(TAG, 'parseManageParameter fail! parameters is not valid');
+      (getContext(this) as common.UIAbilityContext).terminateSelf();
       return;
     }
 

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import router from '@ohos.router';
+import common from '@ohos.app.ability.common';
 
 @Component
 export default struct HeadComponent {
@@ -32,7 +32,7 @@ export default struct HeadComponent {
         .backgroundColor($r('app.color.color_00000000_transparent'))
         .visibility(Visibility.Visible)
         .onClick(() => {
-          router.back();
+          (getContext(this) as common.UIAbilityContext).terminateSelf();
         })
       Text(this.headName)
         .height($r('app.float.wh_value_56'))
