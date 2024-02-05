@@ -18,7 +18,7 @@
     },
     {
       "name": "adminprovisioning",
-      "value": "Activate Device Manager?"
+      "value": "Activate device administrator"
     },
     {
       "name": "activation",
@@ -30,7 +30,7 @@
     },
     {
       "name": "cancel",
-      "value": "cancel"
+      "value": "Cancel"
     },
     {
       "name": "device_active_1",
@@ -54,27 +54,27 @@
     },
     {
       "name": "permissionLabel",
-      "value": "Setting the system time"
+      "value": "Set system time"
     },
     {
       "name": "permissionDescription",
-      "value": "Permission required for the application to set the system time"
+      "value": "Allows an app to set the system time."
     },
     {
       "name": "device_mgr_info_content",
-      "value": "your organization administrator can monitor this device's setting, apps, permissions, and data, including your web activity and your device's location, call history, and contact search history."
+      "value": "Your organization's administrator can monitor this device's settings, apps, permissions, and data, including network activity, location information, call history, and contact search history."
     },
     {
       "name": "returnVal",
-      "value": "return"
+      "value": "Back"
     },
     {
       "name": "nextVal",
-      "value": "next"
+      "value": "Next"
     },
     {
       "name": "tips",
-      "value": "Tips"
+      "value": "Note"
     },
     {
       "name": "tipsInfo",
@@ -82,19 +82,19 @@
     },
     {
       "name": "CancelSetting",
-      "value": "cancelSetting"
+      "value": "Cancel setup"
     },
     {
       "name": "deviceManageInfo",
-      "value": "device management information"
+      "value": "Device management information"
     },
     {
       "name": "unitManageDevice",
-      "value": "your organization will manage this device"
+      "value": "This device will be managed by your organization"
     },
     {
       "name": "unitManage",
-      "value": "unit administrator"
+      "value": "administrator"
     },
     {
       "name": "textManagerBefore",
@@ -122,7 +122,7 @@
     },
     {
       "name": "loadingSearch",
-      "value": "setting up device..."
+      "value": "Setting up device..."
     },
     {
       "name": "terms",
@@ -134,7 +134,7 @@
     },
     {
       "name": "settingFailed",
-      "value": "setup failed"
+      "value": "Setup failed"
     },
     {
       "name": "settingFailedInfo",
@@ -142,11 +142,11 @@
     },
     {
       "name": "resetFactorySet",
-      "value": "restoreFactorySettings"
+      "value": "Factory reset"
     },
     {
       "name": "setupComplete",
-      "value": "setup complete"
+      "value": "Setup complete"
     },
     {
       "name": "AutoDeployText",
@@ -154,7 +154,7 @@
     },
     {
       "name": "continue",
-      "value": "continue"
+      "value": "Continue"
     },
     {
       "name": "PreviousStep",
@@ -162,23 +162,23 @@
     },
     {
       "name": "textManageSuccessContentVal1",
-      "value": "%s"
+      "value": "%1$s"
     },
     {
       "name": "textManageSuccessContentVal2",
-      "value": "%s"
+      "value": "%2$s"
     },
     {
       "name": "textManageSuccessContent",
-      "value": "if you have any questions, please contact your %s contact."
+      "value": "if you have any questions, please contact your %1$s contact."
     },
     {
       "name": "textApplicationInfoActive",
-      "value": "This device administrator is currently active and allows \"%s\" to perform the following operations:"
+      "value": "This device administrator is currently active and allows \"%1$s\" to perform the following operations:"
     },
     {
       "name": "textApplicationInfoInactive",
-      "value": "Activating this administrator will allow \"%s\" to perform the following operations:"
+      "value": "Activating this administrator will allow \"%1$s\" to perform the following operations:"
     }
   ]
 }
