@@ -18,7 +18,7 @@
     },
     {
       "name": "adminprovisioning",
-      "value": "是否激活设备管理器?"
+      "value": "是否激活设备管理器？"
     },
     {
       "name": "activation",
@@ -122,7 +122,7 @@
     },
     {
       "name": "loadingSearch",
-      "value": "正在设置设备..."
+      "value": "正在设置设备…"
     },
     {
       "name": "terms",
