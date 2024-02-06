@@ -122,7 +122,7 @@
     },
     {
       "name": "loadingSearch",
-      "value": "Setting up device..."
+      "value": "Setting up device…"
     },
     {
       "name": "terms",
@@ -162,23 +162,23 @@
     },
     {
       "name": "textManageSuccessContentVal1",
-      "value": "%1$s"
+      "value": "%s"
     },
     {
       "name": "textManageSuccessContentVal2",
-      "value": "%2$s"
+      "value": "%s"
     },
     {
       "name": "textManageSuccessContent",
-      "value": "if you have any questions, please contact your %1$s contact."
+      "value": "if you have any questions, please contact your %s contact."
     },
     {
       "name": "textApplicationInfoActive",
-      "value": "This device administrator is currently active and allows \"%1$s\" to perform the following operations:"
+      "value": "This device administrator is currently active and allows \"%s\" to perform the following operations:"
     },
     {
       "name": "textApplicationInfoInactive",
-      "value": "Activating this administrator will allow \"%1$s\" to perform the following operations:"
+      "value": "Activating this administrator will allow \"%s\" to perform the following operations:"
     }
   ]
 }
