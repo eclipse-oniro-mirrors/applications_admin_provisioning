@@ -18,7 +18,7 @@
     },
     {
       "name": "adminprovisioning",
-      "value": "是否激活设备管理器?"
+      "value": "Activate device administrator"
     },
     {
       "name": "activation",
@@ -30,7 +30,7 @@
     },
     {
       "name": "cancel",
-      "value": "取消"
+      "value": "Cancel"
     },
     {
       "name": "device_active_1",
@@ -54,27 +54,27 @@
     },
     {
       "name": "permissionLabel",
-      "value": "Setting the system time"
+      "value": "Set system time"
     },
     {
       "name": "permissionDescription",
-      "value": "Permission required for the application to set the system time"
+      "value": "Allows an app to set the system time."
     },
     {
       "name": "device_mgr_info_content",
-      "value": "您的单位管理员可以监控此设备的设置、应用、权限以及数据（其中包括您的网络活动以及您设备的位置信息、通话记录和联系人搜索记录）。"
+      "value": "Your organization's administrator can monitor this device's settings, apps, permissions, and data, including network activity, location information, call history, and contact search history."
     },
     {
       "name": "returnVal",
-      "value": "返回"
+      "value": "Back"
     },
     {
       "name": "nextVal",
-      "value": "下一步"
+      "value": "Next"
     },
     {
       "name": "tips",
-      "value": "提示"
+      "value": "Note"
     },
     {
       "name": "tipsInfo",
@@ -82,19 +82,19 @@
     },
     {
       "name": "CancelSetting",
-      "value": "取消设置"
+      "value": "Cancel setup"
     },
     {
       "name": "deviceManageInfo",
-      "value": "设备管理信息"
+      "value": "Device management information"
     },
     {
       "name": "unitManageDevice",
-      "value": "您的单位将管理此设备"
+      "value": "This device will be managed by your organization"
     },
     {
       "name": "unitManage",
-      "value": "单位管理员"
+      "value": "administrator"
     },
     {
       "name": "textManagerBefore",
@@ -122,11 +122,11 @@
     },
     {
       "name": "loadingSearch",
-      "value": "正在设置设备..."
+      "value": "Setting up device…"
     },
     {
       "name": "terms",
-      "value": "条款"
+      "value": "Terms"
     },
     {
       "name": "manageInfo",
@@ -134,7 +134,7 @@
     },
     {
       "name": "settingFailed",
-      "value": "设置失败"
+      "value": "Setup failed"
     },
     {
       "name": "settingFailedInfo",
@@ -142,11 +142,11 @@
     },
     {
       "name": "resetFactorySet",
-      "value": "恢复出厂设置"
+      "value": "Factory reset"
     },
     {
       "name": "setupComplete",
-      "value": "设置完成"
+      "value": "Setup complete"
     },
     {
       "name": "AutoDeployText",
@@ -154,7 +154,7 @@
     },
     {
       "name": "continue",
-      "value": "继续"
+      "value": "Continue"
     },
     {
       "name": "PreviousStep",
