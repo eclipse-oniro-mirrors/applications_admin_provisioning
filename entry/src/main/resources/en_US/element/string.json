@@ -33,24 +33,12 @@
       "value": "Cancel"
     },
     {
-      "name": "device_active_1",
-      "value": "This device administrator is currently active and allows \""
-    },
-    {
-      "name": "device_active_2",
-      "value": "\" to perform the following operations:"
-    },
-    {
-      "name": "device_deactivate",
-      "value": "Activating this administrator will allow \""
-    },
-    {
       "name": "enterprise_name",
-      "value": "enterprise name:  "
+      "value": "Enterprise name: %s"
     },
     {
       "name": "enterprise_description",
-      "value": "enterprise description:  "
+      "value": "Enterprise description: %s"
     },
     {
       "name": "permissionLabel",
@@ -101,16 +89,12 @@
       "value": ", if you have any questions, please contact your "
     },
     {
-      "name": "textManagerBeforeFinish",
-      "value": "if you have any questions, please contact your "
-    },
-    {
       "name": "textManagerAfter",
       "value": " contact."
     },
     {
       "name": "textTerms",
-      "value": "view terms"
+      "value": "View terms"
     },
     {
       "name": "textTermsBefore",
@@ -170,15 +154,15 @@
     },
     {
       "name": "textManageSuccessContent",
-      "value": "if you have any questions, please contact your %s contact."
+      "value": "If you have any questions, please contact your %s."
     },
     {
       "name": "textApplicationInfoActive",
-      "value": "This device administrator is currently active and allows \"%s\" to perform the following operations:"
+      "value": "This administrator has been activated. %s can perform the following:"
     },
     {
       "name": "textApplicationInfoInactive",
-      "value": "Activating this administrator will allow \"%s\" to perform the following operations:"
+      "value": "Activating this administrator will allow %s to perform the following:"
     }
   ]
 }

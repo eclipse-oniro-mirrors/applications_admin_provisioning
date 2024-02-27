@@ -363,8 +363,6 @@ struct ApplicationInfo {
     let deviceActiveOne = '';
     let deviceActiveTwo = '';
     let deviceDeactivate = '';
-    let enterName = '';
-    let enterDescription = '';
     let getName = '';
     let getDescription = '';
     logger.info(TAG, 'getCheckAbilityList in:');
@@ -383,8 +381,6 @@ struct ApplicationInfo {
       await appDetailData.getBundleInfoItem(appInfo.appBundleName, appInfo);
     }
 
-    enterName = await this.getSelfResourceVal($r('app.string.enterprise_name'));
-    enterDescription = await this.getSelfResourceVal($r('app.string.enterprise_description'));
     this.deviceAdminActive = getContext().resourceManager.getStringSync($r('app.string.textApplicationInfoActive').id, `${appInfo.appTitle}`);
     this.deviceAdminDisActive = getContext().resourceManager.getStringSync($r('app.string.textApplicationInfoInactive').id, `${appInfo.appTitle}`);
 
@@ -411,11 +407,11 @@ struct ApplicationInfo {
     }
 
     if (this.isShowActive) {
-      this.enterpriseName = enterName + getName;
-      this.enterpriseDescription = enterDescription + getDescription;
+      this.enterpriseName = getContext().resourceManager.getStringSync($r('app.string.enterprise_name').id, getName);
+      this.enterpriseDescription = getContext().resourceManager.getStringSync($r('app.string.enterprise_description').id, getDescription);
     } else {
-      this.enterpriseName = enterName + enterInfo.name;
-      this.enterpriseDescription = enterDescription + enterInfo.description;
+      this.enterpriseName = getContext().resourceManager.getStringSync($r('app.string.enterprise_name').id, enterInfo.name);
+      this.enterpriseDescription = getContext().resourceManager.getStringSync($r('app.string.enterprise_description').id, enterInfo.description);
     }
     logger.info(TAG, 'getCheckAbilityList enterpriseName=' + this.enterpriseName
       + ' enterpriseDescription=' + this.enterpriseDescription);
