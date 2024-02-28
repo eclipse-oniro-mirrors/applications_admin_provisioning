@@ -33,24 +33,12 @@
       "value": "取消"
     },
     {
-      "name": "device_active_1",
-      "value": "此管理器已激活，允许应用\""
-    },
-    {
-      "name": "device_active_2",
-      "value": "\"执行以下操作："
-    },
-    {
-      "name": "device_deactivate",
-      "value": "激活此管理器可允许应用\""
-    },
-    {
       "name": "enterprise_name",
-      "value": "企业名称:  "
+      "value": "企业名称：%s"
     },
     {
       "name": "enterprise_description",
-      "value": "企业描述:  "
+      "value": "企业描述：%s"
     },
     {
       "name": "permissionLabel",
@@ -99,10 +87,6 @@
     {
       "name": "textManagerBefore",
       "value": "，如有疑问，请与您的"
-    },
-    {
-      "name": "textManagerBeforeFinish",
-      "value": "如有疑问，请与您的"
     },
     {
       "name": "textManagerAfter",
@@ -174,11 +158,11 @@
     },
     {
       "name": "textApplicationInfoActive",
-      "value": "此管理器已激活，允许应用\"%s\"执行以下操作："
+      "value": "此管理器已激活，允许应用“%s”执行以下操作："
     },
     {
       "name": "textApplicationInfoInactive",
-      "value": "激活此管理器可允许应用\"%s\"执行以下操作："
+      "value": "激活此管理器可允许应用“%s”执行以下操作："
     }
   ]
 }
