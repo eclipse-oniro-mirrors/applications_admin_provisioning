@@ -145,14 +145,6 @@
       "value": "Back"
     },
     {
-      "name": "textManageSuccessContentVal1",
-      "value": "%s"
-    },
-    {
-      "name": "textManageSuccessContentVal2",
-      "value": "%s"
-    },
-    {
       "name": "textManageSuccessContent",
       "value": "If you have any questions, please contact your %s."
     },

@@ -145,14 +145,6 @@
       "value": "上一步"
     },
     {
-      "name": "textManageSuccessContentVal1",
-      "value": "%s"
-    },
-    {
-      "name": "textManageSuccessContentVal2",
-      "value": "%s"
-    },
-    {
       "name": "textManageSuccessContent",
       "value": "如有疑问，请与您的%s联系。"
     },
