@@ -96,25 +96,23 @@ export default struct DoubleButtonComponent {
     let queryWant: Want = { action: actionVal, bundleName: this.nextBundleName };
     logger.info(TAG, 'startSpecificActionAbility startAbility in:');
 
-    let data: Array<bundle.AbilityInfo> = [];
+    let data: bundle.AbilityInfo[] = [];
     try {
       data = await bundle.queryAbilityInfo(queryWant, bundle.AbilityFlag.GET_ABILITY_INFO_DEFAULT,
-        baseData.DEFAULT_USER_ID);
+      baseData.DEFAULT_USER_ID);
     } catch (e) {
-      logger.error(TAG, 'startSpecificActionAbility queryAbilityByWant try fail! '
-        + JSON.stringify(e));
+      logger.error(TAG, 'startSpecificActionAbility queryAbilityByWant try fail! ' + JSON.stringify(e));
     }
 
     if (utils.isValid(data) && data.length > 0) {
-      logger.info(TAG, 'startSpecificActionAbility data len='
-        + data.length + ' | data content=' + data[0].name)
+      logger.info(TAG, 'startSpecificActionAbility data len=' + data.length + ' | data content=' + data[0].name)
       try {
         await (getContext(this) as common.UIAbilityContext).startAbility({
           bundleName: this.nextBundleName,
           abilityName: data[0].name
         });
       } catch (e) {
-        logger.error(TAG, "startSpecificActionAbility startAbility fail! " + e)
+        logger.error(TAG, 'startSpecificActionAbility startAbility fail! ' + e)
       }
     }
     await (getContext(this) as common.UIAbilityContext).terminateSelf();

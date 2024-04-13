@@ -14,13 +14,13 @@
  */
 
 export class BaseData {
-  MAX_LEN = 30;
-  EMPTY_STR = '';
-  DEFAULT_USER_ID = 100;
-  HTTPS = 'https';
-  OOBE_NEXT_STEP_CODE = 100;
-  OOBE_PRE_STEP_CODE = 101;
-  ENABLE_ADMIN_FAILED = 102;
+  public MAX_LEN = 30;
+  public EMPTY_STR = '';
+  public DEFAULT_USER_ID = 100;
+  public HTTPS = 'https';
+  public OOBE_NEXT_STEP_CODE = 100;
+  public OOBE_PRE_STEP_CODE = 101;
+  public ENABLE_ADMIN_FAILED = 102;
 }
 
 let baseData = new BaseData();

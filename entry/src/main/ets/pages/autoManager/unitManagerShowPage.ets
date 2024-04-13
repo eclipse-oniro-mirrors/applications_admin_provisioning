@@ -56,12 +56,12 @@ struct UnitManagerShowPage {
             .fileAccess(false)
             .javaScriptAccess(false)
             .onErrorReceive((event?: ErrorReceiveEvent) => {
-              logger.warn(TAG, 'error code=' + event?.error.getErrorCode()
-                + ', error info=' + event?.error.getErrorInfo())
+              logger.warn(TAG, 'error code=' + event?.error.getErrorCode() + ', error info=' +
+              event?.error.getErrorInfo())
             })
             .onHttpErrorReceive((event?: HttpErrorReceiveEvent) => {
-              logger.warn(TAG, 'response code=' + event?.response.getResponseCode()
-                + ', response message=' + event?.response.getReasonMessage())
+              logger.warn(TAG, 'response code=' + event?.response.getResponseCode() + ', response message=' +
+              event?.response.getReasonMessage())
             })
             .onRenderExited((event?: RenderExitedEvent) => {
               logger.warn(TAG, 'renderExitReason=' + event?.renderExitReason);
