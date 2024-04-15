@@ -22,9 +22,11 @@ import utils from '../../common/utils'
 struct SetFinishSuccess {
   @State textContext: Resource = $r('app.string.setupComplete');
   @State textManager: string = getContext().resourceManager.getStringSync($r('app.string.unitManage').id);
-  private textContent: string = getContext().resourceManager.getStringSync($r('app.string.textManageSuccessContent').id, this.textManager);
+  private textContent: string = getContext()
+    .resourceManager
+    .getStringSync($r('app.string.textManageSuccessContent').id, this.textManager);
   private getTextList: (source: string, target: string) => Array<string> = (source: string, target: string) => {
-    let result: Array<string> = new Array<string>();
+    let result: string[] = [];
     if (source) {
       let position: number = source.indexOf(target);
       let before: string = source.substring(0, position);
@@ -71,10 +73,10 @@ struct SetFinishSuccess {
             Text() {
               ForEach(this.getTextList(this.textContent, this.textManager), (item: string) => {
                 Span(item)
-                  .fontColor(item === this.textManager ? 0x007DFF: 0x000000)
+                  .fontColor(item === this.textManager ? 0x007DFF : 0x000000)
                   .onClick(() => {
                     if (item === this.textManager) {
-                      router.pushUrl({url: 'pages/autoManager/unitManagerShowPage'})
+                      router.pushUrl({ url: 'pages/autoManager/unitManagerShowPage' })
                     }
                   })
               })

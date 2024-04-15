@@ -257,8 +257,8 @@ struct ApplicationInfo {
     };
     let retAppState: boolean;
     let retSuperState: boolean;
-    logger.info(TAG, 'isAdminActive elementNameVal.bundleName=' + elementNameVal.bundleName
-      + ' | elementNameVal.abilityName=' + elementNameVal.abilityName);
+    logger.info(TAG, 'isAdminActive elementNameVal.bundleName=' + elementNameVal.bundleName +
+    ' | elementNameVal.abilityName=' + elementNameVal.abilityName);
     if (elementNameVal.bundleName === baseData.EMPTY_STR || elementNameVal.abilityName === baseData.EMPTY_STR) {
       logger.info(TAG, 'isAdminActive elementNameVal is null');
       return;
@@ -278,8 +278,7 @@ struct ApplicationInfo {
       }
       this.isShowActive = true;
     }
-    logger.info(TAG, 'isAdminActive retAppState:' + retAppState
-      + ' | retSuperState:' + retSuperState);
+    logger.info(TAG, 'isAdminActive retAppState:' + retAppState + ' | retSuperState:' + retSuperState);
     isActiveState = this.isShowActive;
   }
 
@@ -295,7 +294,7 @@ struct ApplicationInfo {
       if (adminType === edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_NORMAL) {
         await edmEnterpriseDeviceManager.enableAdmin(wantTemp,
           { name: enterInfo.name, description: enterInfo.description },
-          edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_NORMAL)
+        edmEnterpriseDeviceManager.AdminType.ADMIN_TYPE_NORMAL)
           .catch((error: BusinessError) => {
             ret = false;
             logger.info(TAG, 'errorCode : ' + error.code + 'errorMessage : ' + error.message);
@@ -337,11 +336,11 @@ struct ApplicationInfo {
     this.storage = LocalStorage.getShared();
     let data = this.storage.get<Want>('adminProvisioningWant');
 
-    if (!utils.checkObjPropertyValid(data, 'parameters.elementName.abilityName')
-      || !utils.checkObjPropertyValid(data, 'parameters.enterprise.name')
-      || !utils.isValid((data.parameters?.elementName as Record<string, string>).bundleName)
-      || !utils.isValid(data.parameters?.activeType)
-      || !utils.isValid((data.parameters?.enterprise as Record<string, string>).description)) {
+    if (!utils.checkObjPropertyValid(data, 'parameters.elementName.abilityName') ||
+    !utils.checkObjPropertyValid(data, 'parameters.enterprise.name') ||
+    !utils.isValid((data.parameters?.elementName as Record<string, string>).bundleName) ||
+    !utils.isValid(data.parameters?.activeType) ||
+    !utils.isValid((data.parameters?.enterprise as Record<string, string>).description)) {
       logger.warn(TAG, 'data.parameters = ' + JSON.stringify(data.parameters));
       (getContext(this) as common.UIAbilityContext).terminateSelf();
       return;
@@ -355,8 +354,8 @@ struct ApplicationInfo {
 
     enterInfo.name = (data.parameters?.enterprise as Record<string, string>).name.substring(0, baseData.MAX_LEN);
     enterInfo.description = (data.parameters?.enterprise as Record<string, string>).description.substring(0, baseData.MAX_LEN);
-    logger.info(TAG, 'getAbilityWantVal out isAdminTypeVal.admintype:'
-      + isAdminTypeVal + ' enter.name=' + enterInfo.name + ' enter.des=' + enterInfo.description);
+    logger.info(TAG, 'getAbilityWantVal out isAdminTypeVal.admintype:' + isAdminTypeVal +
+    ' enter.name=' + enterInfo.name + ' enter.des=' + enterInfo.description);
   }
 
   async getCheckAbilityList(appInfo: MyApplicationInfo, elementNameVal: Want, adminType: adminManager.AdminType) {
@@ -381,8 +380,12 @@ struct ApplicationInfo {
       await appDetailData.getBundleInfoItem(appInfo.appBundleName, appInfo);
     }
 
-    this.deviceAdminActive = getContext().resourceManager.getStringSync($r('app.string.textApplicationInfoActive').id, `${appInfo.appTitle}`);
-    this.deviceAdminDisActive = getContext().resourceManager.getStringSync($r('app.string.textApplicationInfoInactive').id, `${appInfo.appTitle}`);
+    this.deviceAdminActive = getContext()
+      .resourceManager
+      .getStringSync($r('app.string.textApplicationInfoActive').id, `${appInfo.appTitle}`);
+    this.deviceAdminDisActive = getContext()
+      .resourceManager
+      .getStringSync($r('app.string.textApplicationInfoInactive').id, `${appInfo.appTitle}`);
 
     let want: Want = {
       bundleName: elementNameVal.bundleName,
@@ -397,8 +400,8 @@ struct ApplicationInfo {
       getEnterInfo = await edmEnterpriseDeviceManager.getEnterpriseInfo(want);
     }
 
-    logger.info(TAG, 'getCheckAbilityList start enterpriseName=' + getEnterInfo.name
-      + ' enterpriseDescription=' + getEnterInfo.description);
+    logger.info(TAG, 'getCheckAbilityList start enterpriseName=' + getEnterInfo.name +
+    ' enterpriseDescription=' + getEnterInfo.description);
     if (utils.isValid(getEnterInfo.name)) {
       getName = getEnterInfo.name.substring(0, baseData.MAX_LEN);
     }
@@ -408,12 +411,18 @@ struct ApplicationInfo {
 
     if (this.isShowActive) {
       this.enterpriseName = getContext().resourceManager.getStringSync($r('app.string.enterprise_name').id, getName);
-      this.enterpriseDescription = getContext().resourceManager.getStringSync($r('app.string.enterprise_description').id, getDescription);
+      this.enterpriseDescription = getContext()
+        .resourceManager
+        .getStringSync($r('app.string.enterprise_description').id, getDescription);
     } else {
-      this.enterpriseName = getContext().resourceManager.getStringSync($r('app.string.enterprise_name').id, enterInfo.name);
-      this.enterpriseDescription = getContext().resourceManager.getStringSync($r('app.string.enterprise_description').id, enterInfo.description);
+      this.enterpriseName = getContext()
+        .resourceManager
+        .getStringSync($r('app.string.enterprise_name').id, enterInfo.name);
+      this.enterpriseDescription = getContext()
+        .resourceManager
+        .getStringSync($r('app.string.enterprise_description').id, enterInfo.description);
     }
-    logger.info(TAG, 'getCheckAbilityList enterpriseName=' + this.enterpriseName
-      + ' enterpriseDescription=' + this.enterpriseDescription);
+    logger.info(TAG, 'getCheckAbilityList enterpriseName=' + this.enterpriseName + ' enterpriseDescription=' +
+    this.enterpriseDescription);
   }
 }

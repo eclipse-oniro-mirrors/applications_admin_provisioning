@@ -180,13 +180,13 @@ struct ManagerStart {
     this.storage = LocalStorage.getShared();
     let data = this.storage.get<Want>('autoManagerAbilityWant');
 
-    if (!utils.checkObjPropertyValid(data, 'parameters.elementName.abilityName')
-      || !utils.checkObjPropertyValid(data, 'parameters.enterprise.name')
-      || !utils.isValid((data.parameters?.elementName as Record<string, string>).bundleName)
-      || !utils.isValid(data.parameters?.url)
-      || !utils.isValid(data.parameters?.termsName)
-      || (!utils.isValid(data.parameters?.termsContent) || !(data.parameters?.termsContent instanceof Array))
-      || !utils.isValid((data.parameters?.enterprise as Record<string, string>).description)) {
+    if (!utils.checkObjPropertyValid(data, 'parameters.elementName.abilityName') ||
+    !utils.checkObjPropertyValid(data, 'parameters.enterprise.name') ||
+    !utils.isValid((data.parameters?.elementName as Record<string, string>).bundleName) ||
+    !utils.isValid(data.parameters?.url) ||
+    !utils.isValid(data.parameters?.termsName) ||
+    (!utils.isValid(data.parameters?.termsContent) || !(data.parameters?.termsContent instanceof Array)) ||
+    !utils.isValid((data.parameters?.enterprise as Record<string, string>).description)) {
       logger.error(TAG, 'parseManageParameter fail! parameters is not valid');
       (getContext(this) as common.UIAbilityContext).terminateSelf();
       return;

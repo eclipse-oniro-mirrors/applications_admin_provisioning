@@ -36,57 +36,57 @@ struct LoadingInfo {
 
   build() {
     Column() {
-        Stack({ alignContent: Alignment.BottomEnd }) {
-          GridContainer({
-            columns: utils.isLargeDevice(),
-            sizeType: SizeType.Auto,
-            gutter: '12vp',
-            margin: '12vp'
-          }) {
-            Column() {
-              LoadingProgress()
-                .width('88vp')
-                .height('88vp')
-                .color(0x000000)
-                .opacity(0.6)
-                .margin({ bottom: '16vp' })
+      Stack({ alignContent: Alignment.BottomEnd }) {
+        GridContainer({
+          columns: utils.isLargeDevice(),
+          sizeType: SizeType.Auto,
+          gutter: '12vp',
+          margin: '12vp'
+        }) {
+          Column() {
+            LoadingProgress()
+              .width('88vp')
+              .height('88vp')
+              .color(0x000000)
+              .opacity(0.6)
+              .margin({ bottom: '16vp' })
 
-              Text($r('app.string.loadingSearch'))
-                .fontWeight(FontWeight.Regular)
-                .fontSize('14vp')
-                .opacity(0.9)
-                .lineHeight('19.6vp')
-                .fontFamily('HarmonyHeiTi')
-                .height('19vp')
-            }
-            .useSizeType({
-              xs: { span: 8, offset: 0 }, sm: { span: 8, offset: 0 },
-              md: { span: 8, offset: 0 }, lg: { span: 8, offset: 2 }
-            })
-            .height('100%')
-            .justifyContent(FlexAlign.Center)
+            Text($r('app.string.loadingSearch'))
+              .fontWeight(FontWeight.Regular)
+              .fontSize('14vp')
+              .opacity(0.9)
+              .lineHeight('19.6vp')
+              .fontFamily('HarmonyHeiTi')
+              .height('19vp')
           }
-
-          GridContainer({
-            columns: utils.isLargeDevice(),
-            sizeType: SizeType.Auto,
-            gutter: '12vp',
-            margin: '12vp'
-          }) {
-            Column() {
-              doubleButtonComponent({ nextFlag: true })
-            }
-            .justifyContent(FlexAlign.End)
-            .width('100%')
-            .margin({ bottom: '16vp' })
-            .useSizeType({
-              xs: { span: 8, offset: 0 }, sm: { span: 8, offset: 0 },
-              md: { span: 8, offset: 0 }, lg: { span: 12, offset: 0 }
-            })
-          }
+          .useSizeType({
+            xs: { span: 8, offset: 0 }, sm: { span: 8, offset: 0 },
+            md: { span: 8, offset: 0 }, lg: { span: 8, offset: 2 }
+          })
+          .height('100%')
+          .justifyContent(FlexAlign.Center)
         }
-        .width('100%')
-        .height('100%')
+
+        GridContainer({
+          columns: utils.isLargeDevice(),
+          sizeType: SizeType.Auto,
+          gutter: '12vp',
+          margin: '12vp'
+        }) {
+          Column() {
+            doubleButtonComponent({ nextFlag: true })
+          }
+          .justifyContent(FlexAlign.End)
+          .width('100%')
+          .margin({ bottom: '16vp' })
+          .useSizeType({
+            xs: { span: 8, offset: 0 }, sm: { span: 8, offset: 0 },
+            md: { span: 8, offset: 0 }, lg: { span: 12, offset: 0 }
+          })
+        }
+      }
+      .width('100%')
+      .height('100%')
     }
     .width('100%')
     .height('100%')
@@ -107,8 +107,8 @@ struct LoadingInfo {
       name: this.manageEnterpriseName,
       description: this.manageEnterpriseDescription
     }
-    logger.info(TAG, 'enter loadingInfo admin=' + JSON.stringify(admin)
-      + ' | enterpriseInfo=' + JSON.stringify(enterpriseInfo));
+    logger.info(TAG, 'enter loadingInfo admin=' + JSON.stringify(admin) + ' | enterpriseInfo=' +
+    JSON.stringify(enterpriseInfo));
 
     let ret = await appDetailData.checkAppItem(admin);
     if (!(ret)) {
@@ -117,7 +117,7 @@ struct LoadingInfo {
       return;
     }
 
-    let userId: UserId = {localId : 0};
+    let userId: UserId = { localId: 0 };
     let retVal = await accountManager.getAccountUserId(userId);
     logger.info(TAG, 'getAccountUserId retVal : ' + retVal);
     logger.info(TAG, 'getAccountUserId userId : ' + userId.localId);
@@ -129,12 +129,12 @@ struct LoadingInfo {
 
     logger.info(TAG, 'enter loadingInfo start enableAdmin!');
     enterpriseDeviceManager.enableAdmin(admin, enterpriseInfo,
-      enterpriseDeviceManager.AdminType.ADMIN_TYPE_SUPER, baseData.DEFAULT_USER_ID, err => {
+    enterpriseDeviceManager.AdminType.ADMIN_TYPE_SUPER, baseData.DEFAULT_USER_ID, err => {
         if (err !== null) {
           logger.info(TAG, 'enter loadingInfo errCode : ' + err.code + ' errMessage : ' + err.message);
-          router.pushUrl({url: 'pages/autoManager/setFinishFail'});
+          router.pushUrl({ url: 'pages/autoManager/setFinishFail' });
         } else {
-          router.pushUrl({url: 'pages/autoManager/setFinishSuccess'});
+          router.pushUrl({ url: 'pages/autoManager/setFinishSuccess' });
         }
       });
   }
