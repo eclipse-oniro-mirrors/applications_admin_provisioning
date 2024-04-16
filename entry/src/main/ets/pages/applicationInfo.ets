@@ -353,7 +353,8 @@ struct ApplicationInfo {
     AppStorage.SetOrCreate('activeType', adminType);
 
     enterInfo.name = (data.parameters?.enterprise as Record<string, string>).name.substring(0, baseData.MAX_LEN);
-    enterInfo.description = (data.parameters?.enterprise as Record<string, string>).description.substring(0, baseData.MAX_LEN);
+    enterInfo.description =
+      (data.parameters?.enterprise as Record<string, string>).description.substring(0, baseData.MAX_LEN);
     logger.info(TAG, 'getAbilityWantVal out isAdminTypeVal.admintype:' + isAdminTypeVal +
     ' enter.name=' + enterInfo.name + ' enter.des=' + enterInfo.description);
   }
