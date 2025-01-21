@@ -48,9 +48,21 @@
         "permissions": ["ohos.permission.PROVISIONING_MESSAGE"],
         "startWindowIcon": "$media:transparent",
         "startWindowBackground": "$color:color_00000000_transparent"
+      },
+      {
+        "removeMissionAfterTerminate": true,
+        "name": "ByodAdminProvisionAbility",
+        "srcEntrance": "./ets/MainAbility/ByodAdminProvisionAbility.ts",
+        "description": "$string:description_ByodAdminProvisionAbility",
+        "icon": "$media:icon",
+        "exported": true,
+        "launchType": "singleton",
+        "permissions": ["ohos.permission.START_PROVISIONING_MESSAGE"],
+        "startWindowIcon": "$media:transparent",
+        "startWindowBackground": "$color:color_00000000_transparent"
       }
     ],
-    "extensionAbilities": [
+    "extensionAbilities": [ 
       {
         "name": "MDMUIExtensionAbility",
         "icon": "$media:icon",

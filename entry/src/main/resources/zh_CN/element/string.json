@@ -155,6 +155,34 @@
     {
       "name": "textApplicationInfoInactive",
       "value": "激活此管理器可允许应用“%s”执行以下操作："
+    },
+    {
+      "name": "description_ByodAdminProvisionAbility",
+      "value": "激活Byod设备管理器"
+    },
+    {
+      "name": "byodActivationPageTitle",
+      "value": "是否激活您的设备？"
+    },
+    {
+      "name": "byodDisagree",
+      "value": "不同意"
+    },
+    {
+      "name": "byodAgree",
+      "value": "同意"
+    },
+    {
+      "name": "canNotActivate",
+      "value": "无法激活"
+    },
+    {
+      "name": "doNotSupport",
+      "value": "暂不支持此功能"
+    },
+    {
+      "name": "gotIt",
+      "value": "知道了"
     }
   ]
 }
