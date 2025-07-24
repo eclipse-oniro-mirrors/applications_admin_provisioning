@@ -120,7 +120,6 @@ struct LoadingInfo {
     let userId: UserId = { localId: 0 };
     let retVal = await accountManager.getAccountUserId(userId);
     logger.info(TAG, 'getAccountUserId retVal : ' + retVal);
-    logger.info(TAG, 'getAccountUserId userId : ' + userId.localId);
     if (!retVal || userId.localId !== baseData.DEFAULT_USER_ID) {
       logger.info(TAG, 'getAccountUserId fail');
       router.pushUrl({ url: 'pages/autoManager/setFinishFail' });

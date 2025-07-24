@@ -31,7 +31,6 @@ export class AccountManager {
             return false;
         }
         userId.localId = accountInfo.localId;
-        logger.info(TAG, 'getAccountUserId accountInfo.localId=' + accountInfo.localId);
         return true;
     }
 }
