@@ -9,7 +9,7 @@
 5. 在码云个人设置-安全设置-ssh公钥中配置公钥。
    
 #### 下载代码
-1. 打开码云AdminProvisioning地址（[下载地址](https://gitee.com/openharmony/applications_admin_provisioning)）。
+1. 打开码云AdminProvisioning地址（[下载地址](https://gitcode.com/openharmony/applications_admin_provisioning)）。
 2. 选择克隆/下载 - ssh方式 -复制下载地址。
 
     ![](image/ssh_1.png)
@@ -139,7 +139,7 @@ DevEco Studio 支持 debug 与 release 两种打包类型。可以在 OhosBuild 
     ![](image/sdk_catalogue.png)
 
 > ![icon-note.gif](image/icon-note.gif) **说明：**
-> 若此处的hdc.exe版本较老，可能不能正常使用，需要获取新的hdc.exe文件。hdc命令介绍与下载详见：[hdc仓库地址](https://gitee.com/openharmony/developtools_hdc)
+> 若此处的hdc.exe版本较老，可能不能正常使用，需要获取新的hdc.exe文件。hdc命令介绍与下载详见：[hdc仓库地址](https://gitcode.com/openharmony/developtools_hdc)
 
 
 2. 并将此路径配置到环境变量中。
@@ -228,7 +228,7 @@ AdminProvisioning属于系统应用，在将签名的 hap 包放入 `/system/app
     ```
 ## 贡献代码
 ### Fork 代码仓库
-1. 在码云上打开 AdminProvisioning 代码仓库（[仓库地址](https://gitee.com/openharmony/applications_admin_provisioning)）。
+1. 在码云上打开 AdminProvisioning 代码仓库（[仓库地址](https://gitcode.com/openharmony/applications_admin_provisioning)）。
 
 2. 点击仓库右上角的 Fork 按钮，在弹出的画面中，点击确认，选择将仓库 Fork 。
 
