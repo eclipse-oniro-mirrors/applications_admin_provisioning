@@ -46,4 +46,4 @@ As a system application preset in OpenHarmony, AdminProvisioning is used to prov
 
 ## Repositories Involved
 
-[System Apps](https://gitee.com/openharmony/docs/blob/master/en/readme/system-apps.md)
+[System Apps](https://gitcode.com/openharmony/docs/blob/master/en/readme/system-apps.md)
