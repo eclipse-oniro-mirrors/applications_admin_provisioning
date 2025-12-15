@@ -77,11 +77,15 @@ export class AppDetailData {
       logger.warn(TAG, 'getBundleInfoItem getAccountUserId fail!');
       return;
     }
-    let data = await bundle.getBundleInfo(bundleName, bundle.BundleFlag.GET_BUNDLE_INFO_WITH_REQUESTED_PERMISSION |
-    bundle.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION, userId.localId);
-    await this.getResourceItem(bundleName, data, appInfo);
-    await this.getPermissionList(data, appInfo);
-    logger.info(TAG, 'getBundleInfoItem out');
+    try {
+      let data = await bundle.getBundleInfo(bundleName, bundle.BundleFlag.GET_BUNDLE_INFO_WITH_REQUESTED_PERMISSION |
+        bundle.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION, userId.localId);
+      await this.getResourceItem(bundleName, data, appInfo);
+      await this.getPermissionList(data, appInfo);
+      logger.info(TAG, 'getBundleInfoItem out');
+    } catch (e) {
+      logger.error(TAG, 'getBundleInfoItem getBundleInfo try fail! ' + JSON.stringify(e));
+    }
   }
 
   async getAppInfoLabel(resMgr: resourceManager.ResourceManager, id: number) {
