@@ -46,7 +46,7 @@ struct SetFinishSuccess {
     return '';
   }
 
-  getStringSyncByParam(resource: Resource, ...args: Array<string | number>): string {
+  getStringSyncByParam(resource: number, ...args: Array<string | number>): string {
     try {
       return getContext()?.resourceManager.getStringSync(resource, ...args);
     } catch (err) {
