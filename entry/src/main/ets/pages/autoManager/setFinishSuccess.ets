@@ -37,7 +37,7 @@ struct SetFinishSuccess {
     return result;
   }
 
-  async getStringSync(resource: Resource): string {
+  getStringSync(resource: Resource): string {
     try {
       return getContext()?.resourceManager.getStringSync(resource);
     } catch (err) {
