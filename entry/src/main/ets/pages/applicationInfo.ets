@@ -342,7 +342,7 @@ struct ApplicationInfo {
     !utils.isValid(data.parameters?.activeType) ||
     !utils.isValid((data.parameters?.enterprise as Record<string, string>).description)) {
       logger.warn(TAG, 'data.parameters = ' + JSON.stringify(data.parameters));
-      (getContext(this) as common.UIAbilityContext).terminateSelf();
+      (getContext(this) as common.UIAbilityContext)?.terminateSelf();
       return;
     }
 
@@ -380,13 +380,14 @@ struct ApplicationInfo {
     if (appInfo.appBundleName) {
       await appDetailData.getBundleInfoItem(appInfo.appBundleName, appInfo);
     }
-
-    this.deviceAdminActive = getContext()
-      .resourceManager
-      .getStringSync($r('app.string.textApplicationInfoActive').id, `${appInfo.appTitle}`);
-    this.deviceAdminDisActive = getContext()
-      .resourceManager
-      .getStringSync($r('app.string.textApplicationInfoInactive').id, `${appInfo.appTitle}`);
+    try {
+      this.deviceAdminActive = getContext()?.resourceManager
+        .getStringSync($r('app.string.textApplicationInfoActive').id, `${appInfo.appTitle}`);
+      this.deviceAdminDisActive = getContext()?.resourceManager
+        .getStringSync($r('app.string.textApplicationInfoInactive').id, `${appInfo.appTitle}`);
+    } catch (e) {
+      logger.error(TAG, 'getStringSync title err =' + e.message);
+    }
 
     let want: Want = {
       bundleName: elementNameVal.bundleName,
@@ -410,18 +411,20 @@ struct ApplicationInfo {
       getDescription = getEnterInfo.description.substring(0, baseData.MAX_LEN);
     }
 
-    if (this.isShowActive) {
-      this.enterpriseName = getContext().resourceManager.getStringSync($r('app.string.enterprise_name').id, getName);
-      this.enterpriseDescription = getContext()
-        .resourceManager
-        .getStringSync($r('app.string.enterprise_description').id, getDescription);
-    } else {
-      this.enterpriseName = getContext()
-        .resourceManager
-        .getStringSync($r('app.string.enterprise_name').id, enterInfo.name);
-      this.enterpriseDescription = getContext()
-        .resourceManager
-        .getStringSync($r('app.string.enterprise_description').id, enterInfo.description);
+    try {
+      if (this.isShowActive) {
+        this.enterpriseName = getContext()?.resourceManager.
+          getStringSync($r('app.string.enterprise_name').id, getName);
+        this.enterpriseDescription = getContext()?.resourceManager
+          .getStringSync($r('app.string.enterprise_description').id, getDescription);
+      } else {
+        this.enterpriseName = getContext()?.resourceManager
+          .getStringSync($r('app.string.enterprise_name').id, enterInfo.name);
+        this.enterpriseDescription = getContext()?.resourceManager
+          .getStringSync($r('app.string.enterprise_description').id, enterInfo.description);
+      }
+    } catch (e) {
+      logger.error(TAG, 'getStringSync err =' + e.message);
     }
     logger.info(TAG, 'getCheckAbilityList enterpriseName=' + this.enterpriseName + ' enterpriseDescription=' +
     this.enterpriseDescription);

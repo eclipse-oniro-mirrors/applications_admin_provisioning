@@ -16,15 +16,14 @@
 import router from '@ohos.router';
 import doubleButtonComponent from '../component/autoManager/doubleButtonComponent'
 import utils from '../../common/utils'
+import logger from '../common/logger'
 
 @Entry
 @Component
 struct SetFinishSuccess {
   @State textContext: Resource = $r('app.string.setupComplete');
-  @State textManager: string = getContext().resourceManager.getStringSync($r('app.string.unitManage').id);
-  private textContent: string = getContext()
-    .resourceManager
-    .getStringSync($r('app.string.textManageSuccessContent').id, this.textManager);
+  @State textManager: string = this.getStringSync($r('app.string.unitManage').id);
+  private textContent: string = this.getStringSyncByParam($r('app.string.textManageSuccessContent').id, this.textManager);
   private getTextList: (source: string, target: string) => Array<string> = (source: string, target: string) => {
     let result: string[] = [];
     if (source) {
@@ -36,6 +35,24 @@ struct SetFinishSuccess {
       result.push(after);
     }
     return result;
+  }
+
+  async getStringSync(resource: Resource): string {
+    try {
+      return getContext()?.resourceManager.getStringSync(resource);
+    } catch (err) {
+      logger.error('SetFinishSuccess', `getStringResource err`);
+    }
+    return '';
+  }
+
+  async getStringSyncByParam(resource: Resource, ...args: Array<string | number>): string {
+    try {
+      return getContext()?.resourceManager.getStringSync(resource, ...args);
+    } catch (err) {
+      logger.error('SetFinishSuccess', `getStringSyncByParam err`);
+    }
+    return '';
   }
 
   build() {
