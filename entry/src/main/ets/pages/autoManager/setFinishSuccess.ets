@@ -16,7 +16,7 @@
 import router from '@ohos.router';
 import doubleButtonComponent from '../component/autoManager/doubleButtonComponent'
 import utils from '../../common/utils'
-import logger from '../common/logger'
+import logger from '../../common/logger'
 
 @Entry
 @Component
