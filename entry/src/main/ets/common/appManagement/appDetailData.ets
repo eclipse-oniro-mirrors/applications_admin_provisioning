@@ -108,7 +108,11 @@ export class AppDetailData {
 
   async getResourceItem(bundleName: string, data: bundle.BundleInfo, appInfo: MyApplicationInfo) {
     logger.info(TAG, 'getResourceItem getResourceManager in');
-    let bundleContext = getContext().createBundleContext(bundleName);
+    let bundleContext = getContext()?.createBundleContext(bundleName);
+    if (!bundleContext) {
+      logger.warn(TAG, 'getResourceItem createBundleContext fail!');
+      return;
+    }
     let resMgr = bundleContext.resourceManager;
     let appInfoTemp = data.appInfo;
     let label = '';
